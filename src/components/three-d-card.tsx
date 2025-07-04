@@ -24,9 +24,20 @@ const ThreeDCard: React.FC = () => {
         const light = new THREE.PointLight(0xffffff, 1.2);
         light.position.set(10, 10, 10);
         scene.add(light);
+        
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
 
-        const geometry = new THREE.BoxGeometry(3.5, 2.2, 0.1);
-        const material = new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.2 });
+        const textureLoader = new THREE.TextureLoader();
+        const logoTexture = textureLoader.load('/logo.svg');
+        logoTexture.colorSpace = THREE.SRGBColorSpace;
+
+        const geometry = new THREE.BoxGeometry(3, 3, 0.1);
+        const material = new THREE.MeshStandardMaterial({ 
+            map: logoTexture,
+            metalness: 0.8, 
+            roughness: 0.2 
+        });
         const card = new THREE.Mesh(geometry, material);
         scene.add(card);
 
