@@ -41,7 +41,7 @@ const ThreeDCard: React.FC = () => {
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
             texture.repeat.set(0.35, 0.35); 
-            texture.offset.set(0.325, 0.325);
+            texture.offset.set(0.325, 0.30);
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
