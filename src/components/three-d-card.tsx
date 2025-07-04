@@ -19,21 +19,17 @@ const ThreeDCard: React.FC = () => {
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
-        // Enable shadows
         renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Softer shadows
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         currentMount.appendChild(renderer.domElement);
         
-        // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 5); // Ambient light for general illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 5);
         scene.add(ambientLight);
 
-        // Directional light to cast shadows
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 5.0); // Increased intensity for brighter look
-        directionalLight.position.set(2, 5, 10); // Positioned in front, above, and slightly to the side
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 5.0);
+        directionalLight.position.set(2, 5, 10);
         directionalLight.castShadow = true;
         
-        // Configure shadow properties
         directionalLight.shadow.mapSize.width = 2048;
         directionalLight.shadow.mapSize.height = 2048;
         directionalLight.shadow.camera.near = 0.5;
@@ -41,13 +37,11 @@ const ThreeDCard: React.FC = () => {
 
         scene.add(directionalLight);
 
-        // Card with logo texture
         const textureLoader = new THREE.TextureLoader();
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            // Scale and center the texture to make the logo appear larger
-            texture.repeat.set(0.25, 0.25); 
-            texture.offset.set(0.375, 0.375); // Offset to center the portion
+            texture.repeat.set(0.35, 0.35); 
+            texture.offset.set(0.325, 0.325);
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -78,21 +72,20 @@ const ThreeDCard: React.FC = () => {
         cardGeometry.center();
 
         const cardMaterial = new THREE.MeshStandardMaterial({
-            metalness: 0.9, // More metallic
-            roughness: 0.1, // Less rough, more reflective for a "scintillating" effect
+            metalness: 0.95,
+            roughness: 0.1,
             map: logoTexture,
         });
         
         const card = new THREE.Mesh(cardGeometry, cardMaterial);
-        card.castShadow = true; // The card will cast a shadow
+        card.castShadow = true;
         scene.add(card);
 
-        // Plane to receive the shadow
         const planeGeometry = new THREE.PlaneGeometry(20, 20);
-        const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 }); // Material that only receives shadows
+        const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.position.z = -2; // Position it behind the card
-        plane.receiveShadow = true; // The plane will receive the shadow
+        plane.position.z = -2;
+        plane.receiveShadow = true;
         scene.add(plane);
 
         const clock = new THREE.Clock();
@@ -101,9 +94,7 @@ const ThreeDCard: React.FC = () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            // Gentle 5-degree swing on Y axis
             card.rotation.y = Math.sin(elapsedTime * 0.7) * (Math.PI / 36);
-            // Gentle up and down floating on X axis
             card.rotation.x = Math.sin(elapsedTime) * 0.05;
             
             renderer.render(scene, camera);
