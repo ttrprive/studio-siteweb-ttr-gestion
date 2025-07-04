@@ -21,11 +21,11 @@ const ThreeDCard: React.FC = () => {
         renderer.setPixelRatio(window.devicePixelRatio);
         currentMount.appendChild(renderer.domElement);
         
-        const light = new THREE.PointLight(0x8cb0ff, 2.5);
+        const light = new THREE.PointLight(0xffffff, 1.2);
         light.position.set(10, 10, 10);
         scene.add(light);
         
-        const ambientLight = new THREE.AmbientLight(0x4066c0, 1.0);
+        const ambientLight = new THREE.AmbientLight(0xcccccc, 1);
         scene.add(ambientLight);
 
         // Card with logo texture
