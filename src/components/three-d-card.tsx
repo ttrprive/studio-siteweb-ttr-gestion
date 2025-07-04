@@ -49,7 +49,31 @@ const ThreeDCard: React.FC = () => {
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
 
-        const cardGeometry = new THREE.BoxGeometry(3.5, 3.5, 0.1);
+        const width = 4.5;
+        const height = 2.8;
+        const depth = 0.1;
+        const radius = 0.2;
+        
+        const roundedRectShape = new THREE.Shape();
+        
+        roundedRectShape.moveTo( -width/2 + radius, -height/2 );
+        roundedRectShape.lineTo( width/2 - radius, -height/2 );
+        roundedRectShape.quadraticCurveTo( width/2, -height/2, width/2, -height/2 + radius );
+        roundedRectShape.lineTo( width/2, height/2 - radius );
+        roundedRectShape.quadraticCurveTo( width/2, height/2, width/2 - radius, height/2 );
+        roundedRectShape.lineTo( -width/2 + radius, height/2 );
+        roundedRectShape.quadraticCurveTo( -width/2, height/2, -width/2, height/2 - radius );
+        roundedRectShape.lineTo( -width/2, -height/2 + radius );
+        roundedRectShape.quadraticCurveTo( -width/2, -height/2, -width/2 + radius, -height/2 );
+
+        const extrudeSettings = {
+            depth: depth,
+            bevelEnabled: false
+        };
+
+        const cardGeometry = new THREE.ExtrudeGeometry( roundedRectShape, extrudeSettings );
+        cardGeometry.center();
+
         const cardMaterial = new THREE.MeshStandardMaterial({
             metalness: 0.9, // More metallic
             roughness: 0.1, // Less rough, more reflective for a "scintillating" effect
