@@ -25,7 +25,7 @@ const ThreeDCard: React.FC = () => {
         currentMount.appendChild(renderer.domElement);
         
         // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 2.5); // Ambient light for general illumination
+        const ambientLight = new THREE.AmbientLight(0xffffff, 5); // Ambient light for general illumination
         scene.add(ambientLight);
 
         // Directional light to cast shadows
@@ -46,8 +46,8 @@ const ThreeDCard: React.FC = () => {
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
             // Scale and center the texture to make the logo appear larger
-            texture.repeat.set(0.15, 0.15); // Use 15% of the texture (zoom in more)
-            texture.offset.set(0.425, 0.435); // Offset to center the 15% portion
+            texture.repeat.set(0.25, 0.25); 
+            texture.offset.set(0.375, 0.375); // Offset to center the portion
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -101,7 +101,9 @@ const ThreeDCard: React.FC = () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            card.rotation.y += 0.005;
+            // Gentle 5-degree swing on Y axis
+            card.rotation.y = Math.sin(elapsedTime * 0.7) * (Math.PI / 36);
+            // Gentle up and down floating on X axis
             card.rotation.x = Math.sin(elapsedTime) * 0.05;
             
             renderer.render(scene, camera);
