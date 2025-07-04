@@ -14,7 +14,7 @@ const ThreeDCard: React.FC = () => {
         const scene = new THREE.Scene();
 
         const camera = new THREE.PerspectiveCamera(45, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-        camera.position.z = 8;
+        camera.position.z = 10;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -40,8 +40,8 @@ const ThreeDCard: React.FC = () => {
         const textureLoader = new THREE.TextureLoader();
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            texture.repeat.set(0.504, 0.504); 
-            texture.offset.set(0.248, 0.35);
+            texture.repeat.set(0.6048, 0.6048); 
+            texture.offset.set(0.1976, 0.23);
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -73,7 +73,7 @@ const ThreeDCard: React.FC = () => {
 
         const cardMaterial = new THREE.MeshStandardMaterial({
             metalness: 1.0,
-            roughness: 0.05,
+            roughness: 0.1,
             map: logoTexture,
         });
         
