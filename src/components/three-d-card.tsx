@@ -19,14 +19,27 @@ const ThreeDCard: React.FC = () => {
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
+        // Enable shadows
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Softer shadows
         currentMount.appendChild(renderer.domElement);
         
-        const light = new THREE.PointLight(0xffffff, 1.2);
-        light.position.set(10, 10, 10);
-        scene.add(light);
-        
-        const ambientLight = new THREE.AmbientLight(0xcccccc, 1);
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Ambient light for general illumination
         scene.add(ambientLight);
+
+        // Directional light to cast shadows
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight.position.set(2, 5, 10); // Positioned in front, above, and slightly to the side
+        directionalLight.castShadow = true;
+        
+        // Configure shadow properties
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+
+        scene.add(directionalLight);
 
         // Card with logo texture
         const textureLoader = new THREE.TextureLoader();
@@ -41,7 +54,16 @@ const ThreeDCard: React.FC = () => {
         });
         
         const card = new THREE.Mesh(cardGeometry, cardMaterial);
+        card.castShadow = true; // The card will cast a shadow
         scene.add(card);
+
+        // Plane to receive the shadow
+        const planeGeometry = new THREE.PlaneGeometry(20, 20);
+        const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 }); // Material that only receives shadows
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.position.z = -2; // Position it behind the card
+        plane.receiveShadow = true; // The plane will receive the shadow
+        scene.add(plane);
 
         const clock = new THREE.Clock();
 
