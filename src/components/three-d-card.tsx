@@ -35,7 +35,7 @@ const ThreeDCard: React.FC = () => {
 
         const cardGeometry = new THREE.BoxGeometry(3.5, 3.5, 0.1);
         const cardMaterial = new THREE.MeshStandardMaterial({
-            color: 0x111111,
+            color: 0xffffff,
             metalness: 0.8,
             roughness: 0.2,
             map: logoTexture,
