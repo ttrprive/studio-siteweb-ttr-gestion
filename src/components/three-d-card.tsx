@@ -76,6 +76,22 @@ const ThreeDCard: React.FC = () => {
         const rTMesh = new THREE.Mesh(rTGeom, materialBlue);
         rTMesh.position.set((90.25 + offsetX) * scale, -(64.6 + offsetY) * scale, 0);
         logoGroup.add(rTMesh);
+        
+        // r diagonal leg
+        const rLegShape = new THREE.Shape();
+        rLegShape.moveTo( (94.6875 + offsetX) * scale, -(68.996094 + offsetY) * scale );
+        rLegShape.lineTo( (109.769531 + offsetX) * scale, -(56.328125 + offsetY) * scale );
+        rLegShape.lineTo( (94.6875 + offsetX) * scale, -(56.328125 + offsetY) * scale );
+        rLegShape.lineTo( (94.6875 + offsetX) * scale, -(68.996094 + offsetY) * scale );
+
+        const extrudeSettings = {
+            depth: depth,
+            bevelEnabled: false,
+        };
+        const rLegGeom = new THREE.ExtrudeGeometry(rLegShape, extrudeSettings);
+        const rLegMesh = new THREE.Mesh(rLegGeom, materialBlue);
+        logoGroup.add(rLegMesh);
+
 
         scene.add(logoGroup);
 
