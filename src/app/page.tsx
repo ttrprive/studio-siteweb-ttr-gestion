@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ThreeDCard from "@/components/three-d-card";
 import { ArrowRight, Zap } from 'lucide-react';
+import Link from "next/link";
 
 export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -44,10 +45,12 @@ export default function Home() {
           Explorez la nouvelle ère de la gestion avec notre interface innovante. Une expérience premium pour des résultats exceptionnels.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <Button size="lg" className="font-bold">
-            Commencer
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <Link href="/login">
+            <Button size="lg" className="font-bold">
+              Commencer
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
           <Button size="lg" variant="outline" className="font-bold bg-transparent">
             En savoir plus
           </Button>
