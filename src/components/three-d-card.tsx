@@ -29,7 +29,7 @@ const ThreeDCard: React.FC = () => {
         scene.add(ambientLight);
 
         // Directional light to cast shadows
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5); // Increased intensity for brighter look
         directionalLight.position.set(2, 5, 10); // Positioned in front, above, and slightly to the side
         directionalLight.castShadow = true;
         
@@ -43,13 +43,16 @@ const ThreeDCard: React.FC = () => {
 
         // Card with logo texture
         const textureLoader = new THREE.TextureLoader();
-        const logoTexture = textureLoader.load('/logo.svg');
+        const logoTexture = textureLoader.load('/logo.svg', (texture) => {
+            texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            texture.needsUpdate = true;
+        });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
 
         const cardGeometry = new THREE.BoxGeometry(3.5, 3.5, 0.1);
         const cardMaterial = new THREE.MeshStandardMaterial({
-            metalness: 0.8,
-            roughness: 0.2,
+            metalness: 0.9, // More metallic
+            roughness: 0.1, // Less rough, more reflective for a "scintillating" effect
             map: logoTexture,
         });
         
