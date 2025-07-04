@@ -79,17 +79,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    margin: 0;
+    background: radial-gradient(#0f0f0f, #000000);
+    overflow: hidden;
   }
-}
-
-@layer utilities {
-  .dynamic-bg {
-    background-color: hsl(var(--background));
-    background-image: radial-gradient(
-      800px circle at var(--mouse-x) var(--mouse-y),
-      hsla(43, 45%, 55%, 0.15),
-      transparent 80%
-    );
+  canvas {
+    @apply block;
   }
 }
