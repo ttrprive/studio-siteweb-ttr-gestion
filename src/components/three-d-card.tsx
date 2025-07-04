@@ -32,8 +32,6 @@ const ThreeDCard: React.FC = () => {
         const logoGroup = new THREE.Group();
         const scale = 0.04;
         const depth = 0.5;
-        const offsetX = -68;
-        const offsetY = -73;
 
         const materialWhite = new THREE.MeshStandardMaterial({
             color: 0xffffff,
@@ -50,39 +48,39 @@ const ThreeDCard: React.FC = () => {
         // t horizontal bar
         const tHGeom = new THREE.BoxGeometry(44.5 * scale, 11.1 * scale, depth);
         const tHMesh = new THREE.Mesh(tHGeom, materialWhite);
-        tHMesh.position.set((61.15 + offsetX) * scale, -(62.65 + offsetY) * scale, 0);
+        tHMesh.position.set(61.15 * scale, -62.65 * scale, 0);
         logoGroup.add(tHMesh);
 
         // t1 vertical bar
         const t1VGeom = new THREE.BoxGeometry(13.6 * scale, 56.4 * scale, depth);
         const t1VMesh = new THREE.Mesh(t1VGeom, materialWhite);
-        t1VMesh.position.set((51.8 + offsetX) * scale, -(73.15 + offsetY) * scale, 0);
+        t1VMesh.position.set(51.8 * scale, -73.15 * scale, 0);
         logoGroup.add(t1VMesh);
         
         // t2 vertical bar
         const t2VGeom = new THREE.BoxGeometry(13.7 * scale, 56.4 * scale, depth);
         const t2VMesh = new THREE.Mesh(t2VGeom, materialWhite);
-        t2VMesh.position.set((70.75 + offsetX) * scale, -(73.15 + offsetY) * scale, 0);
+        t2VMesh.position.set(70.75 * scale, -73.15 * scale, 0);
         logoGroup.add(t2VMesh);
 
         // r vertical bar
         const rVGeom = new THREE.BoxGeometry(13.7 * scale, 30.6 * scale, depth);
         const rVMesh = new THREE.Mesh(rVGeom, materialBlue);
-        rVMesh.position.set((90.25 + offsetX) * scale, -(86.025 + offsetY) * scale, 0);
+        rVMesh.position.set(90.25 * scale, -86.025 * scale, 0);
         logoGroup.add(rVMesh);
         
         // r top bar
         const rTGeom = new THREE.BoxGeometry(13.7 * scale, 15 * scale, depth);
         const rTMesh = new THREE.Mesh(rTGeom, materialBlue);
-        rTMesh.position.set((90.25 + offsetX) * scale, -(64.6 + offsetY) * scale, 0);
+        rTMesh.position.set(90.25 * scale, -64.6 * scale, 0);
         logoGroup.add(rTMesh);
         
         // r diagonal leg
         const rLegShape = new THREE.Shape();
-        rLegShape.moveTo( (94.6875 + offsetX) * scale, -(68.996094 + offsetY) * scale );
-        rLegShape.lineTo( (109.769531 + offsetX) * scale, -(56.328125 + offsetY) * scale );
-        rLegShape.lineTo( (94.6875 + offsetX) * scale, -(56.328125 + offsetY) * scale );
-        rLegShape.lineTo( (94.6875 + offsetX) * scale, -(68.996094 + offsetY) * scale );
+        rLegShape.moveTo( 94.6875 * scale, -68.996094 * scale );
+        rLegShape.lineTo( 109.769531 * scale, -56.328125 * scale );
+        rLegShape.lineTo( 94.6875 * scale, -56.328125 * scale );
+        rLegShape.lineTo( 94.6875 * scale, -68.996094 * scale );
 
         const extrudeSettings = {
             depth: depth,
@@ -92,6 +90,10 @@ const ThreeDCard: React.FC = () => {
         const rLegMesh = new THREE.Mesh(rLegGeom, materialBlue);
         logoGroup.add(rLegMesh);
 
+        // Center the logo
+        const box = new THREE.Box3().setFromObject(logoGroup);
+        const center = box.getCenter(new THREE.Vector3());
+        logoGroup.position.sub(center);
 
         scene.add(logoGroup);
 
