@@ -13,71 +13,58 @@ const ThreeDCard: React.FC = () => {
 
         const scene = new THREE.Scene();
 
-        const camera = new THREE.PerspectiveCamera(45, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-        camera.position.z = 15;
+        const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
+        camera.position.z = 5;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         currentMount.appendChild(renderer.domElement);
         
-        const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 5.0);
-        directionalLight.position.set(2, 5, 10);
-        directionalLight.castShadow = true;
-        
-        directionalLight.shadow.mapSize.width = 2048;
-        directionalLight.shadow.mapSize.height = 2048;
-        directionalLight.shadow.camera.near = 0.5;
-        directionalLight.shadow.camera.far = 50;
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(0, 2, 5);
+        scene.add(pointLight);
 
-        scene.add(directionalLight);
+        // Particle effect
+        const particleCount = 20000;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities: THREE.Vector3[] = [];
 
-        const width = 4.5;
-        const height = 2.8;
-        const depth = 0.1;
-        const radius = 0.2;
-        
-        const roundedRectShape = new THREE.Shape();
-        
-        roundedRectShape.moveTo( -width/2 + radius, -height/2 );
-        roundedRectShape.lineTo( width/2 - radius, -height/2 );
-        roundedRectShape.quadraticCurveTo( width/2, -height/2, width/2, -height/2 + radius );
-        roundedRectShape.lineTo( width/2, height/2 - radius );
-        roundedRectShape.quadraticCurveTo( width/2, height/2, width/2 - radius, height/2 );
-        roundedRectShape.lineTo( -width/2 + radius, height/2 );
-        roundedRectShape.quadraticCurveTo( -width/2, height/2, -width/2, height/2 - radius );
-        roundedRectShape.lineTo( -width/2, -height/2 + radius );
-        roundedRectShape.quadraticCurveTo( -width/2, -height/2, -width/2 + radius, -height/2 );
+        const cardWidth = 4.5;
+        const cardHeight = 2.8;
+        const cardDepth = 0.2;
 
-        const extrudeSettings = {
-            depth: depth,
-            bevelEnabled: false
-        };
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * cardWidth;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * cardHeight;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * cardDepth;
 
-        const cardGeometry = new THREE.ExtrudeGeometry( roundedRectShape, extrudeSettings );
-        cardGeometry.center();
+            velocities.push(
+                new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.005,
+                    Math.random() * 0.01 + 0.005,
+                    (Math.random() - 0.5) * 0.005
+                )
+            );
+        }
 
-        const cardMaterial = new THREE.MeshStandardMaterial({
-            color: 0x1a1a1a,
-            metalness: 1.0,
-            roughness: 0.35,
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            color: 0x444444,
+            size: 0.02,
+            blending: THREE.AdditiveBlending,
+            transparent: true,
+            opacity: 0.8,
+            sizeAttenuation: true,
         });
-        
-        const card = new THREE.Mesh(cardGeometry, cardMaterial);
-        card.castShadow = true;
-        scene.add(card);
 
-        const planeGeometry = new THREE.PlaneGeometry(20, 20);
-        const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
-        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.position.z = -2;
-        plane.receiveShadow = true;
-        scene.add(plane);
+        const ashCloud = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(ashCloud);
 
         const clock = new THREE.Clock();
 
@@ -85,9 +72,33 @@ const ThreeDCard: React.FC = () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            card.rotation.y = Math.sin(elapsedTime * 0.7) * (Math.PI / 36);
-            card.rotation.x = Math.sin(elapsedTime) * 0.05;
+            const positionsAttribute = ashCloud.geometry.attributes.position as THREE.BufferAttribute;
+
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                
+                positionsAttribute.array[i3] += velocities[i].x;
+                positionsAttribute.array[i3 + 1] += velocities[i].y;
+                positionsAttribute.array[i3 + 2] += velocities[i].z;
+
+                velocities[i].x += (Math.random() - 0.5) * 0.0001;
+                velocities[i].z += (Math.random() - 0.5) * 0.0001;
+
+                if (positionsAttribute.array[i3 + 1] > cardHeight * 1.5) {
+                    positionsAttribute.array[i3] = (Math.random() - 0.5) * cardWidth;
+                    positionsAttribute.array[i3 + 1] = -cardHeight / 2;
+                    positionsAttribute.array[i3 + 2] = (Math.random() - 0.5) * cardDepth;
+
+                    velocities[i].x = (Math.random() - 0.5) * 0.005;
+                    velocities[i].y = Math.random() * 0.01 + 0.005;
+                    velocities[i].z = (Math.random() - 0.5) * 0.005;
+                }
+            }
+
+            positionsAttribute.needsUpdate = true;
             
+            ashCloud.rotation.y = elapsedTime * 0.1;
+
             renderer.render(scene, camera);
         };
         animate();
