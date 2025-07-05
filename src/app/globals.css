@@ -84,7 +84,4 @@
     background: radial-gradient(ellipse at 50% 50%, #3a7bd5 0%, #003973 100%);
     overflow: hidden;
   }
-  canvas {
-    @apply block;
-  }
 }

@@ -1,66 +1,32 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
-import * as THREE from 'three';
+import React from 'react';
+import { cn } from '@/lib/utils';
 
-const ThreeDCard: React.FC = () => {
-    const mountRef = useRef<HTMLDivElement>(null);
+const ThreeDCard = () => {
+  return (
+    <div className="group [perspective:1000px]">
+      <div
+        className={cn(
+          "relative h-[525px] w-[350px] rounded-xl shadow-2xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)]",
+          // Base metallic look
+          "bg-slate-800",
+          // Gradient for metallic sheen
+          "bg-gradient-to-br from-slate-600 via-slate-800 to-slate-900",
+          // Border for edge highlight
+          "border border-slate-600"
+        )}
+      >
+        {/* Adding an inner shine effect */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/10 to-transparent opacity-50"></div>
 
-    useEffect(() => {
-        if (!mountRef.current) return;
-
-        const currentMount = mountRef.current;
-
-        const scene = new THREE.Scene();
-
-        const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-        camera.position.z = 75.9375;
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        currentMount.appendChild(renderer.domElement);
-
-        const cardGeometry = new THREE.BoxGeometry(68.34375, 42.525, 3.0375);
-        const cardMaterial = new THREE.MeshStandardMaterial({
-            color: 0xcccccc, 
-            metalness: 0.9,
-            roughness: 0.2,
-        });
-        const card = new THREE.Mesh(cardGeometry, cardMaterial);
-        scene.add(card);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-
-        const pointLight = new THREE.PointLight(0xffffff, 1);
-        pointLight.position.set(0, 3, 33.75);
-        scene.add(pointLight);
-
-        const animate = () => {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        const handleResize = () => {
-            if (currentMount) {
-                camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
-            }
-        };
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            if (currentMount && renderer.domElement.parentNode === currentMount) {
-                currentMount.removeChild(renderer.domElement);
-            }
-        };
-    }, []);
-
-    return <div ref={mountRef} className="h-full w-full" />;
+        <div className="absolute inset-6 flex flex-col items-center justify-center rounded-lg">
+            <h1 className="text-white text-4xl font-bold font-headline tracking-wider">TTRGESTION</h1>
+            <p className="text-slate-300 font-body text-lg">.APP</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ThreeDCard;
