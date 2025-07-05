@@ -20,7 +20,16 @@ const ThreeDCard: React.FC = () => {
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         currentMount.appendChild(renderer.domElement);
-        
+
+        const cardGeometry = new THREE.BoxGeometry(4.5, 2.8, 0.2);
+        const cardMaterial = new THREE.MeshStandardMaterial({
+            color: 0xcccccc, 
+            metalness: 0.9,
+            roughness: 0.2,
+        });
+        const card = new THREE.Mesh(cardGeometry, cardMaterial);
+        scene.add(card);
+
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
@@ -28,76 +37,14 @@ const ThreeDCard: React.FC = () => {
         pointLight.position.set(0, 2, 5);
         scene.add(pointLight);
 
-        // Particle effect
-        const particleCount = 20000;
-        const particlesGeometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const velocities: THREE.Vector3[] = [];
-
-        const cardWidth = 4.5;
-        const cardHeight = 2.8;
-        const cardDepth = 0.2;
-
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * cardWidth;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * cardHeight;
-            positions[i * 3 + 2] = (Math.random() - 0.5) * cardDepth;
-
-            velocities.push(
-                new THREE.Vector3(
-                    (Math.random() - 0.5) * 0.005,
-                    Math.random() * 0.01 + 0.005,
-                    (Math.random() - 0.5) * 0.005
-                )
-            );
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-        const particlesMaterial = new THREE.PointsMaterial({
-            color: 0x444444,
-            size: 0.02,
-            blending: THREE.AdditiveBlending,
-            transparent: true,
-            opacity: 0.8,
-            sizeAttenuation: true,
-        });
-
-        const ashCloud = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(ashCloud);
-
         const clock = new THREE.Clock();
 
         const animate = () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
-
-            const positionsAttribute = ashCloud.geometry.attributes.position as THREE.BufferAttribute;
-
-            for (let i = 0; i < particleCount; i++) {
-                const i3 = i * 3;
-                
-                positionsAttribute.array[i3] += velocities[i].x;
-                positionsAttribute.array[i3 + 1] += velocities[i].y;
-                positionsAttribute.array[i3 + 2] += velocities[i].z;
-
-                velocities[i].x += (Math.random() - 0.5) * 0.0001;
-                velocities[i].z += (Math.random() - 0.5) * 0.0001;
-
-                if (positionsAttribute.array[i3 + 1] > cardHeight * 1.5) {
-                    positionsAttribute.array[i3] = (Math.random() - 0.5) * cardWidth;
-                    positionsAttribute.array[i3 + 1] = -cardHeight / 2;
-                    positionsAttribute.array[i3 + 2] = (Math.random() - 0.5) * cardDepth;
-
-                    velocities[i].x = (Math.random() - 0.5) * 0.005;
-                    velocities[i].y = Math.random() * 0.01 + 0.005;
-                    velocities[i].z = (Math.random() - 0.5) * 0.005;
-                }
-            }
-
-            positionsAttribute.needsUpdate = true;
             
-            ashCloud.rotation.y = elapsedTime * 0.1;
+            card.rotation.y = elapsedTime * 0.2;
+            card.rotation.x = Math.sin(elapsedTime * 0.1) * 0.1;
 
             renderer.render(scene, camera);
         };
