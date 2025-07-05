@@ -9,7 +9,7 @@ const ThreeDCard = () => {
         <div className="group [perspective:1000px]">
           <div
             className={cn(
-              "relative h-[350px] w-[525px] rounded-xl shadow-2xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)]",
+              "relative h-[525px] w-[350px] rounded-xl shadow-2xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)]",
               // Base metallic look
               "bg-slate-800",
               // Gradient for metallic sheen
@@ -23,22 +23,20 @@ const ThreeDCard = () => {
 
             <div className="absolute inset-0 flex items-center justify-center">
                 <svg
-                    width="60%"
-                    viewBox="0 0 400 100"
+                    width="80%"
+                    viewBox="0 0 350 525" // Viewbox matches new dimensions
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <defs>
-                    <style type="text/css">
+                    <style>
                         {`
                         .heavy { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 48px; fill: white; letter-spacing: 0.1em; }
                         .light { font-family: 'Space Grotesk', sans-serif; font-weight: 300; font-size: 20px; fill: #CBD5E1; }
                         `}
                     </style>
-                    </defs>
-                    <text x="50%" y="45%" dominantBaseline="middle" textAnchor="middle" className="heavy">
+                    <text x="50%" y="48%" dominantBaseline="middle" textAnchor="middle" className="heavy">
                     TTRGESTION
                     </text>
-                    <text x="50%" y="75%" dominantBaseline="middle" textAnchor="middle" className="light">
+                    <text x="50%" y="58%" dominantBaseline="middle" textAnchor="middle" className="light">
                     .APP
                     </text>
                 </svg>
