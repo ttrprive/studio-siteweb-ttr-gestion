@@ -14,7 +14,7 @@ const ThreeDCard: React.FC = () => {
         const scene = new THREE.Scene();
 
         const camera = new THREE.PerspectiveCamera(45, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-        camera.position.z = 15; // Dégage un peu la carte
+        camera.position.z = 15;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -36,17 +36,6 @@ const ThreeDCard: React.FC = () => {
         directionalLight.shadow.camera.far = 50;
 
         scene.add(directionalLight);
-
-        const textureLoader = new THREE.TextureLoader();
-        const logoTexture = textureLoader.load('/logo.svg', (texture) => {
-            texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            // Augmentation de 50% (0.5417 / 1.5)
-            texture.repeat.set(0.3611, 0.3611);
-            // Ajustement de la position après les déplacements demandés et le redimensionnement
-            texture.offset.set(-0.41125, -0.2421875);
-            texture.needsUpdate = true;
-        });
-        logoTexture.colorSpace = THREE.SRGBColorSpace;
 
         const width = 4.5;
         const height = 2.8;
@@ -74,61 +63,14 @@ const ThreeDCard: React.FC = () => {
         cardGeometry.center();
 
         const cardMaterial = new THREE.MeshStandardMaterial({
+            color: 0x1a1a1a,
             metalness: 1.0,
             roughness: 0.35,
-            map: logoTexture,
         });
         
         const card = new THREE.Mesh(cardGeometry, cardMaterial);
         card.castShadow = true;
         scene.add(card);
-
-        // Modern App Icon (4 squares grid)
-        const iconContainer = new THREE.Group();
-        const smallSquareSize = 0.2;
-        const smallSquareDepth = 0.05;
-        const gap = 0.05;
-
-        const smallSquareGeometry = new THREE.BoxGeometry(smallSquareSize, smallSquareSize, smallSquareDepth);
-        const iconMaterial = new THREE.MeshStandardMaterial({
-            color: 0xFFD700, // Gold
-            metalness: 0.7,
-            roughness: 0.3
-        });
-
-        const positions = [
-            { x: -(smallSquareSize + gap) / 2, y:  (smallSquareSize + gap) / 2 }, // top-left
-            { x:  (smallSquareSize + gap) / 2, y:  (smallSquareSize + gap) / 2 }, // top-right
-            { x: -(smallSquareSize + gap) / 2, y: -(smallSquareSize + gap) / 2 }, // bottom-left
-            { x:  (smallSquareSize + gap) / 2, y: -(smallSquareSize + gap) / 2 }  // bottom-right
-        ];
-
-        positions.forEach(pos => {
-            const square = new THREE.Mesh(smallSquareGeometry, iconMaterial);
-            square.position.set(pos.x, pos.y, 0);
-            square.castShadow = true;
-            iconContainer.add(square);
-        });
-        
-        // Position calculation
-        const iconSize = smallSquareSize * 2 + gap; 
-        
-        // X position: 1cm from left edge to the icon's left edge
-        const oneCmInUnits = width / 8.6;
-        const iconX = (-width / 2) + oneCmInUnits + (iconSize / 2);
-
-        // Y position: centered with logo.
-        const logoVRepeat = 0.3611;
-        const logoVOffset = -0.2421875;
-        const logoUVCenterV = logoVOffset + (logoVRepeat / 2);
-        const iconY = (logoUVCenterV - 0.5) * height;
-
-        // Z position: on top of the card
-        const iconZ = (depth / 2) + (smallSquareDepth / 2);
-
-        iconContainer.position.set(iconX, iconY, iconZ);
-
-        card.add(iconContainer);
 
         const planeGeometry = new THREE.PlaneGeometry(20, 20);
         const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
