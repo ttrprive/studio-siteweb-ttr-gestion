@@ -22,10 +22,7 @@ const ThreeDCard = () => {
             className="absolute inset-0 flex items-center justify-center"
             style={{ transform: 'translateZ(50px) scale(1.25)' }}
           >
-            {/* Wrapper for animation */}
-            <div>
-              <LogoSvg />
-            </div>
+            <LogoSvg />
           </div>
         </div>
       </div>
