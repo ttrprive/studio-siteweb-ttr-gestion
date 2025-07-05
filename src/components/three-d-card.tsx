@@ -14,14 +14,14 @@ const ThreeDCard: React.FC = () => {
         const scene = new THREE.Scene();
 
         const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
-        camera.position.z = 16.875;
+        camera.position.z = 75.9375;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         currentMount.appendChild(renderer.domElement);
 
-        const cardGeometry = new THREE.BoxGeometry(15.1875, 9.45, 0.675);
+        const cardGeometry = new THREE.BoxGeometry(68.34375, 42.525, 3.0375);
         const cardMaterial = new THREE.MeshStandardMaterial({
             color: 0xcccccc, 
             metalness: 0.9,
@@ -34,7 +34,7 @@ const ThreeDCard: React.FC = () => {
         scene.add(ambientLight);
 
         const pointLight = new THREE.PointLight(0xffffff, 1);
-        pointLight.position.set(0, 3, 16.875);
+        pointLight.position.set(0, 3, 33.75);
         scene.add(pointLight);
 
         const animate = () => {
