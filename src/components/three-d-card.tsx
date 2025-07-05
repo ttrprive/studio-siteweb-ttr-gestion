@@ -8,7 +8,7 @@ const ThreeDCard = () => {
     <div className="group [perspective:1000px]">
       <div
         className={cn(
-          "relative h-[525px] w-[350px] rounded-xl shadow-2xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)]",
+          "relative h-[350px] w-[525px] rounded-xl shadow-2xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)]",
           // Base metallic look
           "bg-slate-800",
           // Gradient for metallic sheen
