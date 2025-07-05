@@ -41,7 +41,7 @@ const ThreeDCard: React.FC = () => {
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
             texture.repeat.set(0.5, 0.5); // Agrandi le logo * 0.5
-            texture.offset.set(0.25, 0.26); // Centré et descendu
+            texture.offset.set(0.25, 0.28); // Centré et descendu
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -73,7 +73,7 @@ const ThreeDCard: React.FC = () => {
 
         const cardMaterial = new THREE.MeshStandardMaterial({
             metalness: 1.0,
-            roughness: 0.1, // Logo visible
+            roughness: 0.4, // Logo visible
             map: logoTexture,
         });
         
