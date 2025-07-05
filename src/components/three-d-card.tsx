@@ -40,8 +40,10 @@ const ThreeDCard: React.FC = () => {
         const textureLoader = new THREE.TextureLoader();
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            texture.repeat.set(0.5417, 0.5417);
-            texture.offset.set(-0.1775, -0.078125);
+            // Augmentation de 50% (0.5417 / 1.5)
+            texture.repeat.set(0.3611, 0.3611);
+            // Ajustement de la position après les déplacements demandés et le redimensionnement
+            texture.offset.set(-0.41125, -0.2421875);
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -116,8 +118,8 @@ const ThreeDCard: React.FC = () => {
         const iconX = (-width / 2) + oneCmInUnits + (iconSize / 2);
 
         // Y position: centered with logo.
-        const logoVRepeat = 0.5417;
-        const logoVOffset = -0.078125;
+        const logoVRepeat = 0.3611;
+        const logoVOffset = -0.2421875;
         const logoUVCenterV = logoVOffset + (logoVRepeat / 2);
         const iconY = (logoUVCenterV - 0.5) * height;
 
