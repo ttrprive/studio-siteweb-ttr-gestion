@@ -40,8 +40,8 @@ const ThreeDCard: React.FC = () => {
         const textureLoader = new THREE.TextureLoader();
         const logoTexture = textureLoader.load('/logo.svg', (texture) => {
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-            texture.repeat.set(0.4, 0.4); 
-            texture.offset.set(0.27, 0.5); 
+            texture.repeat.set(0.625, 0.625);
+            texture.offset.set(0.1, 0.35);
             texture.needsUpdate = true;
         });
         logoTexture.colorSpace = THREE.SRGBColorSpace;
@@ -73,13 +73,63 @@ const ThreeDCard: React.FC = () => {
 
         const cardMaterial = new THREE.MeshStandardMaterial({
             metalness: 1.0,
-            roughness: 0.4, // Logo visible
+            roughness: 0.25,
             map: logoTexture,
         });
         
         const card = new THREE.Mesh(cardGeometry, cardMaterial);
         card.castShadow = true;
         scene.add(card);
+
+        // Modern App Icon
+        const iconSize = 0.5;
+        const iconRadius = 0.1;
+        const iconDepth = 0.05;
+
+        const iconShape = new THREE.Shape();
+        iconShape.moveTo(-iconSize / 2 + iconRadius, -iconSize / 2);
+        iconShape.lineTo(iconSize / 2 - iconRadius, -iconSize / 2);
+        iconShape.quadraticCurveTo(iconSize / 2, -iconSize / 2, iconSize / 2, -iconSize / 2 + iconRadius);
+        iconShape.lineTo(iconSize / 2, iconSize / 2 - iconRadius);
+        iconShape.quadraticCurveTo(iconSize / 2, iconSize / 2, iconSize / 2 - iconRadius, iconSize / 2);
+        iconShape.lineTo(-iconSize / 2 + iconRadius, iconSize / 2);
+        iconShape.quadraticCurveTo(-iconSize / 2, iconSize / 2, -iconSize / 2, iconSize / 2 - iconRadius);
+        iconShape.lineTo(-iconSize / 2, -iconSize / 2 + iconRadius);
+        iconShape.quadraticCurveTo(-iconSize / 2, -iconSize / 2, -iconSize / 2 + iconRadius, -iconSize / 2);
+
+        const iconExtrudeSettings = {
+            depth: iconDepth,
+            bevelEnabled: false
+        };
+
+        const iconGeometry = new THREE.ExtrudeGeometry(iconShape, iconExtrudeSettings);
+        
+        const iconMaterial = new THREE.MeshStandardMaterial({
+            color: 0x00FFD1, // Cyan accent
+            metalness: 0.7,
+            roughness: 0.3
+        });
+
+        const appIcon = new THREE.Mesh(iconGeometry, iconMaterial);
+        appIcon.castShadow = true;
+        
+        // Position calculation
+        // X position: 1cm from right edge to the icon's right edge
+        const oneCmInUnits = width / 8.6;
+        const iconX = (width / 2) - oneCmInUnits - (iconSize / 2);
+
+        // Y position: centered with logo.
+        const logoVRepeat = 0.625;
+        const logoVOffset = 0.35;
+        const logoUVCenterV = logoVOffset + (logoVRepeat / 2);
+        const iconY = (logoUVCenterV - 0.5) * height;
+
+        // Z position: on top of the card
+        const iconZ = (depth / 2);
+
+        appIcon.position.set(iconX, iconY, iconZ);
+
+        card.add(appIcon);
 
         const planeGeometry = new THREE.PlaneGeometry(20, 20);
         const planeMaterial = new THREE.ShadowMaterial({ opacity: 0.2 });
