@@ -37,15 +37,8 @@ const ThreeDCard: React.FC = () => {
         pointLight.position.set(0, 2, 5);
         scene.add(pointLight);
 
-        const clock = new THREE.Clock();
-
         const animate = () => {
             requestAnimationFrame(animate);
-            const elapsedTime = clock.getElapsedTime();
-            
-            card.rotation.y = elapsedTime * 0.2;
-            card.rotation.x = Math.sin(elapsedTime * 0.1) * 0.1;
-
             renderer.render(scene, camera);
         };
         animate();
