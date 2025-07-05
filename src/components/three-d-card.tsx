@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const ThreeDCard = () => {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="group [perspective:1000px]">
+      <div className="group animate-float [perspective:1000px]">
         <div
           className={cn(
             "relative h-[350px] w-[525px] rounded-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)] overflow-hidden",
@@ -17,13 +17,13 @@ const ThreeDCard = () => {
           {/* Reflective shine effect */}
           <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
           
-          {/* Floating Logo wrapper for Z-translation and scaling */}
+          {/* Logo wrapper for Z-translation and scaling */}
           <div 
             className="absolute inset-0 flex items-center justify-center"
             style={{ transform: 'translateZ(50px) scale(1.25)' }}
           >
-            {/* Wrapper for floating animation */}
-            <div className="animate-float">
+            {/* Wrapper for animation */}
+            <div>
               <LogoSvg />
             </div>
           </div>
