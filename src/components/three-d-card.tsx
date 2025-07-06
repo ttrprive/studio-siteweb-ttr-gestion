@@ -1,26 +1,80 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useRef, MouseEvent, TouchEvent } from 'react';
 import { cn } from '@/lib/utils';
 
 const ThreeDCard = () => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+
+    const rotateYValue = 20 * ((x - width / 2) / (width / 2));
+    const rotateXValue = -20 * ((y - height / 2) / (height / 2));
+
+    setRotateY(rotateYValue);
+    setRotateX(rotateXValue);
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+  
+  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
+    if (!cardRef.current || e.touches.length === 0) return;
+
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - left;
+    const y = touch.clientY - top;
+    
+    const rotateYValue = 20 * ((x - width / 2) / (width / 2));
+    const rotateXValue = -20 * ((y - height / 2) / (height / 2));
+
+    setRotateY(rotateYValue);
+    setRotateX(rotateXValue);
+  };
+
+  const handleTouchEnd = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="group animate-float [perspective:1000px]">
+      <div
+        className="group animate-float [perspective:1000px]"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        ref={cardRef}
+      >
         <div
           className={cn(
-            "relative h-[350px] w-[525px] rounded-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(10deg)_rotateX(5deg)] overflow-hidden",
-            "bg-gradient-to-br from-zinc-900 via-black to-zinc-800",
-            "border-2 border-zinc-700/80 shadow-2xl shadow-black/60"
+            "relative h-[525px] w-[350px] rounded-xl [transform-style:preserve-3d]",
+            "bg-gradient-to-br from-zinc-800 via-black to-zinc-900",
+            "border-4 border-zinc-700/80 shadow-2xl shadow-black/60",
+            "transition-transform duration-300 ease-out"
           )}
+          style={{
+            transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+          }}
         >
           {/* Reflective shine effect */}
           <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
           
           {/* Logo wrapper for Z-translation and scaling */}
-          <div 
+          <div
             className="absolute inset-0 flex items-center justify-center"
-            style={{ transform: 'translateZ(50px) scale(1.25)' }}
+            style={{ transform: 'translateZ(50px) scale(1.5)' }}
           >
             <LogoSvg />
           </div>
@@ -29,6 +83,7 @@ const ThreeDCard = () => {
     </div>
   );
 };
+
 
 const LogoSvg = () => (
     <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-1/2 h-auto">
