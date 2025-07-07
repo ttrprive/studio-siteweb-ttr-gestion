@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import Image from 'next/image';
+import Link from 'next/link';
 import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Youtube, Facebook } from 'lucide-react';
 
 import ThreeDCard from "@/components/three-d-card";
@@ -70,12 +71,9 @@ const FeaturesSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
     <div className="max-w-6xl mx-auto">
       <div className="text-center max-w-4xl mx-auto">
-        <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
-          TTR GESTION
+        <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-12">
+          Que fait TTR GESTION&nbsp;?
         </h2>
-        <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">
-          Un outil puissant pour simplifier chaque étape de votre organisation financière
-        </p>
       </div>
 
       <div className="space-y-20">
@@ -160,8 +158,7 @@ const TiktokIcon = ({ className }: { className?: string }) => (
 
 const AppFooter = () => (
     <footer className="w-full py-8 px-4 md:px-8 border-t border-border/20 bg-card">
-        <div className="max-w-4xl mx-auto flex flex-col-reverse items-center gap-4 text-center">
-            <p className="text-sm text-muted-foreground">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-4 text-center">
             <div className="flex justify-center items-center gap-6">
                 <a href="#" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
                     <Youtube className="size-6" />
@@ -173,6 +170,7 @@ const AppFooter = () => (
                     <Facebook className="size-6" />
                 </a>
             </div>
+            <p className="text-sm text-muted-foreground">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
         </div>
     </footer>
 );
@@ -189,7 +187,7 @@ export default function Home() {
   return (
     <main className="bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center p-4">
         <div className="absolute inset-0 z-0 flex items-center justify-center">
            <div className="absolute size-[800px] rounded-full bg-blue-500/20 blur-[200px]" />
            <div
@@ -205,8 +203,29 @@ export default function Home() {
                 }}
             />
         </div>
-        <div className="relative z-10 scale-90 md:scale-100">
-            <ThreeDCard />
+        <div className="relative z-10 flex flex-col items-center">
+            <div data-aos="fade-down" className="scale-90 md:scale-100">
+                <ThreeDCard />
+            </div>
+
+            <h1 data-aos="fade-up" data-aos-delay="100" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4 mt-8">
+              TTR GESTION
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-muted-foreground mb-8 max-w-2xl">
+              Un outil puissant pour simplifier chaque étape de votre organisation financière
+            </p>
+
+            <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">
+                <Button asChild>
+                    <Link href="/login">Se connecter</Link>
+                </Button>
+                <Button asChild variant="outline">
+                    <Link href="/register">Créer un nouveau compte</Link>
+                </Button>
+                <Button variant="secondary">
+                    Vérification
+                </Button>
+            </div>
         </div>
       </section>
 
