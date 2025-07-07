@@ -59,22 +59,25 @@ const ThreeDCard = () => {
       <div
         className={cn(
           "relative h-[350px] w-[525px] rounded-xl [transform-style:preserve-3d]",
-          "bg-gradient-to-br from-red-500/80 to-red-600/80 backdrop-blur-sm",
-          "border border-white/20 shadow-2xl shadow-black/40",
-          "transition-transform duration-300 ease-out"
+          // Enhanced metallic look with colder gradient
+          "bg-gradient-to-br from-neutral-800 via-neutral-900 to-black backdrop-blur-sm",
+          "border border-white/20 shadow-2xl shadow-black/80",
+          "transition-transform duration-300 ease-out",
+          // Softer, longer drop shadow for a floating effect
+          "drop-shadow-[0_35px_35px_rgba(0,0,0,0.4)]"
         )}
         style={{
           transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         }}
       >
-        {/* Reflective shine effect */}
-        <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
+        {/* Enhanced reflective shine effect */}
+        <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
         
         {/* Logo wrapper for Z-translation and scaling */}
         <div
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div style={{ transform: 'translateZ(50px) scale(0.9)' }}>
+          <div style={{ transform: 'translateZ(50px)' }}>
             <LogoSvg />
           </div>
         </div>
