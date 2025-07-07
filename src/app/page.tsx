@@ -8,7 +8,7 @@ const FeaturesSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
     <div className="max-w-4xl mx-auto text-center">
       <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
-        Que fait TTR GESTION&nbsp;?
+        TTR GESTION
       </h2>
       <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">
         Un outil puissant pour simplifier chaque étape de votre organisation financière
