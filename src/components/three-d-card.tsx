@@ -20,11 +20,20 @@ const ThreeDCard = () => {
 
     setRotateY(rotateYValue);
     setRotateX(rotateXValue);
+    
+    // Set CSS variables for the metallic reflection
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
   };
 
   const handleMouseLeave = () => {
     setRotateX(0);
     setRotateY(0);
+    if (cardRef.current) {
+        // Move reflection off-screen
+        cardRef.current.style.setProperty('--mouse-x', `-1000px`);
+        cardRef.current.style.setProperty('--mouse-y', `-1000px`);
+    }
   };
   
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
@@ -40,41 +49,56 @@ const ThreeDCard = () => {
 
     setRotateY(rotateYValue);
     setRotateX(rotateXValue);
+
+    // Set CSS variables for the metallic reflection on touch
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
   };
 
   const handleTouchEnd = () => {
     setRotateX(0);
     setRotateY(0);
+    if (cardRef.current) {
+        // Move reflection off-screen
+        cardRef.current.style.setProperty('--mouse-x', `-1000px`);
+        cardRef.current.style.setProperty('--mouse-y', `-1000px`);
+    }
   };
 
   return (
     <div
-      className="group animate-float [perspective:1000px]"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      ref={cardRef}
+      className="animate-float [perspective:1000px]"
     >
       <div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        ref={cardRef}
         className={cn(
-          "relative h-[280px] w-[420px] rounded-xl [transform-style:preserve-3d]",
-          // Enhanced metallic look with colder gradient
-          "bg-gradient-to-br from-neutral-800 via-neutral-900 to-black backdrop-blur-sm",
-          "border border-white/20 shadow-2xl shadow-black/80",
+          "group relative h-[280px] w-[420px] rounded-xl [transform-style:preserve-3d] overflow-hidden",
+          "bg-gradient-to-br from-neutral-800 via-neutral-900 to-black",
+          "border border-white/10", // More subtle border for a metallic look
           "transition-transform duration-300 ease-out",
-          // Softer, longer drop shadow for a floating effect
           "drop-shadow-[0_35px_35px_rgba(0,0,0,0.4)]"
         )}
         style={{
           transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         }}
       >
+        {/* Metallic reflection layer */}
+        <div
+            className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            style={{
+                background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.08), transparent 40%)`,
+            }}
+        />
+
         {/* Logo wrapper for Z-translation and scaling */}
         <div
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div style={{ transform: 'translateZ(50px)' }}>
+          <div style={{ transform: 'translateZ(60px) scale(1.2)' }}>
             <LogoSvg />
           </div>
         </div>
