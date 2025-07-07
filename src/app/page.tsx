@@ -160,9 +160,12 @@ const TiktokIcon = ({ className }: { className?: string }) => (
 );
 
 const AppFooter = () => (
-    <footer className="w-full py-8 px-4 md:px-8 border-t border-border/20 bg-card">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6 text-center">
-             <div className="flex justify-center items-center gap-6">
+    <footer className="w-full py-20 px-4 md:px-8 border-t border-border/20 bg-card">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
+            <div data-aos="fade-up">
+                <Button size="lg">VOUS AVEZ RIEN COMPRIS ? ON VOUS EXPLIQUE</Button>
+            </div>
+             <div data-aos="fade-up" data-aos-delay="100" className="flex justify-center items-center gap-6">
                 <a href="#" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
                     <Youtube className="size-6" />
                 </a>
@@ -173,7 +176,7 @@ const AppFooter = () => (
                     <Facebook className="size-6" />
                 </a>
             </div>
-            <p className="text-xs text-muted-foreground">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
+            <p data-aos="fade-up" data-aos-delay="200" className="text-xs text-muted-foreground">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
         </div>
     </footer>
 );
