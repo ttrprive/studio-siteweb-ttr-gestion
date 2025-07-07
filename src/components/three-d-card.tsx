@@ -70,9 +70,6 @@ const ThreeDCard = () => {
           transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         }}
       >
-        {/* Enhanced reflective shine effect */}
-        <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
-        
         {/* Logo wrapper for Z-translation and scaling */}
         <div
           className="absolute inset-0 flex items-center justify-center"
