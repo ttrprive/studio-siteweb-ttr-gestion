@@ -81,7 +81,7 @@
   body {
     @apply text-foreground;
     margin: 0;
-    background: radial-gradient(ellipse at 50% 50%, #3a7bd5 0%, #003973 100%);
+    background: radial-gradient(ellipse at 50% 30%, #F95738 0%, #B22222 100%);
     overflow: hidden;
   }
 }
