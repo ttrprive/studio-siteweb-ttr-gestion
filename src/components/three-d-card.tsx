@@ -58,7 +58,7 @@ const ThreeDCard = () => {
     >
       <div
         className={cn(
-          "relative h-[350px] w-[525px] rounded-xl [transform-style:preserve-3d]",
+          "relative h-[280px] w-[420px] rounded-xl [transform-style:preserve-3d]",
           // Enhanced metallic look with colder gradient
           "bg-gradient-to-br from-neutral-800 via-neutral-900 to-black backdrop-blur-sm",
           "border border-white/20 shadow-2xl shadow-black/80",
@@ -88,7 +88,7 @@ const ThreeDCard = () => {
 
 
 const LogoSvg = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-72 h-auto">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-[320px] h-auto">
       <defs>
         <clipPath id="a35518f290"><path d="M 44.976562 44.976562 L 58.621094 44.976562 L 58.621094 101.347656 L 44.976562 101.347656 Z M 44.976562 44.976562 " /></clipPath>
         <clipPath id="917d89fbb1"><path d="M 63.929688 44.976562 L 77.570312 44.976562 L 77.570312 101.347656 L 63.929688 101.347656 Z M 63.929688 44.976562 " /></clipPath>
