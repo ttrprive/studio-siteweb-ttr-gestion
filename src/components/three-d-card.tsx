@@ -48,36 +48,34 @@ const ThreeDCard = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div
+      className="group animate-float [perspective:1000px]"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      ref={cardRef}
+    >
       <div
-        className="group animate-float [perspective:1000px]"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        ref={cardRef}
+        className={cn(
+          "relative h-[525px] w-[350px] rounded-xl [transform-style:preserve-3d]",
+          "bg-gradient-to-br from-zinc-800 via-black to-zinc-900",
+          "border-4 border-zinc-700/80 shadow-2xl shadow-black/60",
+          "transition-transform duration-300 ease-out"
+        )}
+        style={{
+          transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+        }}
       >
+        {/* Reflective shine effect */}
+        <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
+        
+        {/* Logo wrapper for Z-translation and scaling */}
         <div
-          className={cn(
-            "relative h-[525px] w-[350px] rounded-xl [transform-style:preserve-3d]",
-            "bg-gradient-to-br from-zinc-800 via-black to-zinc-900",
-            "border-4 border-zinc-700/80 shadow-2xl shadow-black/60",
-            "transition-transform duration-300 ease-out"
-          )}
-          style={{
-            transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-          }}
+          className="absolute inset-0 flex items-center justify-center"
         >
-          {/* Reflective shine effect */}
-          <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[100%]" />
-          
-          {/* Logo wrapper for Z-translation and scaling */}
-          <div
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <div style={{ transform: 'translateZ(50px) scale(1.25)' }}>
-              <LogoSvg />
-            </div>
+          <div style={{ transform: 'translateZ(50px) scale(1.25)' }}>
+            <LogoSvg />
           </div>
         </div>
       </div>
