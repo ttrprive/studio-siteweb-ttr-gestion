@@ -13,21 +13,21 @@ import { cn } from '@/lib/utils';
 const features = [
   {
     icon: <BarChartBig className="size-8 text-primary" />,
-    title: "Suivi complet des finances",
+    title: "📊 Suivi complet des finances",
     description: "Surveillez vos revenus, dépenses, dettes, marges en temps réel. Un tableau de bord épuré, toujours à jour.",
     image: "https://placehold.co/600x400.png",
     imageHint: "dashboard analytics"
   },
   {
     icon: <Calculator className="size-8 text-primary" />,
-    title: "Planification stratégique",
+    title: "🧮 Planification stratégique",
     description: "Créez des prévisions, comparez des scénarios, gérez vos liquidités. TTR GESTION vous aide à anticiper l’avenir.",
     image: "https://placehold.co/600x400.png",
     imageHint: "financial planning"
   },
   {
     icon: <FolderKanban className="size-8 text-primary" />,
-    title: "Organisation par entité ou projet",
+    title: "📁 Organisation par entité ou projet",
     description: "Gérez plusieurs boutiques, comptes ou divisions depuis un seul espace, avec des options filtrées intelligentes.",
     image: "https://placehold.co/600x400.png",
     imageHint: "project management"
@@ -37,28 +37,28 @@ const features = [
 const audience = [
   {
     icon: <Building2 className="size-8 text-primary" />,
-    title: "Grandes entreprises",
+    title: "🏢 Grandes entreprises",
     description: "Coordonnez plusieurs antennes, services ou départements, avec suivi consolidé et délégué.",
     image: "https://placehold.co/600x400.png",
     imageHint: "corporate building"
   },
   {
     icon: <Store className="size-8 text-primary" />,
-    title: "Petites boutiques",
+    title: "🛍️ Petites boutiques",
     description: "Gardez le contrôle sur votre activité, sans tracas ni jargon complexe. Un tableau de bord simple et visuel.",
     image: "https://placehold.co/600x400.png",
     imageHint: "small boutique"
   },
   {
     icon: <User className="size-8 text-primary" />,
-    title: "Indépendants & freelances",
+    title: "👤 Indépendants & freelances",
     description: "Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.",
     image: "https://placehold.co/600x400.png",
     imageHint: "freelancer desk"
   },
   {
     icon: <Globe className="size-8 text-primary" />,
-    title: "Tous les métiers",
+    title: "🌍 Tous les métiers",
     description: "Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.",
     image: "https://placehold.co/600x400.png",
     imageHint: "diverse professions"
@@ -160,8 +160,7 @@ const TiktokIcon = ({ className }: { className?: string }) => (
 
 const AppFooter = () => (
     <footer className="w-full py-8 px-4 md:px-8 border-t border-border/20 bg-card">
-        <div className="max-w-4xl mx-auto text-center text-muted-foreground">
-            <p className="mb-4">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-4 text-center">
             <div className="flex justify-center items-center gap-6">
                 <a href="#" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
                     <Youtube className="size-6" />
@@ -173,6 +172,7 @@ const AppFooter = () => (
                     <Facebook className="size-6" />
                 </a>
             </div>
+            <p className="text-sm text-muted-foreground">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
         </div>
     </footer>
 );
