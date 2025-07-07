@@ -3,11 +3,12 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import Image from 'next/image';
-import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe } from 'lucide-react';
+import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Youtube, Facebook } from 'lucide-react';
 
 import ThreeDCard from "@/components/three-d-card";
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { cn } from '@/lib/utils';
 
 const features = [
   {
@@ -145,10 +146,33 @@ const TargetAudienceSection = () => (
   </section>
 );
 
+const TiktokIcon = ({ className }: { className?: string }) => (
+  <svg
+    role="img"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    className={cn("size-6", className)}
+    fill="currentColor"
+  >
+    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-1.06-.63-1.9-1.48-2.5-2.55C.44 19.01.12 17.58.02 16.15.01 14.73.01 13.31.01 11.89c.08-1.55.63-3.09 1.75-4.17C2.88 6.61 4.46 6.1 6 6.02V10.1c-1.11.07-2.22.28-3.3.62-.23.07-.46.15-.68.24-.01 1.41.01 2.82-.01 4.23-.03 1.25.43 2.51 1.18 3.51.94 1.24 2.45 2.03 4.02 2.03 1.58-.01 3.09-.79 4.04-2.02.73-.93 1.15-2.11 1.15-3.36.01-2.91-.01-5.83.01-8.74Z"/>
+  </svg>
+);
+
 const AppFooter = () => (
     <footer className="w-full py-8 px-4 md:px-8 border-t border-border/20 bg-card">
         <div className="max-w-4xl mx-auto text-center text-muted-foreground">
-            <p>&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
+            <p className="mb-4">&copy; 2025 TTR GESTION — L’intelligence au service de chaque métier</p>
+            <div className="flex justify-center items-center gap-6">
+                <a href="#" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Youtube className="size-6" />
+                </a>
+                <a href="#" aria-label="Tiktok" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <TiktokIcon />
+                </a>
+                <a href="#" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Facebook className="size-6" />
+                </a>
+            </div>
         </div>
     </footer>
 );
@@ -167,13 +191,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 flex items-center justify-center">
-           <div className="absolute size-[500px] rounded-full bg-blue-500/10 blur-[150px]" />
+           <div className="absolute size-[800px] rounded-full bg-blue-500/20 blur-[200px]" />
            <div
                 style={{
-                    width: '800px',
-                    height: '800px',
+                    width: '1000px',
+                    height: '1000px',
                     background:
-                        'radial-gradient(circle, rgba(0, 119, 255, 0.4) 0%, rgba(0, 119, 255, 0) 60%)',
+                        'radial-gradient(circle, rgba(0, 119, 255, 0.5) 0%, rgba(0, 119, 255, 0) 60%)',
                     position: 'absolute',
                     zIndex: -1,
                     transform: 'translateZ(-100px)',
