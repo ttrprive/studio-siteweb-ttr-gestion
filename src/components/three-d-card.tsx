@@ -74,7 +74,7 @@ const ThreeDCard = () => {
         <div
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div style={{ transform: 'translateZ(50px) scale(2)' }}>
+          <div style={{ transform: 'translateZ(50px)' }}>
             <LogoSvg />
           </div>
         </div>
@@ -85,7 +85,7 @@ const ThreeDCard = () => {
 
 
 const LogoSvg = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-96 h-auto">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-80 h-auto">
       <defs>
         <clipPath id="a35518f290"><path d="M 44.976562 44.976562 L 58.621094 44.976562 L 58.621094 101.347656 L 44.976562 101.347656 Z M 44.976562 44.976562 " /></clipPath>
         <clipPath id="917d89fbb1"><path d="M 63.929688 44.976562 L 77.570312 44.976562 L 77.570312 101.347656 L 63.929688 101.347656 Z M 63.929688 44.976562 " /></clipPath>
