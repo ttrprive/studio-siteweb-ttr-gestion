@@ -60,7 +60,7 @@ const ThreeDCard = () => {
         className={cn(
           "relative h-[350px] w-[525px] rounded-xl [transform-style:preserve-3d]",
           "bg-gradient-to-br from-zinc-800 via-black to-zinc-900",
-          "border-4 border-zinc-700/80 shadow-2xl shadow-black/60",
+          "border-4 border-zinc-700/80 shadow-[0_80px_60px_-30px_rgba(0,0,0,0.6)]",
           "transition-transform duration-300 ease-out"
         )}
         style={{
@@ -74,7 +74,7 @@ const ThreeDCard = () => {
         <div
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div style={{ transform: 'translateZ(50px)' }}>
+          <div style={{ transform: 'translateZ(50px) scale(2)' }}>
             <LogoSvg />
           </div>
         </div>
