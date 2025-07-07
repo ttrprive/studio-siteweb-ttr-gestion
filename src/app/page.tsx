@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import ThreeDCard from "@/components/three-d-card";
-import { BarChart, Calculator, Folder, Building2, ShoppingBag, User, Globe } from "lucide-react";
 
 const FeaturesSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
@@ -16,18 +15,15 @@ const FeaturesSection = () => (
       </p>
       <div className="grid md:grid-cols-3 gap-8 text-left">
         <div data-aos="fade-up" data-aos-delay="0" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <BarChart className="w-8 h-8 mb-4 text-primary" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Suivi complet des finances</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">📊 Suivi complet des finances</h3>
           <p className="text-muted-foreground">Surveillez vos revenus, dépenses, dettes, marges en temps réel. Un tableau de bord épuré, toujours à jour.</p>
         </div>
         <div data-aos="fade-up" data-aos-delay="100" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <Calculator className="w-8 h-8 mb-4 text-primary" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Planification stratégique</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">🧮 Planification stratégique</h3>
           <p className="text-muted-foreground">Créez des prévisions, comparez des scénarios, gérez vos liquidités. TTR GESTION vous aide à anticiper l’avenir.</p>
         </div>
         <div data-aos="fade-up" data-aos-delay="200" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <Folder className="w-8 h-8 mb-4 text-primary" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Organisation par entité</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">📁 Organisation par entité ou projet</h3>
           <p className="text-muted-foreground">Gérez plusieurs boutiques, comptes ou divisions depuis un seul espace, avec des options filtrées intelligentes.</p>
         </div>
       </div>
@@ -46,23 +42,19 @@ const TargetAudienceSection = () => (
       </p>
       <div className="grid md:grid-cols-2 gap-8 text-left">
         <div data-aos="fade-up" data-aos-delay="0" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <Building2 className="w-8 h-8 mb-4 text-accent" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Grandes entreprises</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">🏢 Grandes entreprises</h3>
           <p className="text-muted-foreground">Coordonnez plusieurs antennes, services ou départements, avec suivi consolidé et délégué.</p>
         </div>
         <div data-aos="fade-up" data-aos-delay="100" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <ShoppingBag className="w-8 h-8 mb-4 text-accent" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Petites boutiques</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">🛍️ Petites boutiques</h3>
           <p className="text-muted-foreground">Gardez le contrôle sur votre activité, sans tracas ni jargon complexe. Un tableau de bord simple et visuel.</p>
         </div>
         <div data-aos="fade-up" data-aos-delay="200" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <User className="w-8 h-8 mb-4 text-accent" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Indépendants & freelances</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">👤 Indépendants & freelances</h3>
           <p className="text-muted-foreground">Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.</p>
         </div>
         <div data-aos="fade-up" data-aos-delay="300" className="bg-card p-6 rounded-lg border border-border/20 shadow-lg">
-          <Globe className="w-8 h-8 mb-4 text-accent" />
-          <h3 className="text-xl font-semibold mb-2 text-card-foreground">Tous les métiers</h3>
+          <h3 className="text-xl font-semibold mb-2 text-card-foreground">🌍 Tous les métiers</h3>
           <p className="text-muted-foreground">Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.</p>
         </div>
       </div>
