@@ -74,9 +74,10 @@ const ThreeDCard = () => {
           {/* Logo wrapper for Z-translation and scaling */}
           <div
             className="absolute inset-0 flex items-center justify-center"
-            style={{ transform: 'translateZ(50px) scale(1.5)' }}
           >
-            <LogoSvg />
+            <div style={{ transform: 'translateZ(50px) scale(1.25)' }}>
+              <LogoSvg />
+            </div>
           </div>
         </div>
       </div>
