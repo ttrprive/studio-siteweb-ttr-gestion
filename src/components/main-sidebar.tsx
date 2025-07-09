@@ -31,16 +31,13 @@ export function MainSidebar() {
 
   return (
     <>
-      <SidebarHeader className="h-14 justify-between px-3 data-[collapsible=icon]:justify-center">
-        <div className="flex items-center gap-2 overflow-hidden">
-          <span className="font-bold text-lg text-foreground group-data-[collapsible=icon]/sidebar-wrapper:hidden">TTR GESTION</span>
-        </div>
+      <SidebarHeader className="h-14 justify-end px-3 data-[collapsible=icon]:justify-center">
         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="h-full">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/")} tooltip="Accueil">
+            <SidebarMenuButton asChild isActive={isActive("/")} tooltip={{children: "Accueil", side: "left"}}>
               <Link href="/">
                 <Home />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Accueil</span>
@@ -48,7 +45,7 @@ export function MainSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/details")} tooltip="Détails">
+            <SidebarMenuButton asChild isActive={isActive("/details")} tooltip={{children: "Détails", side: "left"}}>
               <Link href="/details">
                 <Info />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Détails</span>
@@ -56,7 +53,7 @@ export function MainSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/news")} tooltip="Actualité">
+            <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
               <Link href="/news">
                 <Newspaper />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Actualité</span>
@@ -64,7 +61,7 @@ export function MainSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/support")} tooltip="Support">
+            <SidebarMenuButton asChild isActive={isActive("/support")} tooltip={{children: "Support", side: "left"}}>
               <Link href="/support">
                 <LifeBuoy />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Support</span>
