@@ -9,6 +9,7 @@ export default function MainLayout({
   return (
     <SidebarProvider>
       <Sidebar
+        side="right"
         collapsible="icon"
         variant="floating"
         className="backdrop-blur-sm"
