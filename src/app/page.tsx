@@ -163,7 +163,9 @@ const AppFooter = () => (
     <footer className="w-full py-20 px-4 md:px-8 border-t border-border/20 bg-card">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
             <div data-aos="fade-up">
-                <Button size="lg" className="animate-pulse">VOUS N'AVEZ RIEN COMPRIS ? ON VOUS EXPLIQUE</Button>
+                <Button size="lg" className="animate-pulse" asChild>
+                  <Link href="/details">VOUS N'AVEZ PAS TOUT COMPRIS ? ON VOUS EXPLIQUE</Link>
+                </Button>
             </div>
              <div data-aos="fade-up" data-aos-delay="100" className="flex justify-center items-center gap-6">
                 <a href="#" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
