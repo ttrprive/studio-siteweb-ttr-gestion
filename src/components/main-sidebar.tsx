@@ -19,11 +19,6 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export function MainSidebar() {
   const pathname = usePathname();
-  const { setOpen } = useSidebar();
-
-  React.useEffect(() => {
-    setOpen(false);
-  }, [setOpen]);
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -34,7 +29,7 @@ export function MainSidebar() {
       <SidebarHeader className="h-14 justify-end px-3 data-[collapsible=icon]:justify-center">
         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
-      <SidebarContent className="h-full">
+      <SidebarContent className="h-full justify-center">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/")} tooltip={{children: "Accueil", side: "left"}}>
