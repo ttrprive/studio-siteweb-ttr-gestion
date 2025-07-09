@@ -13,7 +13,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarTrigger,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -26,7 +25,7 @@ export function MainSidebar() {
 
   return (
     <>
-      <SidebarHeader className="h-14 justify-end px-3 data-[collapsible=icon]:justify-center">
+      <SidebarHeader className="h-14 justify-end p-2 data-[collapsible=icon]:justify-center">
         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
       <SidebarContent className="h-full justify-center">
