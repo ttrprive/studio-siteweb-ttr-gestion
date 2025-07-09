@@ -1,4 +1,3 @@
-// This file is obsolete and has been replaced by /src/app/(main)/page.tsx to resolve a build error.
-export default function ObsoleteHomePage() {
-  return null;
-}
+// The page for this route is now at /src/app/(main)/page.tsx
+// This file is now an empty module to resolve a routing conflict.
+export {};
