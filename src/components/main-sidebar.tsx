@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Newspaper, Info, LifeBuoy } from "lucide-react";
+import { Home, Newspaper, Info, LifeBuoy, Briefcase } from "lucide-react";
 
 import {
   SidebarHeader,
@@ -51,6 +51,14 @@ export function MainSidebar() {
               <Link href="/news">
                 <Newspaper />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Actualité</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={isActive("/services")} tooltip={{children: "Services", side: "left"}}>
+              <Link href="/services">
+                <Briefcase />
+                <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Services</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
