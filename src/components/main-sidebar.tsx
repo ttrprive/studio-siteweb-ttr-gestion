@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Newspaper, Info, LifeBuoy, Briefcase } from "lucide-react";
+import { Home, Newspaper, Info, LifeBuoy, Briefcase, User, LogOut, Shield } from "lucide-react";
 
 import {
   SidebarHeader,
@@ -15,9 +15,15 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useAuth } from "@/context/auth-context";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+
+const ADMIN_EMAIL = "emapms@gmail.com";
 
 export function MainSidebar() {
   const pathname = usePathname();
+  const { user, signOut } = useAuth();
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -72,7 +78,38 @@ export function MainSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="data-[collapsible=icon]:items-center">
+      <SidebarFooter className="data-[collapsible=icon]:items-center flex flex-col gap-2">
+        {user && (
+          <div className="flex justify-center w-full">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2 p-2 rounded-md hover:bg-sidebar-accent">
+                   <Avatar className="size-8">
+                    <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? 'User'} />
+                    <AvatarFallback>{user.displayName?.charAt(0) ?? 'U'}</AvatarFallback>
+                  </Avatar>
+                   <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-sm font-medium">{user.displayName}</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="right" align="end">
+                <DropdownMenuLabel>Mon Compte</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {user.email === ADMIN_EMAIL && (
+                  <DropdownMenuItem asChild>
+                     <Link href="/admin">
+                      <Shield className="mr-2" />
+                      Admin
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={signOut}>
+                  <LogOut className="mr-2" />
+                  Déconnexion
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
         <div className="flex justify-center w-full">
             <ThemeToggle />
         </div>

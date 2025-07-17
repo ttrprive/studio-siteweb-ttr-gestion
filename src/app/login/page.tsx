@@ -1,16 +1,43 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAuth } from "@/context/auth-context";
+import { useToast } from "@/hooks/use-toast";
 
 export default function LoginPage() {
+  const { signInWithGoogle, user } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error("Erreur de connexion Google", error);
+      toast({
+        title: "Erreur de connexion",
+        description: "Une erreur est survenue lors de la connexion avec Google.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  if (user) {
+    router.push("/");
+    return null;
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <Card className="mx-auto max-w-sm">
@@ -43,7 +70,7 @@ export default function LoginPage() {
             <Button type="submit" className="w-full">
               Se connecter
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
               Se connecter avec Google
             </Button>
           </div>
@@ -56,5 +83,5 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

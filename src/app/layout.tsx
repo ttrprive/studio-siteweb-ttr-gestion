@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from '@/context/auth-context';
 
 export const metadata: Metadata = {
   title: 'TTR GESTION',
@@ -28,8 +29,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
-        {children}
-        <Toaster />
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
