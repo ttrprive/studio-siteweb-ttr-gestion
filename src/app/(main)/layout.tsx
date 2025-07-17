@@ -1,5 +1,6 @@
 "use client";
 
+import { AppFooter } from '@/components/app-footer';
 import { MainSidebar } from '@/components/main-sidebar';
 import { Sidebar, SidebarInset, SidebarProvider, SidebarRail } from '@/components/ui/sidebar';
 import React, { useState, useEffect } from 'react';
@@ -28,7 +29,12 @@ export default function MainLayout({
           <SidebarRail />
         </Sidebar>
       )}
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset>
+        <div className="flex flex-col min-h-screen">
+          <main className="flex-grow">{children}</main>
+          <AppFooter />
+        </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
