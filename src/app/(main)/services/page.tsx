@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Paintbrush, Announce, Code, Search } from 'lucide-react';
+import { CheckCircle, Paintbrush, Megaphone, Code, Search } from 'lucide-react';
 import Link from 'next/link';
 
 const services = [
@@ -18,7 +18,7 @@ const services = [
     cta: "Demander un devis"
   },
   {
-    icon: <Announce className="size-10 mb-4 text-primary" />,
+    icon: <Megaphone className="size-10 mb-4 text-primary" />,
     title: "Publicité Ciblée & Gestion de Campagnes",
     description: "Atteignez vos clients idéaux là où ils se trouvent. Nous créons et gérons des campagnes publicitaires efficaces sur les réseaux sociaux et Google.",
     price: "À partir de 450 € / mois",
