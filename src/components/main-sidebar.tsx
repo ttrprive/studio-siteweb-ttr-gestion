@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarTrigger,
+  Sidebar as AppSidebar
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/context/auth-context";
@@ -34,7 +35,7 @@ export function MainSidebar() {
       <SidebarHeader className="h-14 justify-end p-2 data-[collapsible=icon]:justify-center">
         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
-      <SidebarContent className="h-full justify-center">
+      <SidebarContent className="h-full justify-between">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/")} tooltip={{children: "Accueil", side: "left"}}>
@@ -77,43 +78,43 @@ export function MainSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarContent>
-      <SidebarFooter className="data-[collapsible=icon]:items-center flex flex-col gap-2">
-        {user && (
-          <div className="flex justify-center w-full">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-2 p-2 rounded-md hover:bg-sidebar-accent">
-                   <Avatar className="size-8">
-                    <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? 'User'} />
-                    <AvatarFallback>{user.displayName?.charAt(0) ?? 'U'}</AvatarFallback>
-                  </Avatar>
-                   <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-sm font-medium">{user.displayName}</span>
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" align="end">
-                <DropdownMenuLabel>Mon Compte</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {user.email === ADMIN_EMAIL && (
-                  <DropdownMenuItem asChild>
-                     <Link href="/admin">
-                      <Shield className="mr-2" />
-                      Admin
-                    </Link>
+        <SidebarFooter className="data-[collapsible=icon]:items-center flex flex-col gap-2">
+          {user && (
+            <div className="flex justify-center w-full">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 p-2 rounded-md hover:bg-sidebar-accent">
+                    <Avatar className="size-8">
+                      <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? 'User'} />
+                      <AvatarFallback>{user.displayName?.charAt(0) ?? 'U'}</AvatarFallback>
+                    </Avatar>
+                    <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-sm font-medium">{user.displayName}</span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="right" align="end">
+                  <DropdownMenuLabel>Mon Compte</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {user.email === ADMIN_EMAIL && (
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin">
+                        <Shield className="mr-2 h-4 w-4" />
+                        Admin
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem onClick={signOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Déconnexion
                   </DropdownMenuItem>
-                )}
-                <DropdownMenuItem onClick={signOut}>
-                  <LogOut className="mr-2" />
-                  Déconnexion
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          )}
+          <div className="flex justify-center w-full">
+              <ThemeToggle />
           </div>
-        )}
-        <div className="flex justify-center w-full">
-            <ThemeToggle />
-        </div>
-      </SidebarFooter>
+        </SidebarFooter>
+      </SidebarContent>
     </>
   );
 }
