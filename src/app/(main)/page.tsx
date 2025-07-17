@@ -8,6 +8,7 @@ import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe } 
 
 import ThreeDCard from "@/components/three-d-card";
 import { Button } from '@/components/ui/button';
+import LoaderLink from '@/components/loader-link';
 
 const features = [
   {
@@ -90,7 +91,7 @@ const FeaturesSection = () => (
               </div>
               <p className="text-muted-foreground mb-6">{feature.description}</p>
               <Button variant="link" asChild className="p-0 h-auto">
-                <Link href={`/manual#${feature.id}`}>En savoir plus</Link>
+                <LoaderLink href={`/manual#${feature.id}`}>En savoir plus</LoaderLink>
               </Button>
             </div>
             <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
@@ -132,7 +133,7 @@ const TargetAudienceSection = () => (
               </div>
               <p className="text-muted-foreground mb-6">{item.description}</p>
                <Button variant="link" asChild className="p-0 h-auto">
-                 <Link href="/manual">En savoir plus</Link>
+                 <LoaderLink href="/manual">En savoir plus</LoaderLink>
                </Button>
             </div>
              <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
@@ -200,7 +201,7 @@ export default function Home() {
                     <Link href="/register">Créer un nouveau compte</Link>
                 </Button>
                 <Button asChild variant="secondary">
-                    <Link href="/sectors">Découvrir les secteurs</Link>
+                  <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
                 </Button>
             </div>
         </div>
@@ -214,7 +215,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
             <div data-aos="fade-up">
                 <Button size="lg" className="animate-pulse" asChild>
-                  <Link href="/manual">VOUS N'AVEZ PAS TOUT COMPRIS ? ON VOUS EXPLIQUE</Link>
+                  <LoaderLink href="/manual">VOUS N'AVEZ PAS TOUT COMPRIS ? ON VOUS EXPLIQUE</LoaderLink>
                 </Button>
             </div>
         </div>

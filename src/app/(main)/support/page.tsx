@@ -13,6 +13,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone } from "lucide-react";
+import type { Metadata } from 'next';
+import { useEffect } from "react";
+import LoaderLink from "@/components/loader-link";
+
+// Note: Dynamic metadata generation is commented out as this is a client component.
+// For full SEO, this page could be refactored into a Server Component.
+// export const metadata: Metadata = {
+//   title: 'Support & Aide',
+//   description: 'Contactez notre équipe pour toute question ou demande d\'assistance. Trouvez des réponses rapides dans notre FAQ et le manuel d\'utilisation.',
+// };
+
 
 const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
@@ -61,6 +72,11 @@ export default function SupportPage() {
       message: "",
     },
   });
+  
+  useEffect(() => {
+    document.title = 'Support & Aide | TTR GESTION';
+  }, []);
+
 
   function onSubmit(data: FormData) {
     console.log(data);
@@ -192,7 +208,7 @@ export default function SupportPage() {
               <AccordionContent>
                 <p className="mb-4">{item.answer}</p>
                 <Button variant="link" asChild className="p-0 h-auto">
-                  <Link href={item.link}>Voir le manuel détaillé</Link>
+                  <LoaderLink href={item.link}>Voir le manuel détaillé</LoaderLink>
                 </Button>
               </AccordionContent>
             </AccordionItem>

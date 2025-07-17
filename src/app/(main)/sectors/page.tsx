@@ -19,6 +19,13 @@ import {
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import type { Metadata } from 'next';
+import LoaderLink from '@/components/loader-link';
+
+export const metadata: Metadata = {
+  title: 'Secteurs d\'Activité',
+  description: 'Découvrez comment TTR Gestion s\'adapte à votre métier. Une solution flexible pour la santé, la restauration, le BTP, les services et bien d\'autres secteurs.',
+};
 
 const sectors = [
   {
@@ -127,7 +134,7 @@ export default function SectorsPage() {
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">La flexibilité de TTR Gestion lui permet de s'adapter à de nombreux autres métiers. Contactez-nous pour discuter de vos besoins spécifiques.</p>
           <div className="mt-8">
               <Button size="lg" asChild>
-                  <Link href="/support">Contactez-nous</Link>
+                  <LoaderLink href="/support">Contactez-nous</LoaderLink>
               </Button>
           </div>
       </div>

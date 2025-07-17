@@ -20,6 +20,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import type { Metadata } from 'next';
+import LoaderLink from '@/components/loader-link';
+
+export const metadata: Metadata = {
+  title: 'Détail des Fonctionnalités',
+  description: 'Explorez en détail chaque module de TTR Gestion. De la gestion des clients à l\'assistant IA, découvrez la puissance de notre outil tout-en-un.',
+};
 
 const features = [
   {
@@ -128,7 +135,7 @@ export default function DetailsPage() {
 
       <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {features.map((feature, index) => (
-          <Link key={index} href={feature.link} className="block h-full">
+          <LoaderLink key={index} href={feature.link} className="block h-full">
             <Card className="flex flex-col h-full hover:border-primary/60 transition-colors duration-300 hover:shadow-lg">
               <CardHeader>
                 {feature.icon}
@@ -138,7 +145,7 @@ export default function DetailsPage() {
                 <p className="text-muted-foreground">{feature.description}</p>
               </CardContent>
             </Card>
-          </Link>
+          </LoaderLink>
         ))}
       </div>
       
@@ -147,7 +154,7 @@ export default function DetailsPage() {
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Libérez le potentiel de votre entreprise. Créez votre compte gratuitement dès aujourd'hui et découvrez la puissance d'une gestion intuitive.</p>
           <div className="mt-8">
               <Button size="lg" asChild>
-                  <Link href="/register">Créez votre compte gratuitement</Link>
+                  <LoaderLink href="/register">Créez votre compte gratuitement</LoaderLink>
               </Button>
           </div>
       </div>

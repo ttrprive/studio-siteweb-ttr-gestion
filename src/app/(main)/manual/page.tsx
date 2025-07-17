@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import LoaderLink from '@/components/loader-link';
+
+export const metadata: Metadata = {
+  title: "Manuel d'Utilisation",
+  description: "Le guide complet pour maîtriser TTR Gestion. Découvrez le fonctionnement de chaque section, de la connexion à la gestion des paramètres.",
+};
 
 const Section = ({ id, title, children }: { id: string, title: string, children: React.ReactNode }) => (
     <section id={id} className="mb-16 scroll-mt-20">
@@ -192,7 +199,7 @@ export default function ManualPage() {
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Chaque fonctionnalité est pensée pour vous donner le pouvoir. Il est temps de l'utiliser.</p>
                     <div className="mt-8">
                         <Button size="lg" asChild>
-                            <Link href="/register">Commencez gratuitement</Link>
+                            <LoaderLink href="/register">Commencez gratuitement</LoaderLink>
                         </Button>
                     </div>
                 </div>

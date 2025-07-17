@@ -2,6 +2,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Paintbrush, Megaphone, Code, Search } from 'lucide-react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import LoaderLink from '@/components/loader-link';
+
+export const metadata: Metadata = {
+  title: 'Services sur Mesure',
+  description: 'Développez votre activité avec nos services premium : création de sites web, publicité ciblée, développement d\'applications spécifiques et optimisation SEO.',
+};
+
 
 const services = [
   {
@@ -91,7 +99,7 @@ export default function ServicesPage() {
             <CardFooter className="flex flex-col items-center gap-4 p-6 bg-card-foreground/5 rounded-b-lg">
               <p className="text-xl font-semibold">{service.price}</p>
               <Button asChild size="lg" className="w-full">
-                <Link href="/support">{service.cta}</Link>
+                <LoaderLink href="/support">{service.cta}</LoaderLink>
               </Button>
             </CardFooter>
           </Card>
@@ -103,7 +111,7 @@ export default function ServicesPage() {
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Nous sommes à votre écoute pour discuter de vos idées et trouver la solution la plus adaptée à vos ambitions.</p>
           <div className="mt-8">
               <Button size="lg" asChild>
-                  <Link href="/support">Contactez-nous</Link>
+                  <LoaderLink href="/support">Contactez-nous</LoaderLink>
               </Button>
           </div>
       </div>

@@ -12,6 +12,15 @@ import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight } from 'lucide-react';
+import type { Metadata } from 'next';
+import LoaderLink from '@/components/loader-link';
+
+// Note: Dynamic metadata generation is commented out as this is a client component.
+// For full SEO, this page could be refactored into a Server Component fetching news data.
+// export const metadata: Metadata = {
+//   title: 'Actualités et Mises à Jour',
+//   description: 'Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion. Restez informé des évolutions de votre outil de gestion.',
+// };
 
 const promotions = [
   {
@@ -78,6 +87,7 @@ export default function NewsPage() {
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   useEffect(() => {
+    document.title = 'Actualités | TTR GESTION';
     const getFormattedNews = () => {
       return newsItems
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -127,10 +137,10 @@ export default function NewsPage() {
                     <h2 className="text-3xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
                     <p className="text-lg md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
                     <Button asChild size="lg" className="mt-6">
-                      <Link href={promo.link}>
+                      <LoaderLink href={promo.link}>
                         Découvrir
                         <ArrowRight className="ml-2"/>
-                      </Link>
+                      </LoaderLink>
                     </Button>
                   </div>
                 </div>
