@@ -15,13 +15,16 @@ const LoaderLink: React.FC<LoaderLinkProps> = ({ children, href, className, ...p
     const pathname = usePathname();
 
     useEffect(() => {
+        // This will stop the loader when the page navigation completes
         stopLoading();
     }, [pathname, stopLoading]);
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        if (pathname !== href) {
-            startLoading();
+        // Don't start loader if it's the same page
+        if (pathname === href.toString()) {
+            return;
         }
+        startLoading();
     };
 
     return (
