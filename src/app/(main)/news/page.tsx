@@ -3,13 +3,15 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Button } from '@/components/ui/button';
 import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Rocket, Lightbulb, Bug, Wrench, Star } from 'lucide-react';
+import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight } from 'lucide-react';
 
 const promotions = [
   {
@@ -18,13 +20,15 @@ const promotions = [
     alt: 'Promotion d\'été',
     title: 'Offre Spéciale Été',
     description: 'Profitez de -20% sur toutes nos prestations hôtelières.',
-    hint: 'summer sale'
+    hint: 'summer sale',
+    link: '/services'
   },
   {
     type: 'video',
     src: 'https://videos.pexels.com/video-files/853877/853877-hd.mp4',
     title: 'Découvrez nos Nouveaux Services',
     description: 'Une expérience de gestion réinventée pour vous.',
+    link: '/services'
   }
 ];
 
@@ -86,9 +90,9 @@ export default function NewsPage() {
   }, []);
 
   return (
-    <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
+    <div className="flex flex-col">
       
-      <Card className="mb-12 overflow-hidden">
+      <div className="w-full">
         <Carousel
           plugins={[plugin.current]}
           className="w-full"
@@ -98,7 +102,7 @@ export default function NewsPage() {
           <CarouselContent>
             {promotions.map((promo, index) => (
               <CarouselItem key={index}>
-                <div className="relative aspect-video w-full">
+                <div className="relative aspect-video w-full h-[50vh] md:h-[60vh]">
                   {promo.type === 'image' ? (
                     <Image
                       src={promo.src}
@@ -106,6 +110,7 @@ export default function NewsPage() {
                       fill
                       className="object-cover"
                       data-ai-hint={promo.hint}
+                      priority={index === 0}
                     />
                   ) : (
                     <video
@@ -117,51 +122,59 @@ export default function NewsPage() {
                       playsInline
                     />
                   )}
-                  <div className="absolute inset-0 bg-black/50 flex flex-col items-start justify-end p-8">
+                  <div className="absolute inset-0 bg-black/60 flex flex-col items-start justify-end p-8 md:p-12">
                     <Badge className="mb-2 bg-primary/80 border-primary text-primary-foreground backdrop-blur-sm"><Star className="mr-2 size-4" /> Promotion</Badge>
-                    <h2 className="text-3xl font-bold text-white">{promo.title}</h2>
-                    <p className="text-lg text-white/90">{promo.description}</p>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
+                    <p className="text-lg md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
+                    <Button asChild size="lg" className="mt-6">
+                      <Link href={promo.link}>
+                        Découvrir
+                        <ArrowRight className="ml-2"/>
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
-      </Card>
-
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent">
-          Quoi de neuf ?
-        </h1>
-        <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-          Suivez les dernières mises à jour, améliorations et annonces concernant TTR Gestion.
-        </p>
       </div>
 
-      <div className="relative pl-6">
-        {/* Vertical line */}
-        <div className="absolute left-[36px] top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
-        
-        <div className="space-y-12">
-          {formattedNews.map((item, index) => (
-            <div key={index} className="relative flex items-start">
-              <div className={`absolute left-0 top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${item.bgColor} ${item.color}`}>
-                {item.icon}
+      <div className="container mx-auto max-w-5xl px-4 md:px-6 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent">
+            Quoi de neuf ?
+          </h1>
+          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+            Suivez les dernières mises à jour, améliorations et annonces concernant TTR Gestion.
+          </p>
+        </div>
+
+        <div className="relative pl-6">
+          {/* Vertical line */}
+          <div className="absolute left-[36px] top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
+          
+          <div className="space-y-12">
+            {formattedNews.map((item, index) => (
+              <div key={index} className="relative flex items-start">
+                <div className={`absolute left-0 top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${item.bgColor} ${item.color}`}>
+                  {item.icon}
+                </div>
+                <Card className="ml-12 w-full">
+                  <CardHeader>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <Badge variant="secondary">{item.category}</Badge>
+                      <span className="text-sm text-muted-foreground">{item.timeAgo}</span>
+                    </div>
+                    <CardTitle>{item.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </CardContent>
+                </Card>
               </div>
-              <Card className="ml-12 w-full">
-                <CardHeader>
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <Badge variant="secondary">{item.category}</Badge>
-                    <span className="text-sm text-muted-foreground">{item.timeAgo}</span>
-                  </div>
-                  <CardTitle>{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
