@@ -2,6 +2,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/context/auth-context';
+import { LoaderProvider } from '@/context/loader-context';
+import GlobalLoader from '@/components/global-loader';
 
 export const metadata: Metadata = {
   title: 'TTR GESTION',
@@ -30,8 +32,11 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <AuthProvider>
-          {children}
-          <Toaster />
+          <LoaderProvider>
+            <GlobalLoader />
+            {children}
+            <Toaster />
+          </LoaderProvider>
         </AuthProvider>
       </body>
     </html>

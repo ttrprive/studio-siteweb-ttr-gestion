@@ -19,6 +19,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/context/auth-context";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import LoaderLink from "./loader-link";
 
 const ADMIN_EMAIL = "emapms@gmail.com";
 
@@ -35,46 +36,46 @@ export function MainSidebar() {
       <SidebarHeader className="h-14 justify-end p-2 data-[collapsible=icon]:justify-center">
         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
-      <SidebarContent className="h-full justify-between">
+      <SidebarContent className="h-full justify-between flex flex-col">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/")} tooltip={{children: "Accueil", side: "left"}}>
-              <Link href="/">
+              <LoaderLink href="/">
                 <Home />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Accueil</span>
-              </Link>
+              </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/details")} tooltip={{children: "Détails", side: "left"}}>
-              <Link href="/details">
+              <LoaderLink href="/details">
                 <Info />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Détails</span>
-              </Link>
+              </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
-              <Link href="/news">
+              <LoaderLink href="/news">
                 <Newspaper />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Actualité</span>
-              </Link>
+              </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/services")} tooltip={{children: "Services", side: "left"}}>
-              <Link href="/services">
+              <LoaderLink href="/services">
                 <Briefcase />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Services</span>
-              </Link>
+              </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/support")} tooltip={{children: "Support", side: "left"}}>
-              <Link href="/support">
+              <LoaderLink href="/support">
                 <LifeBuoy />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Support</span>
-              </Link>
+              </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
