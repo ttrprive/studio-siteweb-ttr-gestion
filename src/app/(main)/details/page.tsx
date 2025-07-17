@@ -10,6 +10,12 @@ import {
   History,
   Bot,
   ShieldCheck,
+  Award,
+  Megaphone,
+  BookOpen,
+  Gamepad2,
+  Video,
+  Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -18,54 +24,93 @@ import { Badge } from '@/components/ui/badge';
 const features = [
   {
     icon: <LayoutDashboard className="size-8 mb-4 text-primary" />,
-    title: "Tableau de Bord Centralisé : Votre tour de contrôle",
-    description: "Dès la connexion, visualisez en un coup d'œil les indicateurs clés : arrivées du jour, dépenses, réservations actives et plus. Recevez des conseils stratégiques personnalisés basés sur vos données pour prendre les meilleures décisions, sans effort.",
-  },
-  {
-    icon: <Blocks className="size-8 mb-4 text-primary" />,
-    title: "Gestion des Prestations sur Mesure : Un système qui s'adapte à vous",
-    description: "Que vous gériez des réservations hôtelières, commandes de restaurant, ventes en boutique ou fiches patients, notre système s'adapte. Personnalisez vos services pour que l'application parle votre langage.",
-  },
-  {
-    icon: <Users className="size-8 mb-4 text-primary" />,
-    title: "Fichier Clients (CRM) Intégré : Transformez vos clients en ambassadeurs",
-    description: "Centralisez coordonnées, historique d'achats, soldes et notes personnelles. Offrez un service personnalisé qui fidélise et fait la différence.",
-  },
-  {
-    icon: <Wallet className="size-8 mb-4 text-primary" />,
-    title: "Gestion de Trésorerie Intelligente : Maîtrisez vos flux financiers",
-    description: "Enregistrez chaque dépense et revenu en quelques secondes. Obtenez une vue claire et en temps réel de votre caisse. Analysez vos finances, identifiez les postes de coûts et maximisez votre rentabilité.",
-  },
-  {
-    icon: <Warehouse className="size-8 mb-4 text-primary" />,
-    title: "Gestion de Stock Simplifiée : Ne soyez plus jamais à court",
-    description: "Suivez votre inventaire avec une précision redoutable. Définissez des seuils d'alerte et soyez notifié automatiquement lorsque le stock est bas pour anticiper vos commandes.",
-  },
-  {
-    icon: <LineChart className="size-8 mb-4 text-primary" />,
-    title: "Suivi des Investissements : Pilotez votre croissance future",
-    description: "Un projet d'agrandissement ? L'achat de nouveau matériel ? Planifiez, suivez et analysez la rentabilité de vos investissements pour assurer le développement pérenne de votre entreprise.",
-  },
-  {
-    icon: <UsersRound className="size-8 mb-4 text-primary" />,
-    title: "Administration et Gestion d'Équipe : Collaborez en toute sécurité",
-    description: "Invitez vos employés et définissez leurs rôles (administrateur, employé). Gérez les permissions d'accès et sécurisez les connexions. Chaque action est tracée pour une transparence totale.",
-  },
-  {
-    icon: <History className="size-8 mb-4 text-primary" />,
-    title: "Journal d'Activité Complet : Une traçabilité à toute épreuve",
-    description: "Qui a fait quoi, et quand ? Notre journal d'activité enregistre chaque action importante. Une fonctionnalité essentielle pour la sécurité, la responsabilité et l'audit.",
+    title: "Tableau de Bord",
+    description: "Votre cockpit. Obtenez une vue d'ensemble instantanée de votre activité.",
+    link: "/manual#dashboard"
   },
   {
     icon: <Bot className="size-8 mb-4 text-primary" />,
-    title: "Assistant IA & Boîte à Idées",
-    description: "Imaginez poser des questions en langage naturel sur vos ventes ou recevoir des suggestions marketing. Notre futur assistant IA transformera votre manière de travailler.",
-    badge: "Bientôt disponible",
+    title: "Gemini Business (Assistant IA)",
+    description: "Votre consultant IA personnel pour des stratégies et conseils pratiques.",
+    link: "/manual#gemini-business"
   },
   {
-    icon: <ShieldCheck className="size-8 mb-4 text-primary" />,
-    title: "Sécurité et Confidentialité Absolue : Vos données, votre forteresse",
-    description: "Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir y accéder.",
+    icon: <Blocks className="size-8 mb-4 text-primary" />,
+    title: "Gestion des Prestations",
+    description: "Le cœur de votre activité. Enregistrez et suivez toutes vos prestations.",
+    link: "/manual#prestations"
+  },
+  {
+    icon: <Users className="size-8 mb-4 text-primary" />,
+    title: "Gestion des Clients",
+    description: "Centralisez les informations de vos clients, suivez les soldes et encaissez les paiements.",
+    link: "/manual#clients"
+  },
+  {
+    icon: <Wallet className="size-8 mb-4 text-primary" />,
+    title: "Trésorerie",
+    description: "Maîtrisez vos finances. Suivez toutes les entrées et sorties d'argent.",
+    link: "/manual#tresorerie"
+  },
+  {
+    icon: <Warehouse className="size-8 mb-4 text-primary" />,
+    title: "Gestion de Stock",
+    description: "Suivez votre inventaire et définissez des seuils d'alerte pour éviter les ruptures.",
+    link: "/manual#stock"
+  },
+  {
+    icon: <LineChart className="size-8 mb-4 text-primary" />,
+    title: "Suivi des Investissements",
+    description: "Planifiez et suivez la rentabilité de vos projets de développement.",
+    link: "/manual#investissements"
+  },
+   {
+    icon: <Award className="size-8 mb-4 text-primary" />,
+    title: "Programme de Parrainage",
+    description: "Gagnez des récompenses en recommandant TTR Gestion.",
+    link: "/manual#parrainage"
+  },
+  {
+    icon: <UsersRound className="size-8 mb-4 text-primary" />,
+    title: "Gestion des Utilisateurs",
+    description: "En tant qu'administrateur, gérez les comptes et permissions de vos employés.",
+    link: "/manual#utilisateurs"
+  },
+  {
+    icon: <History className="size-8 mb-4 text-primary" />,
+    title: "Journal d'Activité",
+    description: "Une traçabilité complète de chaque action pour une sécurité optimale.",
+    link: "/manual#journal"
+  },
+  {
+    icon: <Megaphone className="size-8 mb-4 text-primary" />,
+    title: "Faire une PUB",
+    description: "Contactez-nous pour lancer des campagnes publicitaires ciblées.",
+    link: "/manual#pub"
+  },
+  {
+    icon: <BookOpen className="size-8 mb-4 text-primary" />,
+    title: "Conseils & Inspirations",
+    description: "Une sélection de citations sur l'entrepreneuriat pour vous motiver.",
+    link: "/manual#conseils"
+  },
+  {
+    icon: <Gamepad2 className="size-8 mb-4 text-primary" />,
+    title: "Espace Jeux",
+    description: "Une section de détente pour stimuler l'esprit et faire une pause productive.",
+    link: "/manual#jeux"
+  },
+  {
+    icon: <Video className="size-8 mb-4 text-primary" />,
+    title: "Tutoriels Vidéo",
+    description: "Accédez à des guides vidéo pour maîtriser rapidement l'application.",
+    link: "/manual#tutoriels"
+  },
+   {
+    icon: <Settings className="size-8 mb-4 text-primary" />,
+    title: "Paramètres",
+    description: "Personnalisez l'application, gérez les accès et vos espaces de travail.",
+    link: "/manual#parametres"
   },
 ];
 
@@ -74,25 +119,27 @@ export default function DetailsPage() {
     <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-          Pilotez votre entreprise avec une simplicité redoutable.
+          Un écosystème complet pour votre entreprise
         </h1>
         <p className="mt-6 text-lg text-muted-foreground">
-          Vous êtes un entrepreneur passionné, un gérant d'hôtel, de restaurant ou de boutique ? Vous savez mieux que quiconque que la gestion quotidienne peut rapidement devenir un casse-tête. C'est pourquoi nous avons créé TTR Gestion. Oubliez la complexité. Retrouvez le contrôle.
+          TTR Gestion est conçu pour être un outil tout-en-un, simple et puissant. Explorez chaque module pour maîtriser pleinement votre application.
         </p>
       </div>
 
       <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {features.map((feature, index) => (
-          <Card key={index} className="flex flex-col">
-            <CardHeader>
-              {feature.icon}
-              <CardTitle>{feature.title}</CardTitle>
-              {feature.badge && <Badge variant="secondary" className="w-fit">{feature.badge}</Badge>}
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{feature.description}</p>
-            </CardContent>
-          </Card>
+          <Link key={index} href={feature.link} className="block h-full">
+            <Card className="flex flex-col h-full hover:border-primary/60 transition-colors duration-300 hover:shadow-lg">
+              <CardHeader>
+                {feature.icon}
+                <CardTitle>{feature.title}</CardTitle>
+                {feature.badge && <Badge variant="secondary" className="w-fit">{feature.badge}</Badge>}
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
       
