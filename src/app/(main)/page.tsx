@@ -199,8 +199,8 @@ export default function Home() {
                 <Button asChild variant="outline">
                     <Link href="/register">Créer un nouveau compte</Link>
                 </Button>
-                <Button variant="secondary">
-                    Vérification
+                <Button asChild variant="secondary">
+                    <Link href="/sectors">Découvrir les secteurs</Link>
                 </Button>
             </div>
         </div>
