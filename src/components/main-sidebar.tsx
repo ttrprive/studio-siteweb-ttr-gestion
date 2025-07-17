@@ -73,7 +73,9 @@ export function MainSidebar() {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="data-[collapsible=icon]:items-center">
-        <ThemeToggle />
+        <div className="flex justify-center w-full">
+            <ThemeToggle />
+        </div>
       </SidebarFooter>
     </>
   );
