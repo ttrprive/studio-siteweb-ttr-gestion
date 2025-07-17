@@ -1,12 +1,32 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Rocket, Lightbulb, Bug, Wrench } from 'lucide-react';
+import { Rocket, Lightbulb, Bug, Wrench, Star } from 'lucide-react';
+
+const promotions = [
+  {
+    type: 'image',
+    src: 'https://placehold.co/1200x600.png',
+    alt: 'Promotion d\'été',
+    title: 'Offre Spéciale Été',
+    description: 'Profitez de -20% sur toutes nos prestations hôtelières.',
+    hint: 'summer sale'
+  },
+  {
+    type: 'video',
+    src: 'https://videos.pexels.com/video-files/853877/853877-hd.mp4',
+    title: 'Découvrez nos Nouveaux Services',
+    description: 'Une expérience de gestion réinventée pour vous.',
+  }
+];
 
 const newsItems = [
   {
@@ -51,6 +71,7 @@ type FormattedNewsItem = typeof newsItems[0] & { timeAgo: string };
 
 export default function NewsPage() {
   const [formattedNews, setFormattedNews] = useState<FormattedNewsItem[]>([]);
+  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   useEffect(() => {
     const getFormattedNews = () => {
@@ -65,7 +86,49 @@ export default function NewsPage() {
   }, []);
 
   return (
-    <div className="container mx-auto max-w-4xl py-12 px-4 md:px-6">
+    <div className="container mx-auto max-w-5xl py-12 px-4 md:px-6">
+      
+      <Card className="mb-12 overflow-hidden">
+        <Carousel
+          plugins={[plugin.current]}
+          className="w-full"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
+          <CarouselContent>
+            {promotions.map((promo, index) => (
+              <CarouselItem key={index}>
+                <div className="relative aspect-video w-full">
+                  {promo.type === 'image' ? (
+                    <Image
+                      src={promo.src}
+                      alt={promo.alt}
+                      fill
+                      className="object-cover"
+                      data-ai-hint={promo.hint}
+                    />
+                  ) : (
+                    <video
+                      src={promo.src}
+                      className="h-full w-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/50 flex flex-col items-start justify-end p-8">
+                    <Badge className="mb-2 bg-primary/80 border-primary text-primary-foreground backdrop-blur-sm"><Star className="mr-2 size-4" /> Promotion</Badge>
+                    <h2 className="text-3xl font-bold text-white">{promo.title}</h2>
+                    <p className="text-lg text-white/90">{promo.description}</p>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </Card>
+
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent">
           Quoi de neuf ?
