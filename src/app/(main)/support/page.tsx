@@ -27,26 +27,26 @@ const faqItems = [
   {
     value: "item-1",
     question: "Comment démarrer avec TTR Gestion ?",
-    answer: "Pour commencer, explorez le tableau de bord pour avoir un aperçu de vos activités.",
-    link: "/details#connexion"
+    answer: "Pour commencer, explorez le tableau de bord pour avoir un aperçu de vos activités. Notre manuel complet vous guide à chaque étape.",
+    link: "/manual#dashboard"
   },
   {
     value: "item-2",
     question: "Comment ajouter un nouveau client ?",
     answer: "Rendez-vous dans la section 'Clients' et cliquez sur le bouton 'Ajouter'. Pour plus de détails, consultez le manuel.",
-    link: "/details#clients"
+    link: "/manual#clients"
   },
   {
     value: "item-3",
     question: "Où puis-je voir mes revenus et dépenses ?",
-    answer: "La section 'Trésorerie' vous donne une vue détaillée de vos finances.",
-    link: "/details#tresorerie"
+    answer: "La section 'Trésorerie' vous donne une vue détaillée de vos finances. Le manuel explique comment interpréter les données.",
+    link: "/manual#tresorerie"
   },
   {
     value: "item-4",
     question: "Est-ce que mes données sont en sécurité ?",
-    answer: "Absolument. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir y accéder. Plus d'informations dans la section sécurité.",
-    link: "/details#securite"
+    answer: "Absolument. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir y accéder. Plus d'informations dans la section sécurité du manuel.",
+    link: "/manual#securite"
   }
 ]
 

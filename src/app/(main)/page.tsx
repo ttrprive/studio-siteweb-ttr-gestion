@@ -91,7 +91,7 @@ const FeaturesSection = () => (
               </div>
               <p className="text-muted-foreground mb-6">{feature.description}</p>
               <Button variant="link" asChild className="p-0 h-auto">
-                <Link href={`/details#${feature.id}`}>En savoir plus</Link>
+                <Link href={`/manual#${feature.id}`}>En savoir plus</Link>
               </Button>
             </div>
             <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
@@ -133,7 +133,7 @@ const TargetAudienceSection = () => (
               </div>
               <p className="text-muted-foreground mb-6">{item.description}</p>
                <Button variant="link" asChild className="p-0 h-auto">
-                 <Link href="/details">En savoir plus</Link>
+                 <Link href="/manual">En savoir plus</Link>
                </Button>
             </div>
              <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
@@ -170,7 +170,7 @@ const AppFooter = () => (
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
             <div data-aos="fade-up">
                 <Button size="lg" className="animate-pulse" asChild>
-                  <Link href="/details">VOUS N'AVEZ PAS TOUT COMPRIS ? ON VOUS EXPLIQUE</Link>
+                  <Link href="/manual">VOUS N'AVEZ PAS TOUT COMPRIS ? ON VOUS EXPLIQUE</Link>
                 </Button>
             </div>
              <div data-aos="fade-up" data-aos-delay="100" className="flex justify-center items-center gap-6">

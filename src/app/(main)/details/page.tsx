@@ -133,7 +133,6 @@ export default function DetailsPage() {
               <CardHeader>
                 {feature.icon}
                 <CardTitle>{feature.title}</CardTitle>
-                {feature.badge && <Badge variant="secondary" className="w-fit">{feature.badge}</Badge>}
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">{feature.description}</p>
