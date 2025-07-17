@@ -4,6 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Link from 'next/link';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, User, HelpCircle } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
@@ -26,22 +27,26 @@ const faqItems = [
   {
     value: "item-1",
     question: "Comment démarrer avec TTR Gestion ?",
-    answer: "Le manuel complet sera disponible ici prochainement. Pour commencer, explorez le tableau de bord pour avoir un aperçu de vos activités."
+    answer: "Pour commencer, explorez le tableau de bord pour avoir un aperçu de vos activités.",
+    link: "/details#connexion"
   },
   {
     value: "item-2",
     question: "Comment ajouter un nouveau client ?",
-    answer: "Le manuel complet sera disponible ici prochainement. Rendez-vous dans la section 'Clients' et cliquez sur le bouton 'Ajouter'."
+    answer: "Rendez-vous dans la section 'Clients' et cliquez sur le bouton 'Ajouter'. Pour plus de détails, consultez le manuel.",
+    link: "/details#clients"
   },
   {
     value: "item-3",
     question: "Où puis-je voir mes revenus et dépenses ?",
-    answer: "Le manuel complet sera disponible ici prochainement. La section 'Trésorerie' vous donne une vue détaillée de vos finances."
+    answer: "La section 'Trésorerie' vous donne une vue détaillée de vos finances.",
+    link: "/details#tresorerie"
   },
   {
     value: "item-4",
     question: "Est-ce que mes données sont en sécurité ?",
-    answer: "Absolument. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir y accéder."
+    answer: "Absolument. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir y accéder. Plus d'informations dans la section sécurité.",
+    link: "/details#securite"
   }
 ]
 
@@ -185,7 +190,10 @@ export default function SupportPage() {
             <AccordionItem key={item.value} value={item.value}>
               <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
               <AccordionContent>
-                {item.answer}
+                <p className="mb-4">{item.answer}</p>
+                <Button variant="link" asChild className="p-0 h-auto">
+                  <Link href={item.link}>Voir le manuel détaillé</Link>
+                </Button>
               </AccordionContent>
             </AccordionItem>
           ))}

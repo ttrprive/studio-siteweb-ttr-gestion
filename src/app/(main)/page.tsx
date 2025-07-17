@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 
 const features = [
   {
+    id: "tresorerie",
     icon: <BarChartBig className="size-8 text-primary" />,
     title: "📊 Suivi complet des finances",
     description: "Surveillez vos revenus, dépenses, dettes, marges en temps réel. Un tableau de bord épuré, toujours à jour.",
@@ -19,6 +20,7 @@ const features = [
     imageHint: "dashboard analytics"
   },
   {
+    id: "investissements",
     icon: <Calculator className="size-8 text-primary" />,
     title: "🧮 Planification stratégique",
     description: "Créez des prévisions, comparez des scénarios, gérez vos liquidités. TTR GESTION vous aide à anticiper l’avenir.",
@@ -26,6 +28,7 @@ const features = [
     imageHint: "financial planning"
   },
   {
+    id: "prestations",
     icon: <FolderKanban className="size-8 text-primary" />,
     title: "📁 Organisation par entité ou projet",
     description: "Gérez plusieurs boutiques, comptes ou divisions depuis un seul espace, avec des options filtrées intelligentes.",
@@ -87,7 +90,9 @@ const FeaturesSection = () => (
                 <h3 className="text-2xl font-bold">{feature.title}</h3>
               </div>
               <p className="text-muted-foreground mb-6">{feature.description}</p>
-              <Button variant="link" className="p-0 h-auto">En savoir plus</Button>
+              <Button variant="link" asChild className="p-0 h-auto">
+                <Link href={`/details#${feature.id}`}>En savoir plus</Link>
+              </Button>
             </div>
             <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
               <Image 
@@ -127,7 +132,9 @@ const TargetAudienceSection = () => (
                 <h3 className="text-2xl font-bold">{item.title}</h3>
               </div>
               <p className="text-muted-foreground mb-6">{item.description}</p>
-               <Button variant="link" className="p-0 h-auto">En savoir plus</Button>
+               <Button variant="link" asChild className="p-0 h-auto">
+                 <Link href="/details">En savoir plus</Link>
+               </Button>
             </div>
              <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
               <Image 
