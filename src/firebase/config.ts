@@ -1,5 +1,8 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // IMPORTANT: Replace this with your own Firebase config
 const firebaseConfig = {
