@@ -21,7 +21,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
-import { BlueBlob, WhiteBlob } from '@/components/decorative-blobs';
 
 export const metadata: Metadata = {
   title: 'Secteurs d\'Activité',
@@ -108,8 +107,7 @@ const sectors = [
 
 export default function SectorsPage() {
   return (
-    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
-       <BlueBlob className="-top-40 -left-40" />
+    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Une solution pour chaque secteur d'activité
@@ -140,7 +138,6 @@ export default function SectorsPage() {
               </Button>
           </div>
       </div>
-       <WhiteBlob className="-bottom-40 -right-40" />
     </main>
   );
 }
