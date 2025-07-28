@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 const services = [
   {
+    slug: "creation-site-web",
     icon: <Paintbrush className="size-10 mb-4 text-primary" />,
     title: "Création de Sites Web Premium",
     description: "Un site vitrine sur-mesure, élégant et performant pour refléter l'excellence de votre marque. Conçu pour captiver et convertir.",
@@ -26,6 +27,7 @@ const services = [
     cta: "Demander un devis"
   },
   {
+    slug: "publicite-ciblee",
     icon: <Megaphone className="size-10 mb-4 text-primary" />,
     title: "Publicité Ciblée & Gestion de Campagnes",
     description: "Atteignez vos clients idéaux là où ils se trouvent. Nous créons et gérons des campagnes publicitaires efficaces sur les réseaux sociaux et Google.",
@@ -39,6 +41,7 @@ const services = [
     cta: "Lancer ma campagne"
   },
   {
+    slug: "developpement-application",
     icon: <Code className="size-10 mb-4 text-primary" />,
     title: "Développement d'Applications Spécifiques",
     description: "Un besoin métier unique ? Nous développons des outils et applications web sur-mesure pour automatiser vos processus et améliorer votre productivité.",
@@ -52,6 +55,7 @@ const services = [
     cta: "Discuter de mon projet"
   },
   {
+    slug: "seo",
     icon: <Search className="size-10 mb-4 text-primary" />,
     title: "Optimisation pour les Moteurs de Recherche (SEO)",
     description: "Améliorez votre visibilité sur Google et attirez plus de trafic qualifié. Nous optimisons votre site pour le classer en haut des résultats de recherche.",
@@ -99,7 +103,7 @@ export default function ServicesPage() {
             <CardFooter className="flex flex-col items-center gap-4 p-6 bg-card-foreground/5 rounded-b-lg">
               <p className="text-xl font-semibold">{service.price}</p>
               <Button asChild size="lg" className="w-full">
-                <LoaderLink href="/support">{service.cta}</LoaderLink>
+                <LoaderLink href={`/services/${service.slug}`}>{service.cta}</LoaderLink>
               </Button>
             </CardFooter>
           </Card>
