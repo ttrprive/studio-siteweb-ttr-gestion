@@ -1,29 +1,12 @@
 "use client";
 
-import { useAuth } from '@/context/auth-context';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
-const ADMIN_EMAIL = "emapms@gmail.com";
-
 export default function AdminPage() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && (!user || user.email !== ADMIN_EMAIL)) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
-
-  if (loading || !user || user.email !== ADMIN_EMAIL) {
-    return (
-        <div className="flex h-screen items-center justify-center">
-            <p>Chargement ou redirection en cours...</p>
-        </div>
-    );
-  }
+  
+  // La logique d'authentification a été retirée. 
+  // Cette page est actuellement accessible publiquement.
+  // Il faudra mettre en place une nouvelle méthode de protection si nécessaire.
 
   return (
     <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
@@ -32,7 +15,7 @@ export default function AdminPage() {
           Panneau d'Administration
         </h1>
         <p className="text-lg text-muted-foreground mb-12">
-          Bienvenue, {user.displayName}. Gérez le contenu de votre site ici.
+          Bienvenue. Gérez le contenu de votre site ici.
         </p>
         
         <div className="grid gap-8 md:grid-cols-2">

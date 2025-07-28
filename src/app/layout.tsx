@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from '@/context/auth-context';
 import { LoaderProvider } from '@/context/loader-context';
 import GlobalLoader from '@/components/global-loader';
 
@@ -55,13 +54,11 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
-        <AuthProvider>
-          <LoaderProvider>
-            <GlobalLoader />
-            {children}
-            <Toaster />
-          </LoaderProvider>
-        </AuthProvider>
+        <LoaderProvider>
+          <GlobalLoader />
+          {children}
+          <Toaster />
+        </LoaderProvider>
       </body>
     </html>
   );
