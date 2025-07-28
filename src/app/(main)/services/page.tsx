@@ -4,6 +4,7 @@ import { CheckCircle, Paintbrush, Megaphone, Code, Search } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
+import { BlueBlob, WhiteBlob } from '@/components/decorative-blobs';
 
 export const metadata: Metadata = {
   title: 'Services sur Mesure',
@@ -72,7 +73,8 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
+    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
+      <BlueBlob className="-top-40 -left-40" />
       <div className="mx-auto max-w-4xl text-center mb-16">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Développez votre activité avec nos services sur mesure.
@@ -119,6 +121,7 @@ export default function ServicesPage() {
               </Button>
           </div>
       </div>
+       <WhiteBlob className="-bottom-40 -right-40" />
     </main>
   );
 }
