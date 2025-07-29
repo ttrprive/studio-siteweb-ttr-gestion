@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -89,9 +90,9 @@ export default function NewsClientPage() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full overflow-x-hidden">
       
-      <div className="w-full">
+      <section className="w-full">
         <Carousel
           plugins={[plugin.current]}
           className="w-full"
@@ -101,7 +102,7 @@ export default function NewsClientPage() {
           <CarouselContent>
             {promotions.map((promo, index) => (
               <CarouselItem key={index}>
-                <div className="relative aspect-video w-full h-[60vh] md:h-[70vh]">
+                <div className="relative aspect-video w-full h-[50vh] md:h-[70vh]">
                   {promo.type === 'image' ? (
                     <Image
                       src={promo.src}
@@ -123,8 +124,8 @@ export default function NewsClientPage() {
                   )}
                   <div className="absolute inset-0 bg-black/60 flex flex-col items-start justify-end p-6 md:p-12">
                     <Badge className="mb-2 bg-primary/80 border-primary text-primary-foreground backdrop-blur-sm"><Star className="mr-2 size-4" /> Promotion</Badge>
-                    <h2 className="text-2xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
-                    <p className="text-md md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
+                    <h2 className="text-xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
+                    <p className="text-sm md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
                     <Button asChild size="lg" className="mt-6">
                       <LoaderLink href={promo.link}>
                         Découvrir
@@ -137,7 +138,7 @@ export default function NewsClientPage() {
             ))}
           </CarouselContent>
         </Carousel>
-      </div>
+      </section>
 
       <div className="container mx-auto max-w-5xl px-4 md:px-6 py-12">
         <div className="text-center mb-12">
@@ -149,17 +150,17 @@ export default function NewsClientPage() {
           </p>
         </div>
 
-        <div className="relative pl-8 md:pl-6">
+        <div className="relative pl-6">
           {/* Vertical line */}
-          <div className="absolute left-[20px] md:left-[36px] top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
+          <div className="absolute left-[12px] top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
           
           <div className="space-y-12">
             {formattedNews.map((item, index) => (
               <div key={index} className="relative flex items-start">
-                <div className={`absolute left-[-5px] md:left-0 top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${item.bgColor} ${item.color}`}>
+                <div className={`absolute left-[-12px] top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${item.bgColor} ${item.color}`}>
                   {item.icon}
                 </div>
-                <Card className="ml-8 md:ml-12 w-full">
+                <Card className="ml-6 w-full">
                   <CardHeader>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
                       <Badge variant="secondary" className="w-fit">{item.category}</Badge>
