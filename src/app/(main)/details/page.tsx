@@ -22,6 +22,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
+import CornerDecoration from '@/components/corner-decoration';
+
 
 export const metadata: Metadata = {
   title: 'Détail des Fonctionnalités',
@@ -124,6 +126,8 @@ const features = [
 export default function DetailsPage() {
   return (
     <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
+      <CornerDecoration src="/photobleu.png" position="top-left" className="-translate-x-1/3 -translate-y-1/3" />
+      <CornerDecoration src="/photoblanc.png" position="bottom-right" className="translate-x-1/3 translate-y-1/3" />
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Un écosystème complet pour votre entreprise

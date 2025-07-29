@@ -21,6 +21,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
+import CornerDecoration from '@/components/corner-decoration';
 
 
 export const metadata: Metadata = {
@@ -109,6 +110,8 @@ const sectors = [
 export default function SectorsPage() {
   return (
     <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
+      <CornerDecoration src="/photobleu.png" position="top-right" className="translate-x-1/3 -translate-y-1/3" />
+      <CornerDecoration src="/photoblanc.png" position="bottom-left" className="-translate-x-1/3 translate-y-1/3" />
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Une solution pour chaque secteur d'activité
