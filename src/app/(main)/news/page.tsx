@@ -7,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
-  return <NewsClientPage />;
+  return (
+    <main className="w-full">
+      <NewsClientPage />
+    </main>
+  );
 }
