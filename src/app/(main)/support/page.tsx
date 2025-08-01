@@ -83,7 +83,7 @@ const faqItems = [
         value: "item-8",
         question: "Puis-je essayer TTR Gestion avant de m'engager ?",
         answer: "Bien sûr. Nous proposons une période d'essai gratuite complète, sans carte de crédit requise. Vous pouvez explorer toutes les fonctionnalités et voir par vous-même comment l'application peut transformer votre quotidien. Créez votre compte en quelques clics et commencez dès maintenant.",
-        link: "/register"
+        link: "#"
     },
     {
         value: "item-9",

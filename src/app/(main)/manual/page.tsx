@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -199,7 +200,7 @@ export default function ManualPage() {
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Chaque fonctionnalité est pensée pour vous donner le pouvoir. Il est temps de l'utiliser.</p>
                     <div className="mt-8">
                         <Button size="lg" asChild>
-                            <LoaderLink href="/register">Commencez gratuitement</LoaderLink>
+                            <Link href="#">Commencez gratuitement</Link>
                         </Button>
                     </div>
                 </div>

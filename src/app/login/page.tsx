@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -52,7 +53,7 @@ export default function LoginPage() {
           </div>
           <div className="mt-4 text-center text-sm">
             Vous n'avez pas de compte?{" "}
-            <Link href="/register" className="underline">
+            <Link href="#" className="underline">
               S'inscrire
             </Link>
           </div>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect } from 'react';
@@ -196,7 +197,7 @@ export default function Home() {
 
             <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild>
-                    <Link href="/register">Créer un nouveau compte</Link>
+                    <Link href="#">Créer un nouveau compte</Link>
                 </Button>
                 <Button asChild variant="secondary">
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>

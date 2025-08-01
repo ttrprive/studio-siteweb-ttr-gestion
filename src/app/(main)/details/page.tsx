@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import {
   LayoutDashboard,
@@ -158,7 +159,7 @@ export default function DetailsPage() {
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Libérez le potentiel de votre entreprise. Créez votre compte gratuitement dès aujourd'hui et découvrez la puissance d'une gestion intuitive.</p>
           <div className="mt-8">
               <Button size="lg" asChild>
-                  <LoaderLink href="/register">Créez votre compte gratuitement</LoaderLink>
+                  <Link href="#">Créez votre compte gratuitement</Link>
               </Button>
           </div>
       </div>
