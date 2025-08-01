@@ -38,27 +38,45 @@ type FormData = z.infer<typeof formSchema>;
 const faqItems = [
   {
     value: "item-1",
-    question: "Comment démarrer avec TTR Gestion ?",
-    answer: "Pour commencer, explorez le tableau de bord pour avoir un aperçu de vos activités. Notre manuel complet vous guide à chaque étape.",
-    link: "/manual#dashboard"
+    question: "TTR Gestion est-il adapté à mon secteur d'activité ?",
+    answer: "Absolument. TTR Gestion a été conçu pour être incroyablement flexible. Que vous soyez dans la restauration, la santé, le commerce de détail, l'artisanat ou consultant, notre application s'adapte à vos besoins spécifiques. Vous pouvez même personnaliser les types de prestations pour qu'ils correspondent parfaitement à votre métier.",
+    link: "/sectors"
   },
   {
     value: "item-2",
-    question: "Comment ajouter un nouveau client ?",
-    answer: "Rendez-vous dans la section 'Clients' et cliquez sur le bouton 'Ajouter'. Pour plus de détails, consultez le manuel.",
-    link: "/manual#clients"
-  },
-  {
-    value: "item-3",
-    question: "Où puis-je voir mes revenus et dépenses ?",
-    answer: "La section 'Trésorerie' vous donne une vue détaillée de vos finances. Le manuel explique comment interpréter les données.",
+    question: "En quoi TTR Gestion peut-il simplifier ma gestion financière ?",
+    answer: "Notre module 'Trésorerie' centralise toutes vos entrées et sorties d'argent. En un coup d'œil, vous suivez vos revenus, vos dépenses et connaissez votre solde de caisse en temps réel. Fini les tableurs compliqués, vous avez une vue claire et instantanée de votre santé financière.",
     link: "/manual#tresorerie"
   },
   {
+    value: "item-3",
+    question: "Comment l'assistant IA 'TRIX Business' peut-il m'aider concrètement ?",
+    answer: "TRIX Business est comme avoir un consultant personnel disponible 24/7. Posez-lui des questions sur vos stratégies marketing, financières ou de gestion, et il vous fournira des conseils pratiques et des analyses basées sur les meilleures pratiques. C'est un véritable copilote pour accélérer votre croissance.",
+    link: "/ia"
+  },
+  {
     value: "item-4",
+    question: "La gestion de plusieurs employés est-elle possible ?",
+    answer: "Oui, notre mode administrateur vous permet de créer des comptes pour vos employés et de gérer leurs permissions d'accès. Vous pouvez décider qui a accès à la trésorerie, à la gestion des clients, etc. C'est une solution idéale pour les équipes en croissance.",
+    link: "/manual#utilisateurs"
+  },
+  {
+    value: "item-5",
     question: "Est-ce que mes données sont en sécurité ?",
-    answer: "Absolument. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir y accéder. Plus d'informations dans la section sécurité du manuel.",
-    link: "/manual#securite"
+    answer: "La sécurité est notre priorité absolue. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir accéder à vos informations. De plus, le journal d'activité vous offre une traçabilité complète de chaque action effectuée.",
+    link: "/manual#journal"
+  },
+  {
+    value: "item-6",
+    question: "Comment puis-je suivre les paiements de mes clients ?",
+    answer: "La section 'Clients' est faite pour ça. Chaque fiche client affiche un solde en temps réel (total facturé vs total payé). Vous pouvez enregistrer des paiements partiels ou complets directement depuis leur profil, ce qui simplifie énormément le suivi des créances.",
+    link: "/manual#clients"
+  },
+  {
+    value: "item-7",
+    question: "Je vends des produits. Y a-t-il une gestion de stock ?",
+    answer: "Oui ! Notre module de gestion de stock vous permet de suivre votre inventaire, d'ajuster les quantités et de définir des seuils d'alerte pour ne jamais être en rupture. C'est un outil puissant pour optimiser vos commandes et éviter les pertes.",
+    link: "/manual#stock"
   }
 ]
 
@@ -228,17 +246,17 @@ export default function SupportPage() {
       
       <div className="mt-20">
         <div className="mx-auto max-w-4xl text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight">Manuel d'utilisation & FAQ</h2>
-            <p className="mt-4 text-lg text-muted-foreground">Les réponses à vos questions les plus courantes.</p>
+            <h2 className="text-3xl font-bold tracking-tight">Questions fréquentes (FAQ)</h2>
+            <p className="mt-4 text-lg text-muted-foreground">Trouvez les réponses à vos questions les plus courantes.</p>
         </div>
         <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
           {faqItems.map(item => (
             <AccordionItem key={item.value} value={item.value}>
-              <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
+              <AccordionTrigger className="text-left text-lg">{item.question}</AccordionTrigger>
               <AccordionContent>
-                <p className="mb-4">{item.answer}</p>
+                <p className="mb-4 text-base text-muted-foreground leading-relaxed">{item.answer}</p>
                 <Button variant="link" asChild className="p-0 h-auto">
-                  <LoaderLink href={item.link}>Voir le manuel détaillé</LoaderLink>
+                  <LoaderLink href={item.link}>En savoir plus <ChevronRight className="ml-1 size-4" /></LoaderLink>
                 </Button>
               </AccordionContent>
             </AccordionItem>
@@ -248,3 +266,5 @@ export default function SupportPage() {
     </main>
   );
 }
+
+    
