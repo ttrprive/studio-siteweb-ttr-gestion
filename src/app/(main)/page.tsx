@@ -9,6 +9,7 @@ import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe } 
 import ThreeDCard from "@/components/three-d-card";
 import { Button } from '@/components/ui/button';
 import LoaderLink from '@/components/loader-link';
+import TestimonialsSection from '@/components/testimonials-section';
 
 const features = [
   {
@@ -195,10 +196,10 @@ export default function Home() {
 
             <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild>
-                    <Link href="/login">Se connecter</Link>
+                    <Link href="#">Se connecter</Link>
                 </Button>
                 <Button asChild variant="outline">
-                    <Link href="/register">Créer un nouveau compte</Link>
+                    <Link href="#">Créer un nouveau compte</Link>
                 </Button>
                 <Button asChild variant="secondary">
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
@@ -210,6 +211,8 @@ export default function Home() {
       <FeaturesSection />
 
       <TargetAudienceSection />
+
+      <TestimonialsSection />
 
       <section className="w-full py-20 px-4 md:px-8 bg-card">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
