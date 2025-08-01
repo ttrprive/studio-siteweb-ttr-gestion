@@ -36,48 +36,66 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const faqItems = [
-  {
-    value: "item-1",
-    question: "TTR Gestion est-il adapté à mon secteur d'activité ?",
-    answer: "Absolument. TTR Gestion a été conçu pour être incroyablement flexible. Que vous soyez dans la restauration, la santé, le commerce de détail, l'artisanat ou consultant, notre application s'adapte à vos besoins spécifiques. Vous pouvez même personnaliser les types de prestations pour qu'ils correspondent parfaitement à votre métier.",
-    link: "/sectors"
-  },
-  {
-    value: "item-2",
-    question: "En quoi TTR Gestion peut-il simplifier ma gestion financière ?",
-    answer: "Notre module 'Trésorerie' centralise toutes vos entrées et sorties d'argent. En un coup d'œil, vous suivez vos revenus, vos dépenses et connaissez votre solde de caisse en temps réel. Fini les tableurs compliqués, vous avez une vue claire et instantanée de votre santé financière.",
-    link: "/manual#tresorerie"
-  },
-  {
-    value: "item-3",
-    question: "Comment l'assistant IA 'TRIX Business' peut-il m'aider concrètement ?",
-    answer: "TRIX Business est comme avoir un consultant personnel disponible 24/7. Posez-lui des questions sur vos stratégies marketing, financières ou de gestion, et il vous fournira des conseils pratiques et des analyses basées sur les meilleures pratiques. C'est un véritable copilote pour accélérer votre croissance.",
-    link: "/ia"
-  },
-  {
-    value: "item-4",
-    question: "La gestion de plusieurs employés est-elle possible ?",
-    answer: "Oui, notre mode administrateur vous permet de créer des comptes pour vos employés et de gérer leurs permissions d'accès. Vous pouvez décider qui a accès à la trésorerie, à la gestion des clients, etc. C'est une solution idéale pour les équipes en croissance.",
-    link: "/manual#utilisateurs"
-  },
-  {
-    value: "item-5",
-    question: "Est-ce que mes données sont en sécurité ?",
-    answer: "La sécurité est notre priorité absolue. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir accéder à vos informations. De plus, le journal d'activité vous offre une traçabilité complète de chaque action effectuée.",
-    link: "/manual#journal"
-  },
-  {
-    value: "item-6",
-    question: "Comment puis-je suivre les paiements de mes clients ?",
-    answer: "La section 'Clients' est faite pour ça. Chaque fiche client affiche un solde en temps réel (total facturé vs total payé). Vous pouvez enregistrer des paiements partiels ou complets directement depuis leur profil, ce qui simplifie énormément le suivi des créances.",
-    link: "/manual#clients"
-  },
-  {
-    value: "item-7",
-    question: "Je vends des produits. Y a-t-il une gestion de stock ?",
-    answer: "Oui ! Notre module de gestion de stock vous permet de suivre votre inventaire, d'ajuster les quantités et de définir des seuils d'alerte pour ne jamais être en rupture. C'est un outil puissant pour optimiser vos commandes et éviter les pertes.",
-    link: "/manual#stock"
-  }
+    {
+      value: "item-1",
+      question: "TTR Gestion est-il adapté à mon secteur d'activité ?",
+      answer: "Absolument. TTR Gestion a été conçu pour être incroyablement flexible. Que vous soyez dans la restauration, la santé, le commerce de détail, l'artisanat ou consultant, notre application s'adapte à vos besoins spécifiques. Vous pouvez même personnaliser les types de prestations pour qu'ils correspondent parfaitement à votre métier.",
+      link: "/sectors"
+    },
+    {
+      value: "item-2",
+      question: "En quoi TTR Gestion peut-il simplifier ma gestion financière ?",
+      answer: "Notre module 'Trésorerie' centralise toutes vos entrées et sorties d'argent. En un coup d'œil, vous suivez vos revenus, vos dépenses et connaissez votre solde de caisse en temps réel. Fini les tableurs compliqués, vous avez une vue claire et instantanée de votre santé financière.",
+      link: "/manual#tresorerie"
+    },
+    {
+      value: "item-3",
+      question: "Comment l'assistant IA 'TRIX Business' peut-il m'aider concrètement ?",
+      answer: "TRIX Business est comme avoir un consultant personnel disponible 24/7. Posez-lui des questions sur vos stratégies marketing, financières ou de gestion, et il vous fournira des conseils pratiques et des analyses basées sur les meilleures pratiques. C'est un véritable copilote pour accélérer votre croissance.",
+      link: "/ia"
+    },
+    {
+      value: "item-4",
+      question: "La gestion de plusieurs employés est-elle possible ?",
+      answer: "Oui, notre mode administrateur vous permet de créer des comptes pour vos employés et de gérer leurs permissions d'accès. Vous pouvez décider qui a accès à la trésorerie, à la gestion des clients, etc. C'est une solution idéale pour les équipes en croissance.",
+      link: "/manual#utilisateurs"
+    },
+    {
+      value: "item-5",
+      question: "Est-ce que mes données sont en sécurité ?",
+      answer: "La sécurité est notre priorité absolue. Vos données sont hébergées sur l'infrastructure sécurisée de Google. L'architecture de TTR Gestion garantit que vous êtes la seule personne à pouvoir accéder à vos informations. De plus, le journal d'activité vous offre une traçabilité complète de chaque action effectuée.",
+      link: "/privacy"
+    },
+    {
+      value: "item-6",
+      question: "Comment puis-je suivre les paiements de mes clients ?",
+      answer: "La section 'Clients' est faite pour ça. Chaque fiche client affiche un solde en temps réel (total facturé vs total payé). Vous pouvez enregistrer des paiements partiels ou complets directement depuis leur profil, ce qui simplifie énormément le suivi des créances.",
+      link: "/manual#clients"
+    },
+    {
+      value: "item-7",
+      question: "Je vends des produits. Y a-t-il une gestion de stock ?",
+      answer: "Oui ! Notre module de gestion de stock vous permet de suivre votre inventaire, d'ajuster les quantités et de définir des seuils d'alerte pour ne jamais être en rupture. C'est un outil puissant pour optimiser vos commandes et éviter les pertes.",
+      link: "/manual#stock"
+    },
+    {
+        value: "item-8",
+        question: "Puis-je essayer TTR Gestion avant de m'engager ?",
+        answer: "Bien sûr. Nous proposons une période d'essai gratuite complète, sans carte de crédit requise. Vous pouvez explorer toutes les fonctionnalités et voir par vous-même comment l'application peut transformer votre quotidien. Créez votre compte en quelques clics et commencez dès maintenant.",
+        link: "/register"
+    },
+    {
+        value: "item-9",
+        question: "L'application est-elle compliquée à prendre en main ?",
+        answer: "Pas du tout. La simplicité est au cœur de notre conception. L'interface est pensée pour être intuitive, même sans aucune connaissance technique. De plus, notre manuel d'utilisation détaillé et nos tutoriels vidéo sont là pour vous guider à chaque étape.",
+        link: "/manual"
+    },
+    {
+        value: "item-10",
+        question: "Quels sont les avantages par rapport à un simple tableur ?",
+        answer: "TTR Gestion va bien au-delà d'un tableur. Il automatise les calculs, centralise vos données (clients, ventes, stock), offre une vue d'ensemble en temps réel avec des graphiques, sécurise vos informations et vous fait gagner un temps précieux en évitant la double saisie et les erreurs. C'est un système intégré pour piloter, et non juste lister.",
+        link: "/details"
+    }
 ]
 
 export default function SupportPage() {
@@ -211,28 +229,28 @@ export default function SupportPage() {
               <CardTitle>Ressources</CardTitle>
             </CardHeader>
             <CardContent className="space-y-1">
-                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                <LoaderLink href="/shareholder" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
                     <div className="flex items-center gap-3">
                         <Handshake className="size-5 text-muted-foreground" />
                         <span className="text-sm">Devenir actionnaire</span>
                     </div>
                     <ChevronRight className="size-4 text-muted-foreground" />
                 </LoaderLink>
-                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                <LoaderLink href="/about" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
                     <div className="flex items-center gap-3">
                         <Info className="size-5 text-muted-foreground" />
                         <span className="text-sm">À propos de TTR Gestion</span>
                     </div>
                     <ChevronRight className="size-4 text-muted-foreground" />
                 </LoaderLink>
-                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                <LoaderLink href="/privacy" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
                     <div className="flex items-center gap-3">
                         <Shield className="size-5 text-muted-foreground" />
                         <span className="text-sm">Politique de confidentialité</span>
                     </div>
                     <ChevronRight className="size-4 text-muted-foreground" />
                 </LoaderLink>
-                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                <LoaderLink href="/terms" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
                     <div className="flex items-center gap-3">
                         <FileText className="size-5 text-muted-foreground" />
                         <span className="text-sm">Politique d'utilisation</span>
@@ -266,5 +284,3 @@ export default function SupportPage() {
     </main>
   );
 }
-
-    
