@@ -55,12 +55,6 @@ export default function RegisterPage() {
                 <Link href="#">S'inscrire avec une autre méthode</Link>
             </Button>
           </div>
-          <div className="mt-4 text-center text-sm">
-            Vous avez déjà un compte?{" "}
-            <Link href="/login" className="underline">
-              Se connecter
-            </Link>
-          </div>
         </CardContent>
       </Card>
     </div>

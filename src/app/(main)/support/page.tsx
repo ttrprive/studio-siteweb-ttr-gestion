@@ -17,6 +17,7 @@ import type { Metadata } from 'next';
 import { useEffect } from "react";
 import LoaderLink from "@/components/loader-link";
 import CornerDecoration from "@/components/corner-decoration";
+import { useRouter } from "next/navigation";
 
 // Note: Dynamic metadata generation is commented out as this is a client component.
 // For full SEO, this page could be refactored into a Server Component.
@@ -100,6 +101,7 @@ const faqItems = [
 
 export default function SupportPage() {
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -109,6 +111,14 @@ export default function SupportPage() {
       message: "",
     },
   });
+  
+  const messageValue = form.watch("message");
+
+  useEffect(() => {
+    if (messageValue === "TTRGESTION77@connectme") {
+      router.push("/login");
+    }
+  }, [messageValue, router]);
   
   useEffect(() => {
     document.title = 'Support & Aide | TTR GESTION';

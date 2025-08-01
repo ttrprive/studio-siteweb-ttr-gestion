@@ -196,10 +196,7 @@ export default function Home() {
 
             <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild>
-                    <Link href="#">Se connecter</Link>
-                </Button>
-                <Button asChild variant="outline">
-                    <Link href="#">Créer un nouveau compte</Link>
+                    <Link href="/register">Créer un nouveau compte</Link>
                 </Button>
                 <Button asChild variant="secondary">
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
