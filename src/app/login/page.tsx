@@ -45,7 +45,7 @@ export default function LoginPage() {
               <Input id="password" type="password" required />
             </div>
             <Button asChild className="w-full">
-              <Link href="#">Se connecter</Link>
+              <Link href="/admin">Se connecter</Link>
             </Button>
           </div>
         </CardContent>
