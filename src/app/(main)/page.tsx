@@ -199,6 +199,9 @@ export default function Home() {
                 <Button asChild>
                     <Link href="#">Créer un nouveau compte</Link>
                 </Button>
+                <Button asChild variant="outline">
+                    <Link href="#">Se connecter</Link>
+                </Button>
                 <Button asChild variant="secondary">
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
                 </Button>
