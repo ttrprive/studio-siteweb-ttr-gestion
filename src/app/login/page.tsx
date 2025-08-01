@@ -47,15 +47,6 @@ export default function LoginPage() {
             <Button asChild className="w-full">
               <Link href="#">Se connecter</Link>
             </Button>
-             <Button variant="outline" className="w-full" asChild>
-                <Link href="#">Se connecter avec une autre méthode</Link>
-            </Button>
-          </div>
-          <div className="mt-4 text-center text-sm">
-            Vous n'avez pas de compte?{" "}
-            <Link href="#" className="underline">
-              S'inscrire
-            </Link>
           </div>
         </CardContent>
       </Card>
