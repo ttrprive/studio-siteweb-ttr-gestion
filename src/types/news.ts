@@ -6,6 +6,7 @@ export interface NewsItem {
   title: string;
   description: string;
   date: string; // ISO string
+  imageUrl?: string;
   createdAt?: any; // for Firestore serverTimestamp
 }
 
@@ -13,4 +14,5 @@ export interface NewsItemCreate {
   category: NewsCategory;
   title: string;
   description: string;
+  imageUrl?: string;
 }

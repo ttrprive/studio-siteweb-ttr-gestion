@@ -90,6 +90,7 @@ export const getNews = async (): Promise<NewsItem[]> => {
         description: data.description,
         category: data.category,
         date: new Date(data.createdAt.seconds * 1000).toISOString(),
+        imageUrl: data.imageUrl,
         createdAt: data.createdAt,
       });
     });

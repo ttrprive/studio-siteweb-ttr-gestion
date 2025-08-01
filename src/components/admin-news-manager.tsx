@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from '@/components/ui/input';
@@ -22,6 +23,7 @@ const newsSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
   category: z.enum(["Nouveauté", "Amélioration", "Correction", "Annonce"]),
+  imageUrl: z.string().url("Veuillez entrer une URL d'image valide.").optional().or(z.literal('')),
 });
 
 type NewsFormData = z.infer<typeof newsSchema>;
@@ -38,6 +40,7 @@ const AdminNewsManager = () => {
       title: "",
       description: "",
       category: "Nouveauté",
+      imageUrl: "",
     },
   });
   
@@ -55,7 +58,7 @@ const AdminNewsManager = () => {
   const onSubmit = async (data: NewsFormData) => {
     setIsSubmitting(true);
     try {
-      await addNews(data as { title: string; description: string; category: NewsCategory });
+      await addNews(data as { title: string; description: string; category: NewsCategory; imageUrl?: string });
       toast({
         title: "Succès",
         description: "L'actualité a été ajoutée avec succès.",
@@ -129,6 +132,17 @@ const AdminNewsManager = () => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>URL de l'image (optionnel)</FormLabel>
+                    <FormControl><Input placeholder="https://exemple.com/image.png" {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? "Ajout en cours..." : "Ajouter l'actualité"}
               </Button>
@@ -152,17 +166,24 @@ const AdminNewsManager = () => {
                     <p className="text-sm text-muted-foreground text-center py-8">Aucune actualité à afficher.</p>
                 ) : (
                     news.map(item => (
-                        <div key={item.id} className="p-3 rounded-lg border bg-card">
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <Badge variant="secondary" className="mb-2">{item.category}</Badge>
-                                    <p className="font-semibold">{item.title}</p>
+                        <div key={item.id} className="p-3 rounded-lg border bg-card flex gap-4 items-start">
+                           {item.imageUrl && (
+                                <div className="relative w-16 h-16 rounded-md overflow-hidden shrink-0">
+                                    <Image src={item.imageUrl} alt={item.title} fill className="object-cover" />
                                 </div>
-                                <span className="text-xs text-muted-foreground whitespace-nowrap">
-                                    {format(new Date(item.date), 'dd/MM/yyyy', { locale: fr })}
-                                </span>
-                            </div>
-                            <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                           )}
+                           <div className="flex-grow">
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <Badge variant="secondary" className="mb-2">{item.category}</Badge>
+                                        <p className="font-semibold leading-tight">{item.title}</p>
+                                    </div>
+                                    <span className="text-xs text-muted-foreground whitespace-nowrap">
+                                        {format(new Date(item.date), 'dd/MM/yyyy', { locale: fr })}
+                                    </span>
+                                </div>
+                                <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                           </div>
                         </div>
                     ))
                 )}

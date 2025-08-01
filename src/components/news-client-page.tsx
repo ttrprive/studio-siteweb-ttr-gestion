@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight, Megaphone, Annoyed } from 'lucide-react';
+import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight, Megaphone, Annoyed, Image as ImageIcon } from 'lucide-react';
 import LoaderLink from '@/components/loader-link';
 import type { NewsItem } from '@/types/news';
 import { getNews } from '@/firebase/services';
@@ -160,9 +160,14 @@ export default function NewsClientPage() {
                   return (
                     <div key={item.id} className="relative flex items-start">
                       <div className={`absolute left-[-12px] top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${style.bgColor} ${style.color}`}>
-                        {style.icon}
+                        {item.imageUrl ? <ImageIcon className="size-5" /> : style.icon}
                       </div>
                       <Card className="ml-6 w-full">
+                        {item.imageUrl && (
+                            <div className="relative w-full aspect-video rounded-t-lg overflow-hidden">
+                                <Image src={item.imageUrl} alt={item.title} fill className="object-cover" />
+                            </div>
+                        )}
                         <CardHeader>
                           <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
                             <Badge variant="secondary" className="w-fit">{item.category}</Badge>
