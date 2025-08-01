@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Handshake, Info, Shield, FileText, ChevronRight } from "lucide-react";
 import type { Metadata } from 'next';
 import { useEffect } from "react";
 import LoaderLink from "@/components/loader-link";
@@ -190,10 +190,37 @@ export default function SupportPage() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Centre d'aide</CardTitle>
+              <CardTitle>Ressources</CardTitle>
             </CardHeader>
-            <CardContent>
-               <p className="text-sm text-muted-foreground">Trouvez des réponses à vos questions les plus fréquentes.</p>
+            <CardContent className="space-y-1">
+                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                    <div className="flex items-center gap-3">
+                        <Handshake className="size-5 text-muted-foreground" />
+                        <span className="text-sm">Devenir actionnaire</span>
+                    </div>
+                    <ChevronRight className="size-4 text-muted-foreground" />
+                </LoaderLink>
+                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                    <div className="flex items-center gap-3">
+                        <Info className="size-5 text-muted-foreground" />
+                        <span className="text-sm">À propos de TTR Gestion</span>
+                    </div>
+                    <ChevronRight className="size-4 text-muted-foreground" />
+                </LoaderLink>
+                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                    <div className="flex items-center gap-3">
+                        <Shield className="size-5 text-muted-foreground" />
+                        <span className="text-sm">Politique de confidentialité</span>
+                    </div>
+                    <ChevronRight className="size-4 text-muted-foreground" />
+                </LoaderLink>
+                <LoaderLink href="#" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                    <div className="flex items-center gap-3">
+                        <FileText className="size-5 text-muted-foreground" />
+                        <span className="text-sm">Politique d'utilisation</span>
+                    </div>
+                    <ChevronRight className="size-4 text-muted-foreground" />
+                </LoaderLink>
             </CardContent>
           </Card>
         </div>
