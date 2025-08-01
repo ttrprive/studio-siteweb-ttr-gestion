@@ -2,6 +2,7 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import AdminNewsManager from '@/components/admin-news-manager';
 
 export default function AdminPage() {
   
@@ -21,19 +22,9 @@ export default function AdminPage() {
         </div>
         
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="flex flex-col">
-                <CardHeader>
-                    <CardTitle>Gérer les Actualités</CardTitle>
-                    <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                   {/* Le contenu pour la gestion des actualités viendra ici */}
-                   <p className="text-sm text-muted-foreground">Prochainement : Affichez la liste des actualités et ajoutez-en de nouvelles.</p>
-                </CardContent>
-                <div className="p-6 pt-0">
-                    <Button className="w-full" disabled>Ajouter une actualité</Button>
-                </div>
-            </Card>
+            <div className="md:col-span-2 lg:col-span-3">
+                <AdminNewsManager />
+            </div>
             <Card className="flex flex-col">
                 <CardHeader>
                     <CardTitle>Gérer le Carrousel</CardTitle>

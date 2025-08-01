@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -10,8 +9,11 @@ import { Button } from '@/components/ui/button';
 import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight } from 'lucide-react';
+import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight, Megaphone, Annoyed } from 'lucide-react';
 import LoaderLink from '@/components/loader-link';
+import type { NewsItem } from '@/types/news';
+import { getNews } from '@/firebase/services';
+import { Skeleton } from './ui/skeleton';
 
 const promotions = [
   {
@@ -32,61 +34,32 @@ const promotions = [
   }
 ];
 
-const newsItems = [
-  {
-    category: "Nouveauté",
-    title: "Lancement de TTR Gestion !",
-    date: "2024-07-20T10:00:00Z",
-    description: "Nous sommes fiers de lancer la première version de TTR Gestion, votre nouvel outil pour une gestion simplifiée et intelligente. Explorez les fonctionnalités et donnez-nous votre avis !",
-    icon: <Rocket className="size-5" />,
-    color: "text-blue-500",
-    bgColor: "bg-blue-500/10",
-  },
-  {
-    category: "Amélioration",
-    title: "Optimisation de l'affichage mobile",
-    date: "2024-07-22T14:30:00Z",
-    description: "L'interface a été entièrement revue pour une expérience utilisateur fluide et intuitive sur tous vos appareils mobiles.",
-    icon: <Wrench className="size-5" />,
-    color: "text-green-500",
-    bgColor: "bg-green-500/10",
-  },
-  {
-    category: "Correction",
-    title: "Correction d'un bug d'affichage",
-    date: "2024-07-23T09:00:00Z",
-    description: "Un problème mineur qui affectait l'affichage des totaux dans le tableau de bord financier a été résolu. Les calculs sont désormais parfaitement justes.",
-    icon: <Bug className="size-5" />,
-    color: "text-red-500",
-    bgColor: "bg-red-500/10",
-  },
-  {
-    category: "Nouveauté",
-    title: "Intégration de l'assistant IA (Bêta)",
-    date: "2024-07-25T18:00:00Z",
-    description: "Découvrez notre nouvel assistant intelligent ! Posez des questions en langage naturel sur vos données et obtenez des rapports instantanés. Fonctionnalité en cours de développement.",
-    icon: <Lightbulb className="size-5" />,
-    color: "text-purple-500",
-    bgColor: "bg-purple-500/10",
-  },
-];
+const categoryStyles = {
+    "Nouveauté": { icon: <Rocket className="size-5" />, color: "text-blue-500", bgColor: "bg-blue-500/10" },
+    "Amélioration": { icon: <Wrench className="size-5" />, color: "text-green-500", bgColor: "bg-green-500/10" },
+    "Correction": { icon: <Bug className="size-5" />, color: "text-red-500", bgColor: "bg-red-500/10" },
+    "Annonce": { icon: <Megaphone className="size-5" />, color: "text-purple-500", bgColor: "bg-purple-500/10" }
+};
 
-type FormattedNewsItem = typeof newsItems[0] & { timeAgo: string };
+type FormattedNewsItem = NewsItem & { timeAgo: string };
 
 export default function NewsClientPage() {
-  const [formattedNews, setFormattedNews] = useState<FormattedNewsItem[]>([]);
+  const [news, setNews] = useState<FormattedNewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   useEffect(() => {
-    const getFormattedNews = () => {
-      return newsItems
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .map(item => ({
-          ...item,
-          timeAgo: formatDistanceToNow(new Date(item.date), { addSuffix: true, locale: fr })
+    const fetchNews = async () => {
+        setLoading(true);
+        const newsItems = await getNews();
+        const formatted = newsItems.map(item => ({
+            ...item,
+            timeAgo: formatDistanceToNow(new Date(item.date), { addSuffix: true, locale: fr })
         }));
+        setNews(formatted);
+        setLoading(false);
     };
-    setFormattedNews(getFormattedNews());
+    fetchNews();
   }, []);
 
   return (
@@ -154,25 +127,57 @@ export default function NewsClientPage() {
           <div className="absolute left-[12px] top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
           
           <div className="space-y-12">
-            {formattedNews.map((item, index) => (
-              <div key={index} className="relative flex items-start">
-                <div className={`absolute left-[-12px] top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${item.bgColor} ${item.color}`}>
-                  {item.icon}
-                </div>
-                <Card className="ml-6 w-full">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="w-fit">{item.category}</Badge>
-                      <span className="text-sm text-muted-foreground">{item.timeAgo}</span>
+            {loading ? (
+                [...Array(3)].map((_, i) => (
+                    <div key={i} className="relative flex items-start">
+                        <div className="absolute left-[-12px] top-1 flex size-9 items-center justify-center rounded-full border-4 border-background bg-muted">
+                           <Skeleton className="size-5 rounded-full" />
+                        </div>
+                        <Card className="ml-6 w-full">
+                            <CardHeader>
+                                <div className="space-y-2">
+                                    <Skeleton className="h-4 w-1/4" />
+                                    <Skeleton className="h-6 w-3/4" />
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-2/3 mt-2" />
+                            </CardContent>
+                        </Card>
                     </div>
-                    <CardTitle>{item.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{item.description}</p>
-                  </CardContent>
+                ))
+            ) : news.length === 0 ? (
+                <Card className="ml-6 w-full text-center py-12">
+                    <CardContent>
+                        <Annoyed className="size-12 mx-auto text-muted-foreground" />
+                        <p className="mt-4 text-muted-foreground">Aucune actualité pour le moment.</p>
+                    </CardContent>
                 </Card>
-              </div>
-            ))}
+            ) : (
+                news.map((item) => {
+                  const style = categoryStyles[item.category];
+                  return (
+                    <div key={item.id} className="relative flex items-start">
+                      <div className={`absolute left-[-12px] top-1 flex size-9 items-center justify-center rounded-full border-4 border-background ${style.bgColor} ${style.color}`}>
+                        {style.icon}
+                      </div>
+                      <Card className="ml-6 w-full">
+                        <CardHeader>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                            <Badge variant="secondary" className="w-fit">{item.category}</Badge>
+                            <span className="text-sm text-muted-foreground">{item.timeAgo}</span>
+                          </div>
+                          <CardTitle>{item.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground">{item.description}</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  );
+                })
+            )}
           </div>
         </div>
       </div>
