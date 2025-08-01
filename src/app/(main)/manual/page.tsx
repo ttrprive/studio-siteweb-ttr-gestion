@@ -68,7 +68,7 @@ export default function ManualPage() {
                     />
                 </Section>
 
-                <Section id="gemini-business" title="Gemini Business (Assistant IA)">
+                <Section id="trix-business" title="TRIX Business (Assistant IA)">
                     <SectionContent 
                         text="Votre consultant IA personnel. Posez des questions sur le marketing, la finance, ou la gestion et obtenez des stratégies et des conseils pratiques pour votre entreprise. Un simple clic vous connecte à une intelligence artificielle de pointe, prête à propulser votre stratégie au niveau supérieur."
                         imageHint1="ai chat interface"

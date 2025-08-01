@@ -39,9 +39,9 @@ const features = [
   },
   {
     icon: <Bot className="size-8 mb-4 text-primary" />,
-    title: "Gemini Business (Assistant IA)",
+    title: "TRIX Business (Assistant IA)",
     description: "Votre consultant IA personnel pour des stratégies et conseils pratiques.",
-    link: "/manual#gemini-business"
+    link: "/manual#trix-business"
   },
   {
     icon: <Blocks className="size-8 mb-4 text-primary" />,

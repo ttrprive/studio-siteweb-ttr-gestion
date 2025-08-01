@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Newspaper, Info, LifeBuoy, Briefcase } from "lucide-react";
+import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot } from "lucide-react";
 
 import {
   SidebarHeader,
@@ -44,6 +44,14 @@ export function MainSidebar() {
               <LoaderLink href="/details">
                 <Info />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Détails</span>
+              </LoaderLink>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+           <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={isActive("/ia")} tooltip={{children: "IA", side: "left"}}>
+              <LoaderLink href="/ia">
+                <Bot />
+                <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">IA</span>
               </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
