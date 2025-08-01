@@ -1,13 +1,16 @@
+
 "use client";
 
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Star, StarHalf } from 'lucide-react';
+import { Star, StarHalf, ArrowRight } from 'lucide-react';
 import Autoplay from "embla-carousel-autoplay";
+import LoaderLink from './loader-link';
+import { Button } from './ui/button';
 
-const testimonials = [
+export const testimonials = [
   {
     name: "Sophie L.",
     role: "Gérante de boutique",
@@ -45,7 +48,7 @@ const testimonials = [
   }
 ];
 
-const Rating = ({ value }: { value: number }) => {
+export const Rating = ({ value }: { value: number }) => {
   const fullStars = Math.floor(value);
   const halfStar = value % 1 !== 0;
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
@@ -68,13 +71,16 @@ export default function TestimonialsSection() {
   return (
     <section className="w-full py-20 px-4 md:px-8 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto relative">
           <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
             Ce que disent nos utilisateurs
           </h2>
           <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">
             Découvrez pourquoi des centaines d'entrepreneurs nous font confiance pour piloter leur activité.
           </p>
+          <Button variant="link" asChild className="absolute -top-4 right-0" data-aos="fade-left">
+            <LoaderLink href="/testimonials">Voir tous les avis <ArrowRight className="ml-2 size-4" /></LoaderLink>
+          </Button>
         </div>
 
         <Carousel
