@@ -71,16 +71,13 @@ export default function TestimonialsSection() {
   return (
     <section className="w-full py-20 px-4 md:px-8 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center max-w-4xl mx-auto relative">
+        <div className="text-center max-w-4xl mx-auto">
           <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
             Ce que disent nos utilisateurs
           </h2>
           <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">
             Découvrez pourquoi des centaines d'entrepreneurs nous font confiance pour piloter leur activité.
           </p>
-          <Button variant="link" asChild className="absolute -top-4 right-0" data-aos="fade-left">
-            <LoaderLink href="/testimonials">Voir tous les avis <ArrowRight className="ml-2 size-4" /></LoaderLink>
-          </Button>
         </div>
 
         <Carousel
@@ -122,6 +119,15 @@ export default function TestimonialsSection() {
             ))}
           </CarouselContent>
         </Carousel>
+        
+        <div className="mt-12 text-center" data-aos="fade-up">
+            <Button asChild>
+                <LoaderLink href="/testimonials">
+                    Voir tous les avis
+                    <ArrowRight className="ml-2 size-4" />
+                </LoaderLink>
+            </Button>
+        </div>
       </div>
     </section>
   );
