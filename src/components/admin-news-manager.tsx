@@ -13,13 +13,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { addNews, getNews } from '@/firebase/services';
+import { addNews, getNews, deleteNews, updateNews } from '@/firebase/services';
 import type { NewsItem, NewsCategory, NewsItemCreate } from '@/types/news';
 import { Badge } from './ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Skeleton } from './ui/skeleton';
 import { uploadMedia } from '@/app/actions/uploadImage';
+import { Trash2, Edit } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
 
 const newsSchema = z.object({
@@ -30,6 +33,78 @@ const newsSchema = z.object({
 });
 
 type NewsFormData = z.infer<typeof newsSchema>;
+
+// Edit Form Schema
+const editNewsSchema = z.object({
+  title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
+  description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
+});
+type EditNewsFormData = z.infer<typeof editNewsSchema>;
+
+const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNewsUpdated: () => void }) => {
+    const { toast } = useToast();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const form = useForm<EditNewsFormData>({
+        resolver: zodResolver(editNewsSchema),
+        defaultValues: {
+            title: newsItem.title,
+            description: newsItem.description,
+        },
+    });
+
+    const onSubmit = async (data: EditNewsFormData) => {
+        setIsSubmitting(true);
+        try {
+            await updateNews(newsItem.id, data);
+            toast({
+                title: "Succès",
+                description: "L'actualité a été mise à jour.",
+            });
+            onNewsUpdated();
+            setOpen(false);
+        } catch (error) {
+            toast({
+                title: "Erreur",
+                description: "Impossible de mettre à jour l'actualité.",
+                variant: "destructive",
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <Button variant="ghost" size="icon" className="shrink-0">
+                    <Edit className="size-4" />
+                </Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Modifier l'actualité</DialogTitle>
+                </DialogHeader>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                        <FormField control={form.control} name="title" render={({ field }) => (
+                            <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                        )} />
+                        <FormField control={form.control} name="description" render={({ field }) => (
+                            <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea className="min-h-[120px]" {...field} /></FormControl><FormMessage /></FormItem>
+                        )} />
+                        <DialogFooter>
+                            <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
+                            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
+                        </DialogFooter>
+                    </form>
+                </Form>
+            </DialogContent>
+        </Dialog>
+    );
+};
+
 
 const AdminNewsManager = () => {
   const { toast } = useToast();
@@ -56,6 +131,23 @@ const AdminNewsManager = () => {
   useEffect(() => {
     fetchNews();
   }, []);
+
+  const handleDelete = async (id: string) => {
+      try {
+          await deleteNews(id);
+          toast({
+              title: "Succès",
+              description: "L'actualité a été supprimée.",
+          });
+          await fetchNews();
+      } catch (error) {
+          toast({
+              title: "Erreur",
+              description: "Impossible de supprimer l'actualité.",
+              variant: "destructive",
+          });
+      }
+  };
 
   const onSubmit = async (data: NewsFormData) => {
     setIsSubmitting(true);
@@ -102,7 +194,7 @@ const AdminNewsManager = () => {
     <Card className="flex flex-col">
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
-        <CardDescription>Ajoutez ou supprimez les actualités du site.</CardDescription>
+        <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-8 md:grid-cols-2">
         <div>
@@ -200,7 +292,7 @@ const AdminNewsManager = () => {
                     news.map(item => (
                         <div key={item.id} className="p-3 rounded-lg border bg-card flex gap-4 items-start">
                            {item.imageUrl && (
-                                <div className="relative w-16 h-16 rounded-md overflow-hidden shrink-0">
+                                <div className="relative w-16 h-16 rounded-md overflow-hidden shrink-0 bg-muted">
                                     <Image src={item.imageUrl} alt={item.title} fill className="object-cover" />
                                 </div>
                            )}
@@ -215,6 +307,28 @@ const AdminNewsManager = () => {
                                     </span>
                                 </div>
                                 <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                           </div>
+                           <div className="flex flex-col">
+                               <EditNewsDialog newsItem={item} onNewsUpdated={fetchNews} />
+                               <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                      <Button variant="ghost" size="icon" className="shrink-0">
+                                          <Trash2 className="size-4 text-destructive" />
+                                      </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                      <AlertDialogHeader>
+                                          <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                                          <AlertDialogDescription>
+                                              Cette action est irréversible et supprimera définitivement cette actualité.
+                                          </AlertDialogDescription>
+                                      </AlertDialogHeader>
+                                      <AlertDialogFooter>
+                                          <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                          <AlertDialogAction onClick={() => handleDelete(item.id)}>Supprimer</AlertDialogAction>
+                                      </AlertDialogFooter>
+                                  </AlertDialogContent>
+                              </AlertDialog>
                            </div>
                         </div>
                     ))

@@ -109,6 +109,33 @@ export const getNews = async (): Promise<NewsItem[]> => {
   }
 };
 
+export const deleteNews = async (id: string) => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    throw new Error("La base de données n'est pas configurée.");
+  }
+  try {
+    await deleteDoc(doc(db, 'news', id));
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'actualité : ", error);
+    throw new Error("Impossible de supprimer l'actualité.");
+  }
+};
+
+export const updateNews = async (id: string, data: { title: string; description: string; }) => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    throw new Error("La base de données n'est pas configurée.");
+  }
+  try {
+    const newsRef = doc(db, 'news', id);
+    await updateDoc(newsRef, data);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de l'actualité : ", error);
+    throw new Error("Impossible de mettre à jour l'actualité.");
+  }
+};
+
 // ====== PROMOTIONS (CAROUSEL) ======
 
 export const addPromotion = async (promotion: PromotionCreate) => {
@@ -166,6 +193,20 @@ export const deletePromotion = async (id: string) => {
   } catch (error) {
     console.error("Erreur lors de la suppression de la promotion : ", error);
     throw new Error("Impossible de supprimer la promotion.");
+  }
+};
+
+export const updatePromotion = async (id: string, data: { title: string; description: string; link?: string; }) => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    throw new Error("La base de données n'est pas configurée.");
+  }
+  try {
+    const promotionRef = doc(db, 'promotions', id);
+    await updateDoc(promotionRef, data);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de la promotion : ", error);
+    throw new Error("Impossible de mettre à jour la promotion.");
   }
 };
 
