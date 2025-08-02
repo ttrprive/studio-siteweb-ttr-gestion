@@ -6,7 +6,6 @@ export interface Promotion {
   title: string;
   description: string;
   src: string;
-  link?: string;
   alt?: string;
   createdAt?: any;
 }
@@ -16,6 +15,5 @@ export interface PromotionCreate {
   title: string;
   description: string;
   src: string;
-  link?: string;
   alt?: string;
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -93,14 +94,6 @@ export default function NewsClientPage() {
                       <Badge className="mb-2 bg-primary/80 border-primary text-primary-foreground backdrop-blur-sm"><Star className="mr-2 size-4" /> Promotion</Badge>
                       <h2 className="text-xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
                       <p className="text-sm md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
-                      {promo.link && (
-                        <Button asChild size="lg" className="mt-6">
-                            <LoaderLink href={promo.link}>
-                                Découvrir
-                                <ArrowRight className="ml-2"/>
-                            </LoaderLink>
-                        </Button>
-                      )}
                     </div>
                   </div>
                 </CarouselItem>

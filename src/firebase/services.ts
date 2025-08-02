@@ -171,7 +171,6 @@ export const getPromotions = async (): Promise<Promotion[]> => {
         description: data.description,
         type: data.type,
         src: data.src,
-        link: data.link,
         alt: data.alt,
         createdAt: data.createdAt,
       });
@@ -196,7 +195,7 @@ export const deletePromotion = async (id: string) => {
   }
 };
 
-export const updatePromotion = async (id: string, data: { title: string; description: string; link?: string; }) => {
+export const updatePromotion = async (id: string, data: { title: string; description: string; }) => {
   if (!db) {
     console.error("Firestore is not initialized.");
     throw new Error("La base de données n'est pas configurée.");

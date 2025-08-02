@@ -26,7 +26,6 @@ const promotionSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
   type: z.enum(["image", "video"]),
-  link: z.string().url("Veuillez entrer une URL valide.").optional().or(z.literal('')),
   media: z.instanceof(File).refine(file => file.size > 0, "Un fichier est requis."),
 });
 
@@ -35,7 +34,6 @@ type PromotionFormData = z.infer<typeof promotionSchema>;
 const editPromotionSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
-  link: z.string().url("Veuillez entrer une URL valide.").optional().or(z.literal('')),
 });
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
@@ -50,7 +48,6 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
         defaultValues: {
             title: promotion.title,
             description: promotion.description,
-            link: promotion.link || '',
         },
     });
 
@@ -94,9 +91,6 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
                         <FormField control={form.control} name="description" render={({ field }) => (
                             <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={form.control} name="link" render={({ field }) => (
-                            <FormItem><FormLabel>Lien (optionnel)</FormLabel><FormControl><Input {...field} value={field.value ?? ''} /></FormControl><FormMessage /></FormItem>
-                        )} />
                         <DialogFooter>
                             <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
                             <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
@@ -121,7 +115,6 @@ const AdminCarouselManager = () => {
             title: "",
             description: "",
             type: "image",
-            link: "",
         },
     });
 
@@ -169,7 +162,6 @@ const AdminCarouselManager = () => {
                 description: data.description,
                 type: data.type as PromotionType,
                 src: result.url,
-                link: data.link,
                 alt: data.title,
             });
 
@@ -220,9 +212,6 @@ const AdminCarouselManager = () => {
                                     </Select>
                                     <FormMessage />
                                 </FormItem>
-                            )} />
-                             <FormField control={form.control} name="link" render={({ field }) => (
-                                <FormItem><FormLabel>Lien (optionnel)</FormLabel><FormControl><Input placeholder="https://exemple.com/page" {...field} value={field.value ?? ''} /></FormControl><FormMessage /></FormItem>
                             )} />
                              <FormField control={form.control} name="media" render={({ field: { onChange, ...rest } }) => (
                                 <FormItem>
