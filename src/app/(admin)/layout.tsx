@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import LoaderLink from '@/components/loader-link';
 import { LogOut, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function AdminLayout({
   children,
@@ -15,6 +16,7 @@ export default function AdminLayout({
         <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
           <div className="font-bold text-lg">TTR Gestion</div>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <Button variant="outline" size="sm" asChild>
               <LoaderLink href="/">
                 <ArrowLeft className="mr-2 size-4" />
