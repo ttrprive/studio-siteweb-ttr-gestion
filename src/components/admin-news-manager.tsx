@@ -49,8 +49,8 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNew
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: newsItem.title,
-            description: newsItem.description,
+            title: newsItem.title || "",
+            description: newsItem.description || "",
         },
     });
 

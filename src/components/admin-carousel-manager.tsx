@@ -46,8 +46,8 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
         defaultValues: {
-            title: promotion.title,
-            description: promotion.description,
+            title: promotion.title || "",
+            description: promotion.description || "",
         },
     });
 
