@@ -5,11 +5,10 @@ import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 
 // Configuration directe pour garantir que les clés sont disponibles
-// REMPLACEZ LES PLACEHOLDERS CI-DESSOUS PAR VOS VRAIES CLÉS
 cloudinary.config({
-  cloud_name: "VOTRE_CLOUD_NAME", 
-  api_key: "VOTRE_API_KEY", 
-  api_secret: "VOTRE_API_SECRET",
+  cloud_name: 'dnnufnxb7', 
+  api_key: '132848636118531', 
+  api_secret: 'aaBshOdr38vIa39Yl8eHf7XnJcU',
 });
 
 export async function uploadMedia(formData: FormData): Promise<{ success: boolean; url?: string; error?: string }> {
@@ -18,13 +17,6 @@ export async function uploadMedia(formData: FormData): Promise<{ success: boolea
     return { success: false, error: 'Aucun fichier média fourni.' };
   }
 
-  // Vérification que les clés ont été remplacées
-  if (cloudinary.config().api_key === "VOTRE_API_KEY") {
-    const errorMessage = "Les clés API Cloudinary ne sont pas configurées dans le code. Veuillez remplacer les placeholders.";
-    console.error(errorMessage);
-    return { success: false, error: errorMessage };
-  }
-  
   const fileType = file.type.split('/')[0]; // 'image' or 'video'
 
   try {
