@@ -3,6 +3,7 @@ import { getAuth, type Auth } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
 
 // IMPORTANT: Remplacez les chaînes de caractères vides par vos propres clés Firebase.
+// Ce projet utilise Cloud Firestore, et non la Realtime Database.
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "",
@@ -21,6 +22,7 @@ let db: Firestore;
 if (firebaseConfig.apiKey) {
   app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
   auth = getAuth(app);
+  // Initialisation de Cloud Firestore
   db = getFirestore(app);
 } else {
   console.warn("Configuration Firebase manquante. Les fonctionnalités d'authentification et de base de données seront désactivées.");
