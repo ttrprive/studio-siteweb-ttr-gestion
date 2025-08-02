@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -18,12 +19,14 @@ import { Badge } from './ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Skeleton } from './ui/skeleton';
+import { uploadImage } from '@/app/actions/uploadImage';
+
 
 const newsSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
   category: z.enum(["Nouveauté", "Amélioration", "Correction", "Annonce"]),
-  imageUrl: z.string().url("Veuillez entrer une URL d'image valide.").optional().or(z.literal('')),
+  image: z.instanceof(File).optional(),
 });
 
 type NewsFormData = z.infer<typeof newsSchema>;
@@ -40,7 +43,6 @@ const AdminNewsManager = () => {
       title: "",
       description: "",
       category: "Nouveauté",
-      imageUrl: "",
     },
   });
   
@@ -57,8 +59,27 @@ const AdminNewsManager = () => {
 
   const onSubmit = async (data: NewsFormData) => {
     setIsSubmitting(true);
+    let imageUrl: string | undefined = undefined;
+
     try {
-      await addNews(data as { title: string; description: string; category: NewsCategory; imageUrl?: string });
+        if (data.image && data.image.size > 0) {
+            const formData = new FormData();
+            formData.append('image', data.image);
+            const result = await uploadImage(formData);
+
+            if (!result.success || !result.url) {
+                throw new Error(result.error || 'Échec du téléversement de l\'image.');
+            }
+            imageUrl = result.url;
+        }
+
+        await addNews({
+            title: data.title,
+            description: data.description,
+            category: data.category as NewsCategory,
+            imageUrl: imageUrl,
+        });
+
       toast({
         title: "Succès",
         description: "L'actualité a été ajoutée avec succès.",
@@ -66,11 +87,12 @@ const AdminNewsManager = () => {
       form.reset();
       await fetchNews(); // Refresh the list
     } catch (error) {
-      toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de l'ajout de l'actualité.",
-        variant: "destructive",
-      });
+        console.error("Erreur lors de la soumission :", error);
+        toast({
+            title: "Erreur",
+            description: error instanceof Error ? error.message : "Une erreur est survenue lors de l'ajout de l'actualité.",
+            variant: "destructive",
+        });
     } finally {
         setIsSubmitting(false);
     }
@@ -134,11 +156,21 @@ const AdminNewsManager = () => {
               />
               <FormField
                 control={form.control}
-                name="imageUrl"
-                render={({ field }) => (
+                name="image"
+                render={({ field: { onChange, value, ...rest } }) => (
                   <FormItem>
-                    <FormLabel>URL de l'image (optionnel)</FormLabel>
-                    <FormControl><Input placeholder="https://exemple.com/image.png" {...field} /></FormControl>
+                    <FormLabel>Image (optionnel)</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if(file) onChange(file);
+                        }} 
+                        {...rest} 
+                       />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
