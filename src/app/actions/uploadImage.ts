@@ -16,6 +16,13 @@ export async function uploadMedia(formData: FormData): Promise<{ success: boolea
     return { success: false, error: 'Aucun fichier média fourni.' };
   }
 
+  // Vérification que les clés API sont bien chargées
+  if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET || !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+    const errorMessage = "Les variables d'environnement Cloudinary ne sont pas configurées.";
+    console.error(errorMessage);
+    return { success: false, error: errorMessage };
+  }
+  
   const fileType = file.type.split('/')[0]; // 'image' or 'video'
 
   try {
