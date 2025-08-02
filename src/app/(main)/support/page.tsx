@@ -4,7 +4,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Link from 'next/link';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,18 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, Handshake, Info, Shield, FileText, ChevronRight } from "lucide-react";
-import type { Metadata } from 'next';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoaderLink from "@/components/loader-link";
 import CornerDecoration from "@/components/corner-decoration";
 import { useRouter } from "next/navigation";
-
-// Note: Dynamic metadata generation is commented out as this is a client component.
-// For full SEO, this page could be refactored into a Server Component.
-// export const metadata: Metadata = {
-//   title: 'Support & Aide',
-//   description: 'Contactez notre équipe pour toute question ou demande d\'assistance. Trouvez des réponses rapides dans notre FAQ et le manuel d\'utilisation.',
-// };
+import { addSupportMessage } from "@/firebase/services";
 
 
 const formSchema = z.object({
@@ -102,6 +94,8 @@ const faqItems = [
 export default function SupportPage() {
   const { toast } = useToast();
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -125,13 +119,24 @@ export default function SupportPage() {
   }, []);
 
 
-  function onSubmit(data: FormData) {
-    console.log(data);
-    toast({
-      title: "Message envoyé !",
-      description: "Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.",
-    });
-    form.reset();
+  async function onSubmit(data: FormData) {
+    setIsSubmitting(true);
+    try {
+      await addSupportMessage(data);
+      toast({
+        title: "Message envoyé !",
+        description: "Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.",
+      });
+      form.reset();
+    } catch (error) {
+       toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -211,7 +216,9 @@ export default function SupportPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit">Envoyer le message</Button>
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                  </Button>
                 </form>
               </Form>
             </CardContent>

@@ -19,7 +19,7 @@ import { Badge } from './ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Skeleton } from './ui/skeleton';
-import { uploadImage } from '@/app/actions/uploadImage';
+import { uploadMedia } from '@/app/actions/uploadImage';
 
 
 const newsSchema = z.object({
@@ -64,8 +64,8 @@ const AdminNewsManager = () => {
     try {
         if (data.image && data.image.size > 0) {
             const formData = new FormData();
-            formData.append('image', data.image);
-            const result = await uploadImage(formData);
+            formData.append('media', data.image);
+            const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {
                 throw new Error(result.error || 'Échec du téléversement de l\'image.');

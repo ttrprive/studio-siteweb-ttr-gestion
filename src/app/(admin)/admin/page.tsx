@@ -1,8 +1,9 @@
+
 "use client";
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import AdminNewsManager from '@/components/admin-news-manager';
 import AdminCarouselManager from '@/components/admin-carousel-manager';
+import AdminSupportManager from '@/components/admin-support-manager';
 
 export default function AdminPage() {
   
@@ -24,16 +25,7 @@ export default function AdminPage() {
         <div className="flex flex-col gap-8">
             <AdminNewsManager />
             <AdminCarouselManager />
-            <Card className="flex flex-col">
-                <CardHeader>
-                    <CardTitle>Messagerie de Support</CardTitle>
-                    <CardDescription>Consultez les messages envoyés depuis le site.</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                    {/* Le contenu pour la messagerie viendra ici */}
-                    <p className="text-sm text-muted-foreground">Prochainement : Visualisez les demandes de contact et les questions des utilisateurs.</p>
-                </CardContent>
-            </Card>
+            <AdminSupportManager />
         </div>
       </div>
     </main>

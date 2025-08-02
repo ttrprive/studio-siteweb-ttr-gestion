@@ -1,9 +1,11 @@
+
 // src/firebase/services.ts
 import { db } from './config';
-import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc } from 'firebase/firestore';
 import type { Testimonial } from '@/types/testimonial';
 import type { NewsItem, NewsItemCreate } from '@/types/news';
 import type { Promotion, PromotionCreate } from '@/types/promotion';
+import type { SupportMessage, SupportMessageCreate } from '@/types/support';
 
 // ====== REVIEWS ======
 
@@ -159,5 +161,67 @@ export const deletePromotion = async (id: string) => {
   } catch (error) {
     console.error("Erreur lors de la suppression de la promotion : ", error);
     throw new Error("Impossible de supprimer la promotion.");
+  }
+};
+
+
+// ====== SUPPORT MESSAGES ======
+
+export const addSupportMessage = async (message: SupportMessageCreate) => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    throw new Error("La base de données n'est pas configurée.");
+  }
+  try {
+    await addDoc(collection(db, 'supportMessages'), {
+      ...message,
+      createdAt: serverTimestamp(),
+      read: false,
+    });
+  } catch (error) {
+    console.error("Erreur lors de l'envoi du message de support : ", error);
+    throw new Error("Impossible d'envoyer le message.");
+  }
+};
+
+export const getSupportMessages = async (): Promise<SupportMessage[]> => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    return [];
+  }
+  try {
+    const q = query(collection(db, 'supportMessages'), orderBy('createdAt', 'desc'));
+    const querySnapshot = await getDocs(q);
+    const messages: SupportMessage[] = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      messages.push({
+        id: doc.id,
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+        read: data.read,
+        createdAt: data.createdAt,
+      });
+    });
+    return messages;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des messages de support : ", error);
+    return [];
+  }
+};
+
+export const updateSupportMessageReadStatus = async (id: string, read: boolean) => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    throw new Error("La base de données n'est pas configurée.");
+  }
+  try {
+    const messageRef = doc(db, 'supportMessages', id);
+    await updateDoc(messageRef, { read });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du message : ", error);
+    throw new Error("Impossible de mettre à jour le message.");
   }
 };
