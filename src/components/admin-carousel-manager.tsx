@@ -50,6 +50,15 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
             description: promotion.description || "",
         },
     });
+    
+    useEffect(() => {
+        if (promotion) {
+            form.reset({
+                title: promotion.title || "",
+                description: promotion.description || "",
+            });
+        }
+    }, [promotion, form]);
 
     const onSubmit = async (data: EditPromotionFormData) => {
         setIsSubmitting(true);
@@ -170,6 +179,8 @@ const AdminCarouselManager = () => {
                 description: "La promotion a été ajoutée avec succès.",
             });
             form.reset();
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+            if(fileInput) fileInput.value = "";
             await fetchPromotions();
         } catch (error) {
             console.error("Erreur lors de la soumission :", error);

@@ -53,6 +53,15 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNew
             description: newsItem.description || "",
         },
     });
+    
+    useEffect(() => {
+        if (newsItem) {
+            form.reset({
+                title: newsItem.title || "",
+                description: newsItem.description || "",
+            });
+        }
+    }, [newsItem, form]);
 
     const onSubmit = async (data: EditNewsFormData) => {
         setIsSubmitting(true);
@@ -177,6 +186,8 @@ const AdminNewsManager = () => {
         description: "L'actualité a été ajoutée avec succès.",
       });
       form.reset();
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput) fileInput.value = "";
       await fetchNews(); // Refresh the list
     } catch (error) {
         console.error("Erreur lors de la soumission :", error);
