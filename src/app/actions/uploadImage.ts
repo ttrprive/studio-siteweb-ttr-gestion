@@ -4,6 +4,11 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 
+// Charger explicitement les variables d'environnement au début du fichier.
+// C'est une approche plus robuste pour les Server Actions.
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env.local' });
+
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
