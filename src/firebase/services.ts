@@ -1,4 +1,5 @@
 
+
 // src/firebase/services.ts
 import { db } from './config';
 import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc } from 'firebase/firestore';
@@ -32,23 +33,27 @@ export const getReviews = async (): Promise<Testimonial[]> => {
     return [];
   }
   try {
+    // Simplification de la requête pour éviter de devoir créer un index composite manuellement.
+    // On récupère tous les avis triés par date, puis on filtre côté client.
     const q = query(
       collection(db, 'reviews'),
-      where('approved', '==', true),
       orderBy('createdAt', 'desc')
     );
     const querySnapshot = await getDocs(q);
     const reviews: Testimonial[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      reviews.push({
-        id: doc.id,
-        name: data.name,
-        role: data.role,
-        avatar: data.avatar || `https://i.pravatar.cc/150?u=${doc.id}`,
-        rating: data.rating,
-        quote: data.review,
-      });
+      // Le filtrage se fait ici, dans le code, au lieu de la requête.
+      if (data.approved) {
+        reviews.push({
+          id: doc.id,
+          name: data.name,
+          role: data.role,
+          avatar: data.avatar || `https://i.pravatar.cc/150?u=${doc.id}`,
+          rating: data.rating,
+          quote: data.review,
+        });
+      }
     });
     return reviews;
   } catch (error) {
