@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -143,7 +144,7 @@ const AdminCarouselManager = () => {
                                 </FormItem>
                             )} />
                              <FormField control={form.control} name="link" render={({ field }) => (
-                                <FormItem><FormLabel>Lien (optionnel)</FormLabel><FormControl><Input placeholder="https://exemple.com/page" {...field} /></FormControl><FormMessage /></FormItem>
+                                <FormItem><FormLabel>Lien (optionnel)</FormLabel><FormControl><Input placeholder="https://exemple.com/page" {...field} value={field.value ?? ''} /></FormControl><FormMessage /></FormItem>
                             )} />
                              <FormField control={form.control} name="media" render={({ field: { onChange, ...rest } }) => (
                                 <FormItem>
