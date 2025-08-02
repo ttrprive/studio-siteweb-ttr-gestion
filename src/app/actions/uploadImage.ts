@@ -4,15 +4,12 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 
-// Charger explicitement les variables d'environnement au début du fichier.
-// C'est une approche plus robuste pour les Server Actions.
-import dotenv from 'dotenv';
-dotenv.config({ path: './.env.local' });
-
+// Configuration directe pour garantir que les clés sont disponibles
+// REMPLACEZ LES PLACEHOLDERS CI-DESSOUS PAR VOS VRAIES CLÉS
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: "VOTRE_CLOUD_NAME", 
+  api_key: "VOTRE_API_KEY", 
+  api_secret: "VOTRE_API_SECRET",
 });
 
 export async function uploadMedia(formData: FormData): Promise<{ success: boolean; url?: string; error?: string }> {
@@ -21,9 +18,9 @@ export async function uploadMedia(formData: FormData): Promise<{ success: boolea
     return { success: false, error: 'Aucun fichier média fourni.' };
   }
 
-  // Vérification que les clés API sont bien chargées
-  if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET || !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
-    const errorMessage = "Les variables d'environnement Cloudinary ne sont pas configurées.";
+  // Vérification que les clés ont été remplacées
+  if (cloudinary.config().api_key === "VOTRE_API_KEY") {
+    const errorMessage = "Les clés API Cloudinary ne sont pas configurées dans le code. Veuillez remplacer les placeholders.";
     console.error(errorMessage);
     return { success: false, error: errorMessage };
   }
