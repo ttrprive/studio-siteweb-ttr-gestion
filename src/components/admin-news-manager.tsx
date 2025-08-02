@@ -14,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { addNews, getNews } from '@/firebase/services';
-import type { NewsItem, NewsCategory } from '@/types/news';
+import type { NewsItem, NewsCategory, NewsItemCreate } from '@/types/news';
 import { Badge } from './ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -59,9 +59,14 @@ const AdminNewsManager = () => {
 
   const onSubmit = async (data: NewsFormData) => {
     setIsSubmitting(true);
-    let imageUrl: string | undefined = undefined;
-
+    
     try {
+        const newsData: NewsItemCreate = {
+            title: data.title,
+            description: data.description,
+            category: data.category as NewsCategory,
+        };
+
         if (data.image && data.image.size > 0) {
             const formData = new FormData();
             formData.append('media', data.image);
@@ -70,15 +75,10 @@ const AdminNewsManager = () => {
             if (!result.success || !result.url) {
                 throw new Error(result.error || 'Échec du téléversement de l\'image.');
             }
-            imageUrl = result.url;
+            newsData.imageUrl = result.url;
         }
 
-        await addNews({
-            title: data.title,
-            description: data.description,
-            category: data.category as NewsCategory,
-            imageUrl: imageUrl,
-        });
+        await addNews(newsData);
 
       toast({
         title: "Succès",
