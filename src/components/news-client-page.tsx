@@ -9,30 +9,12 @@ import { Button } from '@/components/ui/button';
 import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Rocket, Lightbulb, Bug, Wrench, Star, ArrowRight, Megaphone, Annoyed, Image as ImageIcon } from 'lucide-react';
+import { Rocket, Wrench, Bug, Megaphone, Star, ArrowRight, Annoyed, Image as ImageIcon, Film } from 'lucide-react';
 import LoaderLink from '@/components/loader-link';
 import type { NewsItem } from '@/types/news';
-import { getNews } from '@/firebase/services';
+import type { Promotion } from '@/types/promotion';
+import { getNews, getPromotions } from '@/firebase/services';
 import { Skeleton } from './ui/skeleton';
-
-const promotions = [
-  {
-    type: 'image',
-    src: 'https://placehold.co/1200x600.png',
-    alt: 'Promotion d\'été',
-    title: 'Offre Spéciale Été',
-    description: 'Profitez de -20% sur toutes nos prestations hôtelières.',
-    hint: 'summer sale',
-    link: '/services'
-  },
-  {
-    type: 'video',
-    src: 'https://videos.pexels.com/video-files/853877/853877-hd.mp4',
-    title: 'Découvrez nos Nouveaux Services',
-    description: 'Une expérience de gestion réinventée pour vous.',
-    link: '/services'
-  }
-];
 
 const categoryStyles = {
     "Nouveauté": { icon: <Rocket className="size-5" />, color: "text-blue-500", bgColor: "bg-blue-500/10" },
@@ -45,71 +27,87 @@ type FormattedNewsItem = NewsItem & { timeAgo: string };
 
 export default function NewsClientPage() {
   const [news, setNews] = useState<FormattedNewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
+  const [loadingNews, setLoadingNews] = useState(true);
+  const [loadingPromotions, setLoadingPromotions] = useState(true);
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   useEffect(() => {
     const fetchNews = async () => {
-        setLoading(true);
+        setLoadingNews(true);
         const newsItems = await getNews();
         const formatted = newsItems.map(item => ({
             ...item,
             timeAgo: formatDistanceToNow(new Date(item.date), { addSuffix: true, locale: fr })
         }));
         setNews(formatted);
-        setLoading(false);
+        setLoadingNews(false);
     };
+
+    const fetchPromotions = async () => {
+        setLoadingPromotions(true);
+        const promotionItems = await getPromotions();
+        setPromotions(promotionItems);
+        setLoadingPromotions(false);
+    }
+
     fetchNews();
+    fetchPromotions();
   }, []);
 
   return (
     <div className="flex flex-col w-full">
       <section className="w-full">
-        <Carousel
-          plugins={[plugin.current]}
-          className="w-full"
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-        >
-          <CarouselContent>
-            {promotions.map((promo, index) => (
-              <CarouselItem key={index}>
-                <div className="relative aspect-video w-full h-[50vh] md:h-[70vh]">
-                  {promo.type === 'image' ? (
-                    <Image
-                      src={promo.src}
-                      alt={promo.alt}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={promo.hint}
-                      priority={index === 0}
-                    />
-                  ) : (
-                    <video
-                      src={promo.src}
-                      className="h-full w-full object-cover"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-start justify-end p-6 md:p-12">
-                    <Badge className="mb-2 bg-primary/80 border-primary text-primary-foreground backdrop-blur-sm"><Star className="mr-2 size-4" /> Promotion</Badge>
-                    <h2 className="text-xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
-                    <p className="text-sm md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
-                    <Button asChild size="lg" className="mt-6">
-                      <LoaderLink href={promo.link}>
-                        Découvrir
-                        <ArrowRight className="ml-2"/>
-                      </LoaderLink>
-                    </Button>
+        {loadingPromotions ? (
+          <Skeleton className="w-full h-[50vh] md:h-[70vh]" />
+        ) : (
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full"
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+          >
+            <CarouselContent>
+              {promotions.map((promo, index) => (
+                <CarouselItem key={promo.id}>
+                  <div className="relative aspect-video w-full h-[50vh] md:h-[70vh]">
+                    {promo.type === 'image' ? (
+                      <Image
+                        src={promo.src}
+                        alt={promo.alt ?? 'Promotion'}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                      />
+                    ) : (
+                      <video
+                        src={promo.src}
+                        className="h-full w-full object-cover"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/60 flex flex-col items-start justify-end p-6 md:p-12">
+                      <Badge className="mb-2 bg-primary/80 border-primary text-primary-foreground backdrop-blur-sm"><Star className="mr-2 size-4" /> Promotion</Badge>
+                      <h2 className="text-xl md:text-5xl font-bold text-white max-w-3xl">{promo.title}</h2>
+                      <p className="text-sm md:text-xl text-white/90 mt-2 max-w-3xl">{promo.description}</p>
+                      {promo.link && (
+                        <Button asChild size="lg" className="mt-6">
+                            <LoaderLink href={promo.link}>
+                                Découvrir
+                                <ArrowRight className="ml-2"/>
+                            </LoaderLink>
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        )}
       </section>
 
       <div className="container mx-auto max-w-5xl px-4 md:px-6 py-12">
@@ -127,7 +125,7 @@ export default function NewsClientPage() {
           <div className="absolute left-[12px] top-0 h-full w-0.5 bg-border -translate-x-1/2"></div>
           
           <div className="space-y-12">
-            {loading ? (
+            {loadingNews ? (
                 [...Array(3)].map((_, i) => (
                     <div key={i} className="relative flex items-start">
                         <div className="absolute left-[-12px] top-1 flex size-9 items-center justify-center rounded-full border-4 border-background bg-muted">

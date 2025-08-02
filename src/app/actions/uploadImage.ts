@@ -10,33 +10,38 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadImage(formData: FormData) {
-  const file = formData.get('image') as File;
+export async function uploadMedia(formData: FormData): Promise<{ success: boolean; url?: string; error?: string }> {
+  const file = formData.get('media') as File;
   if (!file) {
-    throw new Error('No image file provided');
+    return { success: false, error: 'Aucun fichier média fourni.' };
   }
+
+  const fileType = file.type.split('/')[0]; // 'image' or 'video'
 
   try {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = new Uint8Array(arrayBuffer);
     
-    const results = await new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream({
-            tags: ['ttr-gestion-news'],
-            upload_preset: null,
-        }, (error, result) => {
-            if (error) {
-                reject(error);
-                return;
-            }
-            resolve(result);
-        }).end(buffer);
+    const results: any = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: fileType === 'image' ? 'image' : 'video',
+          tags: ['ttr-gestion-promotion'],
+        },
+        (error, result) => {
+          if (error) {
+            return reject(error);
+          }
+          resolve(result);
+        }
+      );
+      uploadStream.end(buffer);
     });
 
-    revalidatePath('/');
-    return { success: true, url: (results as any).secure_url };
+    revalidatePath('/news');
+    return { success: true, url: results.secure_url };
   } catch (error) {
     console.error('Erreur lors du téléversement sur Cloudinary:', error);
-    return { success: false, error: 'Échec du téléversement de l\'image.' };
+    return { success: false, error: `Échec du téléversement du média.` };
   }
 }
