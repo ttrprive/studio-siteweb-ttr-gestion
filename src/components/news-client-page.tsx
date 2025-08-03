@@ -27,16 +27,16 @@ type FormattedNewsItem = NewsItem & { timeAgo: string };
 // Remplacez les `src` par les chemins vers vos images dans le dossier `public/slide-images`.
 // Exemple: src: "/slide-images/mon-image-1.jpg"
 const staticPromotions = [
-  { id: '1', title: 'Titre de la Diapositive 1', description: 'Description pour la diapositive 1.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 1', type: 'image', imageHint: 'business meeting' },
-  { id: '2', title: 'Titre de la Diapositive 2', description: 'Description pour la diapositive 2.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 2', type: 'image', imageHint: 'data analytics' },
-  { id: '3', title: 'Titre de la Diapositive 3', description: 'Description pour la diapositive 3.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 3', type: 'image', imageHint: 'team collaboration' },
-  { id: '4', title: 'Titre de la Diapositive 4', description: 'Description pour la diapositive 4.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 4', type: 'image', imageHint: 'project planning' },
-  { id: '5', title: 'Titre de la Diapositive 5', description: 'Description pour la diapositive 5.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 5', type: 'image', imageHint: 'financial growth' },
-  { id: '6', title: 'Titre de la Diapositive 6', description: 'Description pour la diapositive 6.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 6', type: 'image', imageHint: 'customer support' },
-  { id: '7', title: 'Titre de la Diapositive 7', description: 'Description pour la diapositive 7.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 7', type: 'image', imageHint: 'office workspace' },
-  { id: '8', title: 'Titre de la Diapositive 8', description: 'Description pour la diapositive 8.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 8', type: 'image', imageHint: 'mobile application' },
-  { id: '9', title: 'Titre de la Diapositive 9', description: 'Description pour la diapositive 9.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 9', type: 'image', imageHint: 'security technology' },
-  { id: '10', title: 'Titre de la Diapositive 10', description: 'Description pour la diapositive 10.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 10', type: 'image', imageHint: 'global network' },
+  { id: '1', title: 'Vision 360°', description: 'Pilotez votre entreprise avec une vision complète, du tableau de bord à la gestion client.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 1', type: 'image', imageHint: 'business meeting' },
+  { id: '2', title: 'Analyse de Données', description: 'Prenez des décisions éclairées grâce à des analyses de données claires et instantanées.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 2', type: 'image', imageHint: 'data analytics' },
+  { id: '3', title: 'Collaboration d\'Équipe', description: 'Collaborez efficacement avec votre équipe, où que vous soyez, sur une plateforme unifiée.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 3', type: 'image', imageHint: 'team collaboration' },
+  { id: '4', title: 'Planification de Projets', description: 'Planifiez vos projets avec précision et suivez leur avancement en temps réel.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 4', type: 'image', imageHint: 'project planning' },
+  { id: '5', title: 'Croissance Financière', description: 'Visualisez votre croissance financière et identifiez de nouvelles opportunités de marché.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 5', type: 'image', imageHint: 'financial growth' },
+  { id: '6', title: 'Support Client', description: 'Offrez un support client exceptionnel en centralisant toutes les interactions.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 6', type: 'image', imageHint: 'customer support' },
+  { id: '7', title: 'Espace de Travail Numérique', description: 'Créez un espace de travail optimisé pour la productivité et le bien-être de vos équipes.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 7', type: 'image', imageHint: 'office workspace' },
+  { id: '8', title: 'Mobilité et Flexibilité', description: 'Gérez votre activité en déplacement avec notre application mobile intuitive et puissante.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 8', type: 'image', imageHint: 'mobile application' },
+  { id: '9', title: 'Sécurité des Données', description: 'Protégez vos informations les plus précieuses avec une sécurité de niveau entreprise.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 9', type: 'image', imageHint: 'security technology' },
+  { id: '10', title: 'Réseau Global', description: 'Connectez-vous à un écosystème de partenaires et développez votre présence à l\'international.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 10', type: 'image', imageHint: 'global network' },
 ];
 
 export default function NewsClientPage() {
