@@ -40,27 +40,17 @@ const editNewsSchema = z.object({
 type EditNewsFormData = z.infer<typeof editNewsSchema>;
 
 
-const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; onNewsUpdated: () => void; setOpen: (open: boolean) => void; }) => {
+const EditForm = ({ newsItem, onNewsUpdated, closeDialog }: { newsItem: NewsItem; onNewsUpdated: () => void; closeDialog: () => void; }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: newsItem.title || '',
-            description: newsItem.description || '',
+            title: newsItem.title,
+            description: newsItem.description,
         },
     });
-
-    React.useEffect(() => {
-        if (newsItem) {
-            form.reset({
-                title: newsItem.title,
-                description: newsItem.description,
-            });
-        }
-    }, [newsItem, form]);
-
 
     const onSubmit = async (data: EditNewsFormData) => {
         setIsSubmitting(true);
@@ -71,7 +61,7 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
                 description: "L'actualité a été mise à jour.",
             });
             onNewsUpdated();
-            setOpen(false);
+            closeDialog();
         } catch (error) {
             toast({
                 title: "Erreur",
@@ -98,19 +88,6 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
                 </DialogFooter>
             </form>
         </Form>
-    );
-};
-
-const EditNewsDialog = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem | null, onNewsUpdated: () => void, setOpen: (open: boolean) => void; }) => {
-    return (
-        <Dialog open={!!newsItem} onOpenChange={setOpen}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Modifier l'actualité</DialogTitle>
-                </DialogHeader>
-                {newsItem && <EditForm newsItem={newsItem} onNewsUpdated={onNewsUpdated} setOpen={setOpen} />}
-            </DialogContent>
-        </Dialog>
     );
 };
 
@@ -212,18 +189,21 @@ const AdminNewsManager = () => {
 
   return (
     <Card className="flex flex-col">
-       <EditNewsDialog
-            newsItem={editingNewsItem}
-            onNewsUpdated={() => {
-                setEditingNewsItem(null);
-                fetchNews();
-            }}
-            setOpen={(isOpen) => {
-                if (!isOpen) {
-                    setEditingNewsItem(null);
-                }
-            }}
-        />
+        <Dialog open={!!editingNewsItem} onOpenChange={(isOpen) => !isOpen && setEditingNewsItem(null)}>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Modifier l'actualité</DialogTitle>
+                </DialogHeader>
+                {editingNewsItem && (
+                    <EditForm 
+                        key={editingNewsItem.id} // <-- La clé unique pour forcer la réinitialisation
+                        newsItem={editingNewsItem} 
+                        onNewsUpdated={fetchNews} 
+                        closeDialog={() => setEditingNewsItem(null)} 
+                    />
+                )}
+            </DialogContent>
+        </Dialog>
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
         <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
@@ -365,6 +345,5 @@ const AdminNewsManager = () => {
 };
 
 export default AdminNewsManager;
- 
 
     
