@@ -6,15 +6,12 @@ import Image from 'next/image';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { Button } from '@/components/ui/button';
 import Autoplay from "embla-carousel-autoplay";
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Rocket, Wrench, Bug, Megaphone, Star, ArrowRight, Annoyed, Image as ImageIcon, Film } from 'lucide-react';
-import LoaderLink from '@/components/loader-link';
+import { Rocket, Wrench, Bug, Megaphone, Star, Annoyed, ImageIcon } from 'lucide-react';
 import type { NewsItem } from '@/types/news';
-import type { Promotion } from '@/types/promotion';
-import { getNews, getPromotions } from '@/firebase/services';
+import { getNews } from '@/firebase/services';
 import { Skeleton } from './ui/skeleton';
 
 const categoryStyles = {
@@ -26,11 +23,25 @@ const categoryStyles = {
 
 type FormattedNewsItem = NewsItem & { timeAgo: string };
 
+// Les slides sont maintenant directement intégrées ici.
+// Remplacez les `src` par les chemins vers vos images dans le dossier `public/slide-images`.
+// Exemple: src: "/slide-images/mon-image-1.jpg"
+const staticPromotions = [
+  { id: '1', title: 'Titre de la Diapositive 1', description: 'Description pour la diapositive 1.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 1', type: 'image', imageHint: 'business meeting' },
+  { id: '2', title: 'Titre de la Diapositive 2', description: 'Description pour la diapositive 2.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 2', type: 'image', imageHint: 'data analytics' },
+  { id: '3', title: 'Titre de la Diapositive 3', description: 'Description pour la diapositive 3.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 3', type: 'image', imageHint: 'team collaboration' },
+  { id: '4', title: 'Titre de la Diapositive 4', description: 'Description pour la diapositive 4.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 4', type: 'image', imageHint: 'project planning' },
+  { id: '5', title: 'Titre de la Diapositive 5', description: 'Description pour la diapositive 5.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 5', type: 'image', imageHint: 'financial growth' },
+  { id: '6', title: 'Titre de la Diapositive 6', description: 'Description pour la diapositive 6.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 6', type: 'image', imageHint: 'customer support' },
+  { id: '7', title: 'Titre de la Diapositive 7', description: 'Description pour la diapositive 7.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 7', type: 'image', imageHint: 'office workspace' },
+  { id: '8', title: 'Titre de la Diapositive 8', description: 'Description pour la diapositive 8.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 8', type: 'image', imageHint: 'mobile application' },
+  { id: '9', title: 'Titre de la Diapositive 9', description: 'Description pour la diapositive 9.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 9', type: 'image', imageHint: 'security technology' },
+  { id: '10', title: 'Titre de la Diapositive 10', description: 'Description pour la diapositive 10.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 10', type: 'image', imageHint: 'global network' },
+];
+
 export default function NewsClientPage() {
   const [news, setNews] = useState<FormattedNewsItem[]>([]);
-  const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [loadingNews, setLoadingNews] = useState(true);
-  const [loadingPromotions, setLoadingPromotions] = useState(true);
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   useEffect(() => {
@@ -44,24 +55,12 @@ export default function NewsClientPage() {
         setNews(formatted);
         setLoadingNews(false);
     };
-
-    const fetchPromotions = async () => {
-        setLoadingPromotions(true);
-        const promotionItems = await getPromotions();
-        setPromotions(promotionItems);
-        setLoadingPromotions(false);
-    }
-
     fetchNews();
-    fetchPromotions();
   }, []);
 
   return (
     <div className="flex flex-col w-full">
       <section className="w-full">
-        {loadingPromotions ? (
-          <Skeleton className="w-full h-[50vh] md:h-[70vh]" />
-        ) : (
           <Carousel
             plugins={[plugin.current]}
             className="w-full"
@@ -69,7 +68,7 @@ export default function NewsClientPage() {
             onMouseLeave={plugin.current.reset}
           >
             <CarouselContent>
-              {promotions.map((promo, index) => (
+              {staticPromotions.map((promo, index) => (
                 <CarouselItem key={promo.id}>
                   <div className="relative aspect-video w-full h-[50vh] md:h-[70vh]">
                     {promo.type === 'image' ? (
@@ -79,6 +78,7 @@ export default function NewsClientPage() {
                         fill
                         className="object-cover"
                         priority={index === 0}
+                        data-ai-hint={promo.imageHint}
                       />
                     ) : (
                       <video
@@ -100,7 +100,6 @@ export default function NewsClientPage() {
               ))}
             </CarouselContent>
           </Carousel>
-        )}
       </section>
 
       <div className="container mx-auto max-w-5xl px-4 md:px-6 py-12">
