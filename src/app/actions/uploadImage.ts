@@ -24,7 +24,7 @@ export async function uploadMedia(formData: FormData): Promise<{ success: boolea
   try {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const dataUri = `data:${file.type};base64,${base64String}`;
+    const dataUri = `data:${file.type};base64,${buffer.toString('base64')}`;
 
     // Utilisation de l'upload avec le preset non signé et un dossier spécifié
     const result = await cloudinary.uploader.upload(dataUri, {
