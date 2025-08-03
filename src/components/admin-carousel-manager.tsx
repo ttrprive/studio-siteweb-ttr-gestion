@@ -21,7 +21,6 @@ import { Trash2, Edit } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 
-
 const promotionSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
@@ -37,13 +36,16 @@ const editPromotionSchema = z.object({
 });
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
-
 const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
+        defaultValues: {
+            title: '',
+            description: '',
+        },
     });
 
     React.useEffect(() => {
@@ -103,14 +105,12 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
     );
 };
 
-
 const AdminCarouselManager = () => {
     const { toast } = useToast();
     const [promotions, setPromotions] = React.useState<Promotion[]>([]);
     const [loading, setLoading] = React.useState(true);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const [editingPromotion, setEditingPromotion] = React.useState<Promotion | null>(null);
-
 
     const form = useForm<PromotionFormData>({
         resolver: zodResolver(promotionSchema),
@@ -154,6 +154,7 @@ const AdminCarouselManager = () => {
         try {
             const formData = new FormData();
             formData.append('media', data.media);
+            formData.append('folder', 'promotions'); // Spécifie le dossier pour Cloudinary
             const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {

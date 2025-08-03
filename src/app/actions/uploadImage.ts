@@ -4,18 +4,19 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 
-// Configuration Cloudinary avec les clés publiques. 
-// La clé secrète n'est plus nécessaire pour l'upload non signé.
+// Configuration Cloudinary avec les clés publiques.
 cloudinary.config({
   cloud_name: 'dnnufnxb7',
   api_key: '132848636118531',
-  api_secret: 'aaBshOdr38vIa39Yl8eHf7XnJcU', // La clé secrète est conservée ici pour la configuration, mais non utilisée pour l'upload.
+  api_secret: 'aaBshOdr38vIa39Yl8eHf7XnJcU',
 });
 
 const UPLOAD_PRESET = 'ttr_gestion_preset';
 
 export async function uploadMedia(formData: FormData): Promise<{ success: boolean; url?: string; error?: string }> {
   const file = formData.get('media') as File;
+  const folder = formData.get('folder') as string || 'general'; // Dossier par défaut si non spécifié
+
   if (!file) {
     return { success: false, error: 'Aucun fichier média fourni.' };
   }
@@ -23,13 +24,13 @@ export async function uploadMedia(formData: FormData): Promise<{ success: boolea
   try {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const base64String = buffer.toString('base64');
     const dataUri = `data:${file.type};base64,${base64String}`;
 
-    // Utilisation de l'upload avec le preset non signé
+    // Utilisation de l'upload avec le preset non signé et un dossier spécifié
     const result = await cloudinary.uploader.upload(dataUri, {
       upload_preset: UPLOAD_PRESET,
-      resource_type: 'auto', // Laisse Cloudinary détecter si c'est une image ou une vidéo
+      resource_type: 'auto',
+      folder: `ttr_gestion/${folder}`, // Organise les fichiers dans un dossier principal et un sous-dossier
     });
 
     revalidatePath('/admin');
