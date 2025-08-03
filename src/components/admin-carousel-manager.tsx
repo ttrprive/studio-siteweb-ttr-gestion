@@ -38,27 +38,17 @@ const editPromotionSchema = z.object({
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
 
-const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Promotion, onPromotionUpdated: () => void }) => {
+const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [open, setOpen] = useState(false);
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
         defaultValues: {
-            title: "",
-            description: "",
+            title: promotion.title || "",
+            description: promotion.description || "",
         },
     });
-    
-    useEffect(() => {
-        if (open && promotion) {
-            form.reset({
-                title: promotion.title || "",
-                description: promotion.description || "",
-            });
-        }
-    }, [open, promotion, form]);
 
     const onSubmit = async (data: EditPromotionFormData) => {
         setIsSubmitting(true);
@@ -69,7 +59,7 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
                 description: "La promotion a été mise à jour.",
             });
             onPromotionUpdated();
-            setOpen(false);
+            onOpenChange(false);
         } catch (error) {
             toast({
                 title: "Erreur",
@@ -82,12 +72,7 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
     };
     
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                 <Button variant="ghost" size="icon" className="shrink-0">
-                    <Edit className="size-4" />
-                </Button>
-            </DialogTrigger>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier la promotion</DialogTitle>
@@ -117,6 +102,8 @@ const AdminCarouselManager = () => {
     const [promotions, setPromotions] = useState<Promotion[]>([]);
     const [loading, setLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [editingPromotion, setEditingPromotion] = useState<Promotion | null>(null);
+
 
     const form = useForm<PromotionFormData>({
         resolver: zodResolver(promotionSchema),
@@ -196,6 +183,15 @@ const AdminCarouselManager = () => {
 
     return (
         <Card className="flex flex-col">
+            {editingPromotion && (
+                <EditPromotionDialog
+                    key={editingPromotion.id}
+                    promotion={editingPromotion}
+                    onPromotionUpdated={fetchPromotions}
+                    open={!!editingPromotion}
+                    onOpenChange={(open) => !open && setEditingPromotion(null)}
+                />
+            )}
             <CardHeader>
                 <CardTitle>Gérer le Carrousel</CardTitle>
                 <CardDescription>Ajoutez, modifiez ou supprimez les promotions de la page d'accueil.</CardDescription>
@@ -257,7 +253,9 @@ const AdminCarouselManager = () => {
                                         <p className="text-sm text-muted-foreground truncate">{item.description}</p>
                                     </div>
                                     <div className="flex flex-col">
-                                        <EditPromotionDialog promotion={item} onPromotionUpdated={fetchPromotions} />
+                                         <Button variant="ghost" size="icon" className="shrink-0" onClick={() => setEditingPromotion(item)}>
+                                            <Edit className="size-4" />
+                                        </Button>
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
                                                 <Button variant="ghost" size="icon" className="shrink-0">

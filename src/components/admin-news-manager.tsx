@@ -21,7 +21,7 @@ import { fr } from 'date-fns/locale';
 import { Skeleton } from './ui/skeleton';
 import { uploadMedia } from '@/app/actions/uploadImage';
 import { Trash2, Edit } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
 
@@ -41,27 +41,17 @@ const editNewsSchema = z.object({
 });
 type EditNewsFormData = z.infer<typeof editNewsSchema>;
 
-const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNewsUpdated: () => void }) => {
+const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsItem: NewsItem, onNewsUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [open, setOpen] = useState(false);
 
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: "",
-            description: "",
+            title: newsItem.title || "",
+            description: newsItem.description || "",
         },
     });
-    
-    useEffect(() => {
-        if (open && newsItem) {
-            form.reset({
-                title: newsItem.title || "",
-                description: newsItem.description || "",
-            });
-        }
-    }, [open, newsItem, form]);
 
     const onSubmit = async (data: EditNewsFormData) => {
         setIsSubmitting(true);
@@ -72,7 +62,7 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNew
                 description: "L'actualité a été mise à jour.",
             });
             onNewsUpdated();
-            setOpen(false);
+            onOpenChange(false);
         } catch (error) {
             toast({
                 title: "Erreur",
@@ -85,12 +75,7 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNew
     };
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="shrink-0">
-                    <Edit className="size-4" />
-                </Button>
-            </DialogTrigger>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
@@ -120,6 +105,7 @@ const AdminNewsManager = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editingNewsItem, setEditingNewsItem] = useState<NewsItem | null>(null);
 
   const form = useForm<NewsFormData>({
     resolver: zodResolver(newsSchema),
@@ -203,6 +189,15 @@ const AdminNewsManager = () => {
 
   return (
     <Card className="flex flex-col">
+      {editingNewsItem && (
+        <EditNewsDialog
+            key={editingNewsItem.id}
+            newsItem={editingNewsItem}
+            onNewsUpdated={fetchNews}
+            open={!!editingNewsItem}
+            onOpenChange={(open) => !open && setEditingNewsItem(null)}
+        />
+      )}
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
         <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
@@ -320,7 +315,9 @@ const AdminNewsManager = () => {
                                 <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
                            </div>
                            <div className="flex flex-col">
-                               <EditNewsDialog newsItem={item} onNewsUpdated={fetchNews} />
+                               <Button variant="ghost" size="icon" className="shrink-0" onClick={() => setEditingNewsItem(item)}>
+                                    <Edit className="size-4" />
+                                </Button>
                                <AlertDialog>
                                   <AlertDialogTrigger asChild>
                                       <Button variant="ghost" size="icon" className="shrink-0">
