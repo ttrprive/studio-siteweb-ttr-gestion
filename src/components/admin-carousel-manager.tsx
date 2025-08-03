@@ -36,18 +36,20 @@ const editPromotionSchema = z.object({
 });
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
-const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion | null, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
+        // Initialize with guaranteed controlled values
         defaultValues: {
-            title: '',
-            description: '',
+            title: promotion?.title || "",
+            description: promotion?.description || "",
         },
     });
 
+    // Sync form with promotion data when it changes
     React.useEffect(() => {
         if (promotion) {
             form.reset({
@@ -58,6 +60,8 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
     }, [promotion, form]);
     
     const onSubmit = async (data: EditPromotionFormData) => {
+        if (!promotion) return;
+
         setIsSubmitting(true);
         try {
             await updatePromotion(promotion.id, data);
@@ -84,6 +88,7 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
                 <DialogHeader>
                     <DialogTitle>Modifier la promotion</DialogTitle>
                 </DialogHeader>
+                {/* Conditionally render the form only when promotion is available */}
                 {promotion && (
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -111,6 +116,7 @@ const AdminCarouselManager = () => {
     const [loading, setLoading] = React.useState(true);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const [editingPromotion, setEditingPromotion] = React.useState<Promotion | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
     const form = useForm<PromotionFormData>({
         resolver: zodResolver(promotionSchema),
@@ -131,6 +137,18 @@ const AdminCarouselManager = () => {
     React.useEffect(() => {
         fetchPromotions();
     }, []);
+
+    const handleEditClick = (promotion: Promotion) => {
+        setEditingPromotion(promotion);
+        setIsDialogOpen(true);
+    };
+
+    const handleDialogChange = (open: boolean) => {
+        setIsDialogOpen(open);
+        if (!open) {
+            setEditingPromotion(null);
+        }
+    };
 
     const handleDelete = async (id: string) => {
         try {
@@ -191,15 +209,12 @@ const AdminCarouselManager = () => {
 
     return (
         <Card className="flex flex-col">
-             {editingPromotion && (
-                <EditPromotionDialog
-                    key={editingPromotion.id}
-                    promotion={editingPromotion}
-                    onPromotionUpdated={fetchPromotions}
-                    open={!!editingPromotion}
-                    onOpenChange={(open) => !open && setEditingPromotion(null)}
-                />
-            )}
+            <EditPromotionDialog
+                promotion={editingPromotion}
+                onPromotionUpdated={fetchPromotions}
+                open={isDialogOpen}
+                onOpenChange={handleDialogChange}
+            />
             <CardHeader>
                 <CardTitle>Gérer le Carrousel</CardTitle>
                 <CardDescription>Ajoutez, modifiez ou supprimez les promotions de la page d'accueil.</CardDescription>
@@ -261,7 +276,7 @@ const AdminCarouselManager = () => {
                                         <p className="text-sm text-muted-foreground truncate">{item.description}</p>
                                     </div>
                                     <div className="flex flex-col">
-                                         <Button variant="ghost" size="icon" className="shrink-0" onClick={() => setEditingPromotion(item)}>
+                                         <Button variant="ghost" size="icon" className="shrink-0" onClick={() => handleEditClick(item)}>
                                             <Edit className="size-4" />
                                         </Button>
                                         <AlertDialog>

@@ -45,12 +45,14 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
 
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
+        // Initialize with guaranteed controlled values
         defaultValues: {
-            title: '',
-            description: '',
+            title: newsItem?.title || '',
+            description: newsItem?.description || '',
         },
     });
     
+    // Sync form with newsItem data when it changes
     React.useEffect(() => {
         if (newsItem) {
             form.reset({
@@ -89,6 +91,7 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
                 </DialogHeader>
+                {/* Conditionally render the form only when newsItem is available */}
                 {newsItem && (
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -116,6 +119,7 @@ const AdminNewsManager = () => {
   const [loading, setLoading] = React.useState(true);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [editingNewsItem, setEditingNewsItem] = React.useState<NewsItem | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const form = useForm<NewsFormData>({
     resolver: zodResolver(newsSchema),
@@ -136,6 +140,18 @@ const AdminNewsManager = () => {
   React.useEffect(() => {
     fetchNews();
   }, []);
+
+  const handleEditClick = (newsItem: NewsItem) => {
+    setEditingNewsItem(newsItem);
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogChange = (open: boolean) => {
+    setIsDialogOpen(open);
+    if (!open) {
+        setEditingNewsItem(null);
+    }
+  };
 
   const handleDelete = async (id: string) => {
       try {
@@ -201,11 +217,10 @@ const AdminNewsManager = () => {
   return (
     <Card className="flex flex-col">
         <EditNewsDialog
-            key={editingNewsItem?.id}
             newsItem={editingNewsItem}
             onNewsUpdated={fetchNews}
-            open={!!editingNewsItem}
-            onOpenChange={(open) => !open && setEditingNewsItem(null)}
+            open={isDialogOpen}
+            onOpenChange={handleDialogChange}
         />
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
@@ -324,7 +339,7 @@ const AdminNewsManager = () => {
                                 <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
                            </div>
                            <div className="flex flex-col">
-                               <Button variant="ghost" size="icon" className="shrink-0" onClick={() => setEditingNewsItem(item)}>
+                               <Button variant="ghost" size="icon" className="shrink-0" onClick={() => handleEditClick(item)}>
                                     <Edit className="size-4" />
                                 </Button>
                                <AlertDialog>
