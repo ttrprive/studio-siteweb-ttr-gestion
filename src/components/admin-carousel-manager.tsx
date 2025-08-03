@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,7 +19,7 @@ import type { Promotion, PromotionType } from '@/types/promotion';
 import { Skeleton } from './ui/skeleton';
 import { Trash2, Edit } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 
 
 const promotionSchema = z.object({
@@ -38,19 +38,15 @@ const editPromotionSchema = z.object({
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
 
-const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion | null, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
-        defaultValues: {
-            title: "",
-            description: "",
-        },
     });
-    
-    useEffect(() => {
+
+    React.useEffect(() => {
         if (promotion) {
             form.reset({
                 title: promotion.title || "",
@@ -58,11 +54,8 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
             });
         }
     }, [promotion, form]);
-
-
+    
     const onSubmit = async (data: EditPromotionFormData) => {
-        if (!promotion) return;
-
         setIsSubmitting(true);
         try {
             await updatePromotion(promotion.id, data);
@@ -89,20 +82,22 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
                 <DialogHeader>
                     <DialogTitle>Modifier la promotion</DialogTitle>
                 </DialogHeader>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField control={form.control} name="title" render={({ field }) => (
-                            <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                        )} />
-                        <FormField control={form.control} name="description" render={({ field }) => (
-                            <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
-                        )} />
-                        <DialogFooter>
-                            <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
-                            <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
-                        </DialogFooter>
-                    </form>
-                </Form>
+                {promotion && (
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            <FormField control={form.control} name="title" render={({ field }) => (
+                                <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                            )} />
+                            <FormField control={form.control} name="description" render={({ field }) => (
+                                <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+                            )} />
+                            <DialogFooter>
+                                <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
+                                <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
+                            </DialogFooter>
+                        </form>
+                    </Form>
+                )}
             </DialogContent>
         </Dialog>
     );
@@ -111,10 +106,10 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
 
 const AdminCarouselManager = () => {
     const { toast } = useToast();
-    const [promotions, setPromotions] = useState<Promotion[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [editingPromotion, setEditingPromotion] = useState<Promotion | null>(null);
+    const [promotions, setPromotions] = React.useState<Promotion[]>([]);
+    const [loading, setLoading] = React.useState(true);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const [editingPromotion, setEditingPromotion] = React.useState<Promotion | null>(null);
 
 
     const form = useForm<PromotionFormData>({
@@ -133,7 +128,7 @@ const AdminCarouselManager = () => {
         setLoading(false);
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         fetchPromotions();
     }, []);
 
@@ -195,12 +190,15 @@ const AdminCarouselManager = () => {
 
     return (
         <Card className="flex flex-col">
-            <EditPromotionDialog
-                promotion={editingPromotion}
-                onPromotionUpdated={fetchPromotions}
-                open={!!editingPromotion}
-                onOpenChange={(open) => !open && setEditingPromotion(null)}
-            />
+             {editingPromotion && (
+                <EditPromotionDialog
+                    key={editingPromotion.id}
+                    promotion={editingPromotion}
+                    onPromotionUpdated={fetchPromotions}
+                    open={!!editingPromotion}
+                    onOpenChange={(open) => !open && setEditingPromotion(null)}
+                />
+            )}
             <CardHeader>
                 <CardTitle>Gérer le Carrousel</CardTitle>
                 <CardDescription>Ajoutez, modifiez ou supprimez les promotions de la page d'accueil.</CardDescription>
@@ -296,5 +294,3 @@ const AdminCarouselManager = () => {
 };
 
 export default AdminCarouselManager;
-
-    
