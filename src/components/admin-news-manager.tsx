@@ -49,19 +49,19 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem, onNew
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: newsItem.title || "",
-            description: newsItem.description || "",
+            title: "",
+            description: "",
         },
     });
     
     useEffect(() => {
-        if (newsItem) {
+        if (open && newsItem) {
             form.reset({
                 title: newsItem.title || "",
                 description: newsItem.description || "",
             });
         }
-    }, [newsItem, form]);
+    }, [open, newsItem, form]);
 
     const onSubmit = async (data: EditNewsFormData) => {
         setIsSubmitting(true);

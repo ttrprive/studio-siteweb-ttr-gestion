@@ -46,19 +46,19 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated }: { promotion: Pro
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
         defaultValues: {
-            title: promotion.title || "",
-            description: promotion.description || "",
+            title: "",
+            description: "",
         },
     });
     
     useEffect(() => {
-        if (promotion) {
+        if (open && promotion) {
             form.reset({
                 title: promotion.title || "",
                 description: promotion.description || "",
             });
         }
-    }, [promotion, form]);
+    }, [open, promotion, form]);
 
     const onSubmit = async (data: EditPromotionFormData) => {
         setIsSubmitting(true);
