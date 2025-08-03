@@ -41,19 +41,30 @@ const editNewsSchema = z.object({
 });
 type EditNewsFormData = z.infer<typeof editNewsSchema>;
 
-const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsItem: NewsItem, onNewsUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsItem: NewsItem | null, onNewsUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: newsItem.title || "",
-            description: newsItem.description || "",
+            title: "",
+            description: "",
         },
     });
 
+    useEffect(() => {
+        if (newsItem) {
+            form.reset({
+                title: newsItem.title || "",
+                description: newsItem.description || "",
+            });
+        }
+    }, [newsItem, form]);
+
     const onSubmit = async (data: EditNewsFormData) => {
+        if (!newsItem) return;
+
         setIsSubmitting(true);
         try {
             await updateNews(newsItem.id, data);
@@ -189,15 +200,12 @@ const AdminNewsManager = () => {
 
   return (
     <Card className="flex flex-col">
-      {editingNewsItem && (
         <EditNewsDialog
-            key={editingNewsItem.id}
             newsItem={editingNewsItem}
             onNewsUpdated={fetchNews}
             open={!!editingNewsItem}
             onOpenChange={(open) => !open && setEditingNewsItem(null)}
         />
-      )}
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
         <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
@@ -349,3 +357,5 @@ const AdminNewsManager = () => {
 };
 
 export default AdminNewsManager;
+
+    

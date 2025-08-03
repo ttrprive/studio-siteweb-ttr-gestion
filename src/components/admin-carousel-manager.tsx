@@ -38,19 +38,31 @@ const editPromotionSchema = z.object({
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
 
-const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion | null, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
         defaultValues: {
-            title: promotion.title || "",
-            description: promotion.description || "",
+            title: "",
+            description: "",
         },
     });
+    
+    useEffect(() => {
+        if (promotion) {
+            form.reset({
+                title: promotion.title || "",
+                description: promotion.description || "",
+            });
+        }
+    }, [promotion, form]);
+
 
     const onSubmit = async (data: EditPromotionFormData) => {
+        if (!promotion) return;
+
         setIsSubmitting(true);
         try {
             await updatePromotion(promotion.id, data);
@@ -183,15 +195,12 @@ const AdminCarouselManager = () => {
 
     return (
         <Card className="flex flex-col">
-            {editingPromotion && (
-                <EditPromotionDialog
-                    key={editingPromotion.id}
-                    promotion={editingPromotion}
-                    onPromotionUpdated={fetchPromotions}
-                    open={!!editingPromotion}
-                    onOpenChange={(open) => !open && setEditingPromotion(null)}
-                />
-            )}
+            <EditPromotionDialog
+                promotion={editingPromotion}
+                onPromotionUpdated={fetchPromotions}
+                open={!!editingPromotion}
+                onOpenChange={(open) => !open && setEditingPromotion(null)}
+            />
             <CardHeader>
                 <CardTitle>Gérer le Carrousel</CardTitle>
                 <CardDescription>Ajoutez, modifiez ou supprimez les promotions de la page d'accueil.</CardDescription>
@@ -287,3 +296,5 @@ const AdminCarouselManager = () => {
 };
 
 export default AdminCarouselManager;
+
+    
