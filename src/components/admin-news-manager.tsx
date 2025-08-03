@@ -28,7 +28,7 @@ const newsSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
   description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
   category: z.enum(["Nouveauté", "Amélioration", "Correction", "Annonce"]),
-  image: z.instanceof(File).optional(),
+  image: z.any().optional(),
 });
 
 type NewsFormData = z.infer<typeof newsSchema>;
@@ -39,7 +39,7 @@ const editNewsSchema = z.object({
 });
 type EditNewsFormData = z.infer<typeof editNewsSchema>;
 
-// Formulaire d'édition isolé pour garantir une initialisation correcte
+
 const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; onNewsUpdated: () => void; setOpen: (open: boolean) => void; }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -47,10 +47,20 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: newsItem.title,
-            description: newsItem.description,
+            title: newsItem.title || '',
+            description: newsItem.description || '',
         },
     });
+    
+    React.useEffect(() => {
+        if (newsItem) {
+            form.reset({
+                title: newsItem.title,
+                description: newsItem.description,
+            });
+        }
+    }, [newsItem, form]);
+
 
     const onSubmit = async (data: EditNewsFormData) => {
         setIsSubmitting(true);
@@ -72,7 +82,7 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
             setIsSubmitting(false);
         }
     };
-
+    
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -91,18 +101,27 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
     );
 };
 
-const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsItem: NewsItem | null, onNewsUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem | null, onNewsUpdated: () => void }) => {
+    const [open, setOpen] = React.useState(false);
+
+    React.useEffect(() => {
+        setOpen(!!newsItem);
+    }, [newsItem]);
+
+    if (!newsItem) return null;
+
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
                 </DialogHeader>
-                {newsItem && <EditForm newsItem={newsItem} onNewsUpdated={onNewsUpdated} setOpen={onOpenChange} />}
+                <EditForm newsItem={newsItem} onNewsUpdated={onNewsUpdated} setOpen={setOpen} />
             </DialogContent>
         </Dialog>
     );
 };
+
 
 const AdminNewsManager = () => {
   const { toast } = useToast();
@@ -110,7 +129,6 @@ const AdminNewsManager = () => {
   const [loading, setLoading] = React.useState(true);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [editingNewsItem, setEditingNewsItem] = React.useState<NewsItem | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const form = useForm<NewsFormData>({
     resolver: zodResolver(newsSchema),
@@ -118,9 +136,12 @@ const AdminNewsManager = () => {
       title: "",
       description: "",
       category: "Nouveauté",
+      image: undefined,
     },
   });
   
+  const { register } = form;
+
   const fetchNews = async () => {
     setLoading(true);
     const newsItems = await getNews();
@@ -131,17 +152,9 @@ const AdminNewsManager = () => {
   React.useEffect(() => {
     fetchNews();
   }, []);
-
+  
   const handleEditClick = (newsItem: NewsItem) => {
     setEditingNewsItem(newsItem);
-    setIsDialogOpen(true);
-  };
-
-  const handleDialogChange = (open: boolean) => {
-    setIsDialogOpen(open);
-    if (!open) {
-        setEditingNewsItem(null);
-    }
   };
 
   const handleDelete = async (id: string) => {
@@ -165,15 +178,17 @@ const AdminNewsManager = () => {
     setIsSubmitting(true);
     
     try {
+        const imageFile = data.image && data.image[0] ? data.image[0] : null;
+
         const newsData: NewsItemCreate = {
             title: data.title,
             description: data.description,
             category: data.category as NewsCategory,
         };
 
-        if (data.image && data.image.size > 0) {
+        if (imageFile) {
             const formData = new FormData();
-            formData.append('media', data.image);
+            formData.append('media', imageFile);
             formData.append('folder', 'news'); 
             const result = await uploadMedia(formData);
 
@@ -190,8 +205,6 @@ const AdminNewsManager = () => {
         description: "L'actualité a été ajoutée avec succès.",
       });
       form.reset();
-      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-      if (fileInput) fileInput.value = "";
       await fetchNews(); 
     } catch (error) {
         console.error("Erreur lors de la soumission :", error);
@@ -207,12 +220,14 @@ const AdminNewsManager = () => {
 
   return (
     <Card className="flex flex-col">
-        <EditNewsDialog
+       {editingNewsItem && <EditNewsDialog
+            key={editingNewsItem.id}
             newsItem={editingNewsItem}
-            onNewsUpdated={fetchNews}
-            open={isDialogOpen}
-            onOpenChange={handleDialogChange}
-        />
+            onNewsUpdated={() => {
+                setEditingNewsItem(null);
+                fetchNews();
+            }}
+        />}
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
         <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
@@ -267,27 +282,17 @@ const AdminNewsManager = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field: { onChange, value, ...rest } }) => (
-                  <FormItem>
-                    <FormLabel>Image (optionnel)</FormLabel>
-                    <FormControl>
-                      <Input 
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if(file) onChange(file);
-                        }} 
-                        {...rest} 
-                       />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormItem>
+                  <FormLabel>Image (optionnel)</FormLabel>
+                  <FormControl>
+                    <Input 
+                      type="file"
+                      accept="image/*"
+                      {...register("image")}
+                      />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? "Ajout en cours..." : "Ajouter l'actualité"}
               </Button>
@@ -364,3 +369,4 @@ const AdminNewsManager = () => {
 };
 
 export default AdminNewsManager;
+ 
