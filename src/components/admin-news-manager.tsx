@@ -39,30 +39,20 @@ const editNewsSchema = z.object({
 });
 type EditNewsFormData = z.infer<typeof editNewsSchema>;
 
-const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsItem: NewsItem | null, onNewsUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+// Formulaire d'édition isolé pour garantir une initialisation correcte
+const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; onNewsUpdated: () => void; setOpen: (open: boolean) => void; }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
         defaultValues: {
-            title: newsItem?.title || '',
-            description: newsItem?.description || '',
+            title: newsItem.title,
+            description: newsItem.description,
         },
     });
-    
-    React.useEffect(() => {
-        if (newsItem) {
-            form.reset({
-                title: newsItem.title || '',
-                description: newsItem.description || '',
-            });
-        }
-    }, [newsItem, form, open]);
 
     const onSubmit = async (data: EditNewsFormData) => {
-        if (!newsItem) return;
-
         setIsSubmitting(true);
         try {
             await updateNews(newsItem.id, data);
@@ -71,7 +61,7 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
                 description: "L'actualité a été mise à jour.",
             });
             onNewsUpdated();
-            onOpenChange(false);
+            setOpen(false);
         } catch (error) {
             toast({
                 title: "Erreur",
@@ -84,27 +74,31 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
     };
 
     return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField control={form.control} name="title" render={({ field }) => (
+                    <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
+                <FormField control={form.control} name="description" render={({ field }) => (
+                    <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea className="min-h-[120px]" {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
+                <DialogFooter>
+                    <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
+                    <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
+                </DialogFooter>
+            </form>
+        </Form>
+    );
+};
+
+const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsItem: NewsItem | null, onNewsUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+    return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
                 </DialogHeader>
-                {newsItem && (
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            <FormField control={form.control} name="title" render={({ field }) => (
-                                <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                            )} />
-                            <FormField control={form.control} name="description" render={({ field }) => (
-                                <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea className="min-h-[120px]" {...field} /></FormControl><FormMessage /></FormItem>
-                            )} />
-                            <DialogFooter>
-                                <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
-                                <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                )}
+                {newsItem && <EditForm newsItem={newsItem} onNewsUpdated={onNewsUpdated} setOpen={onOpenChange} />}
             </DialogContent>
         </Dialog>
     );
@@ -180,7 +174,7 @@ const AdminNewsManager = () => {
         if (data.image && data.image.size > 0) {
             const formData = new FormData();
             formData.append('media', data.image);
-            formData.append('folder', 'news'); // Spécifie le dossier pour Cloudinary
+            formData.append('folder', 'news'); 
             const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {
@@ -198,7 +192,7 @@ const AdminNewsManager = () => {
       form.reset();
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
       if (fileInput) fileInput.value = "";
-      await fetchNews(); // Refresh the list
+      await fetchNews(); 
     } catch (error) {
         console.error("Erreur lors de la soumission :", error);
         toast({

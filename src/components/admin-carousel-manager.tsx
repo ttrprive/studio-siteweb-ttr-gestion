@@ -36,30 +36,21 @@ const editPromotionSchema = z.object({
 });
 type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
 
-const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion | null, onPromotionUpdated: () => void, open: boolean, onOpenChange: (open: boolean) => void }) => {
+
+// Formulaire d'édition isolé pour garantir une initialisation correcte
+const EditForm = ({ promotion, onPromotionUpdated, setOpen }: { promotion: Promotion; onPromotionUpdated: () => void; setOpen: (open: boolean) => void; }) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
         defaultValues: {
-            title: promotion?.title || "",
-            description: promotion?.description || "",
+            title: promotion.title,
+            description: promotion.description,
         },
     });
 
-    React.useEffect(() => {
-        if (promotion) {
-            form.reset({
-                title: promotion.title || "",
-                description: promotion.description || "",
-            });
-        }
-    }, [promotion, form, open]);
-    
     const onSubmit = async (data: EditPromotionFormData) => {
-        if (!promotion) return;
-
         setIsSubmitting(true);
         try {
             await updatePromotion(promotion.id, data);
@@ -68,7 +59,7 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
                 description: "La promotion a été mise à jour.",
             });
             onPromotionUpdated();
-            onOpenChange(false);
+            setOpen(false);
         } catch (error) {
             toast({
                 title: "Erreur",
@@ -81,27 +72,31 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
     };
     
     return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField control={form.control} name="title" render={({ field }) => (
+                    <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
+                <FormField control={form.control} name="description" render={({ field }) => (
+                    <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
+                <DialogFooter>
+                    <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
+                    <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
+                </DialogFooter>
+            </form>
+        </Form>
+    );
+};
+
+const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion | null; onPromotionUpdated: () => void; open: boolean; onOpenChange: (open: boolean) => void; }) => {
+    return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier la promotion</DialogTitle>
                 </DialogHeader>
-                {promotion && (
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            <FormField control={form.control} name="title" render={({ field }) => (
-                                <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                            )} />
-                            <FormField control={form.control} name="description" render={({ field }) => (
-                                <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
-                            )} />
-                            <DialogFooter>
-                                <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
-                                <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                )}
+                {promotion && <EditForm promotion={promotion} onPromotionUpdated={onPromotionUpdated} setOpen={onOpenChange} />}
             </DialogContent>
         </Dialog>
     );
@@ -169,7 +164,7 @@ const AdminCarouselManager = () => {
         try {
             const formData = new FormData();
             formData.append('media', data.media);
-            formData.append('folder', 'promotions'); // Spécifie le dossier pour Cloudinary
+            formData.append('folder', 'promotions'); 
             const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {
