@@ -42,14 +42,12 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
 
     const form = useForm<EditPromotionFormData>({
         resolver: zodResolver(editPromotionSchema),
-        // Initialize with guaranteed controlled values
         defaultValues: {
             title: promotion?.title || "",
             description: promotion?.description || "",
         },
     });
 
-    // Sync form with promotion data when it changes
     React.useEffect(() => {
         if (promotion) {
             form.reset({
@@ -57,7 +55,7 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
                 description: promotion.description || "",
             });
         }
-    }, [promotion, form]);
+    }, [promotion, form, open]);
     
     const onSubmit = async (data: EditPromotionFormData) => {
         if (!promotion) return;
@@ -88,7 +86,6 @@ const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange
                 <DialogHeader>
                     <DialogTitle>Modifier la promotion</DialogTitle>
                 </DialogHeader>
-                {/* Conditionally render the form only when promotion is available */}
                 {promotion && (
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

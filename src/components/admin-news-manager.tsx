@@ -45,14 +45,12 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
 
     const form = useForm<EditNewsFormData>({
         resolver: zodResolver(editNewsSchema),
-        // Initialize with guaranteed controlled values
         defaultValues: {
             title: newsItem?.title || '',
             description: newsItem?.description || '',
         },
     });
     
-    // Sync form with newsItem data when it changes
     React.useEffect(() => {
         if (newsItem) {
             form.reset({
@@ -60,7 +58,7 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
                 description: newsItem.description || '',
             });
         }
-    }, [newsItem, form]);
+    }, [newsItem, form, open]);
 
     const onSubmit = async (data: EditNewsFormData) => {
         if (!newsItem) return;
@@ -91,7 +89,6 @@ const EditNewsDialog = ({ newsItem, onNewsUpdated, open, onOpenChange }: { newsI
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
                 </DialogHeader>
-                {/* Conditionally render the form only when newsItem is available */}
                 {newsItem && (
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
