@@ -1,5 +1,4 @@
 
-
 // src/firebase/services.ts
 import { db } from './config';
 import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc } from 'firebase/firestore';
@@ -192,20 +191,6 @@ export const deletePromotion = async (id: string) => {
   } catch (error) {
     console.error("Erreur lors de la suppression de la promotion : ", error);
     throw new Error("Impossible de supprimer la promotion.");
-  }
-};
-
-export const updatePromotion = async (id: string, data: { title: string; description: string; }) => {
-  if (!db) {
-    console.error("Firestore is not initialized.");
-    throw new Error("La base de données n'est pas configurée.");
-  }
-  try {
-    const promotionRef = doc(db, 'promotions', id);
-    await updateDoc(promotionRef, data);
-  } catch (error) {
-    console.error("Erreur lors de la mise à jour de la promotion : ", error);
-    throw new Error("Impossible de mettre à jour la promotion.");
   }
 };
 

@@ -13,13 +13,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { addPromotion, getPromotions, deletePromotion, updatePromotion } from '@/firebase/services';
+import { addPromotion, getPromotions, deletePromotion } from '@/firebase/services';
 import { uploadMedia } from '@/app/actions/uploadImage';
 import type { Promotion, PromotionType } from '@/types/promotion';
 import { Skeleton } from './ui/skeleton';
-import { Trash2, Edit } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from './ui/dialog';
 
 const promotionSchema = z.object({
   title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
@@ -30,85 +29,11 @@ const promotionSchema = z.object({
 
 type PromotionFormData = z.infer<typeof promotionSchema>;
 
-const editPromotionSchema = z.object({
-  title: z.string().min(5, "Le titre doit contenir au moins 5 caractères."),
-  description: z.string().min(10, "La description doit contenir au moins 10 caractères."),
-});
-type EditPromotionFormData = z.infer<typeof editPromotionSchema>;
-
-
-// Formulaire d'édition isolé pour garantir une initialisation correcte
-const EditForm = ({ promotion, onPromotionUpdated, setOpen }: { promotion: Promotion; onPromotionUpdated: () => void; setOpen: (open: boolean) => void; }) => {
-    const { toast } = useToast();
-    const [isSubmitting, setIsSubmitting] = React.useState(false);
-
-    const form = useForm<EditPromotionFormData>({
-        resolver: zodResolver(editPromotionSchema),
-        defaultValues: {
-            title: promotion.title,
-            description: promotion.description,
-        },
-    });
-
-    const onSubmit = async (data: EditPromotionFormData) => {
-        setIsSubmitting(true);
-        try {
-            await updatePromotion(promotion.id, data);
-            toast({
-                title: "Succès",
-                description: "La promotion a été mise à jour.",
-            });
-            onPromotionUpdated();
-            setOpen(false);
-        } catch (error) {
-            toast({
-                title: "Erreur",
-                description: "Impossible de mettre à jour la promotion.",
-                variant: "destructive",
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-    
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField control={form.control} name="title" render={({ field }) => (
-                    <FormItem><FormLabel>Titre</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
-                )} />
-                <FormField control={form.control} name="description" render={({ field }) => (
-                    <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
-                )} />
-                <DialogFooter>
-                    <DialogClose asChild><Button type="button" variant="secondary">Annuler</Button></DialogClose>
-                    <Button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sauvegarde...' : 'Sauvegarder'}</Button>
-                </DialogFooter>
-            </form>
-        </Form>
-    );
-};
-
-const EditPromotionDialog = ({ promotion, onPromotionUpdated, open, onOpenChange }: { promotion: Promotion | null; onPromotionUpdated: () => void; open: boolean; onOpenChange: (open: boolean) => void; }) => {
-    return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Modifier la promotion</DialogTitle>
-                </DialogHeader>
-                {promotion && <EditForm promotion={promotion} onPromotionUpdated={onPromotionUpdated} setOpen={onOpenChange} />}
-            </DialogContent>
-        </Dialog>
-    );
-};
-
 const AdminCarouselManager = () => {
     const { toast } = useToast();
     const [promotions, setPromotions] = React.useState<Promotion[]>([]);
     const [loading, setLoading] = React.useState(true);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
-    const [editingPromotion, setEditingPromotion] = React.useState<Promotion | null>(null);
-    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
     const form = useForm<PromotionFormData>({
         resolver: zodResolver(promotionSchema),
@@ -129,18 +54,6 @@ const AdminCarouselManager = () => {
     React.useEffect(() => {
         fetchPromotions();
     }, []);
-
-    const handleEditClick = (promotion: Promotion) => {
-        setEditingPromotion(promotion);
-        setIsDialogOpen(true);
-    };
-
-    const handleDialogChange = (open: boolean) => {
-        setIsDialogOpen(open);
-        if (!open) {
-            setEditingPromotion(null);
-        }
-    };
 
     const handleDelete = async (id: string) => {
         try {
@@ -201,15 +114,9 @@ const AdminCarouselManager = () => {
 
     return (
         <Card className="flex flex-col">
-            <EditPromotionDialog
-                promotion={editingPromotion}
-                onPromotionUpdated={fetchPromotions}
-                open={isDialogOpen}
-                onOpenChange={handleDialogChange}
-            />
             <CardHeader>
                 <CardTitle>Gérer le Carrousel</CardTitle>
-                <CardDescription>Ajoutez, modifiez ou supprimez les promotions de la page d'accueil.</CardDescription>
+                <CardDescription>Ajoutez ou supprimez les promotions de la page d'accueil.</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-8 md:grid-cols-2">
                 <div>
@@ -267,30 +174,25 @@ const AdminCarouselManager = () => {
                                         <p className="font-semibold leading-tight">{item.title}</p>
                                         <p className="text-sm text-muted-foreground truncate">{item.description}</p>
                                     </div>
-                                    <div className="flex flex-col">
-                                         <Button variant="ghost" size="icon" className="shrink-0" onClick={() => handleEditClick(item)}>
-                                            <Edit className="size-4" />
-                                        </Button>
-                                        <AlertDialog>
-                                            <AlertDialogTrigger asChild>
-                                                <Button variant="ghost" size="icon" className="shrink-0">
-                                                    <Trash2 className="size-4 text-destructive" />
-                                                </Button>
-                                            </AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
-                                                    <AlertDialogDescription>
-                                                        Cette action est irréversible et supprimera définitivement la promotion.
-                                                    </AlertDialogDescription>
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                                    <AlertDialogAction onClick={() => handleDelete(item.id)}>Supprimer</AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                        </AlertDialog>
-                                    </div>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                            <Button variant="ghost" size="icon" className="shrink-0">
+                                                <Trash2 className="size-4 text-destructive" />
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    Cette action est irréversible et supprimera définitivement la promotion.
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                                <AlertDialogAction onClick={() => handleDelete(item.id)}>Supprimer</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
                                 </div>
                             ))
                         )}
