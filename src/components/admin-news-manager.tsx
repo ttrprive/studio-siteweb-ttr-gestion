@@ -51,7 +51,7 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
             description: newsItem.description || '',
         },
     });
-    
+
     React.useEffect(() => {
         if (newsItem) {
             form.reset({
@@ -101,22 +101,14 @@ const EditForm = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem; on
     );
 };
 
-const EditNewsDialog = ({ newsItem, onNewsUpdated }: { newsItem: NewsItem | null, onNewsUpdated: () => void }) => {
-    const [open, setOpen] = React.useState(false);
-
-    React.useEffect(() => {
-        setOpen(!!newsItem);
-    }, [newsItem]);
-
-    if (!newsItem) return null;
-
+const EditNewsDialog = ({ newsItem, onNewsUpdated, setOpen }: { newsItem: NewsItem | null, onNewsUpdated: () => void, setOpen: (open: boolean) => void; }) => {
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={!!newsItem} onOpenChange={setOpen}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
                 </DialogHeader>
-                <EditForm newsItem={newsItem} onNewsUpdated={onNewsUpdated} setOpen={setOpen} />
+                {newsItem && <EditForm newsItem={newsItem} onNewsUpdated={onNewsUpdated} setOpen={setOpen} />}
             </DialogContent>
         </Dialog>
     );
@@ -220,14 +212,18 @@ const AdminNewsManager = () => {
 
   return (
     <Card className="flex flex-col">
-       {editingNewsItem && <EditNewsDialog
-            key={editingNewsItem.id}
+       <EditNewsDialog
             newsItem={editingNewsItem}
             onNewsUpdated={() => {
                 setEditingNewsItem(null);
                 fetchNews();
             }}
-        />}
+            setOpen={(isOpen) => {
+                if (!isOpen) {
+                    setEditingNewsItem(null);
+                }
+            }}
+        />
       <CardHeader>
         <CardTitle>Gérer les Actualités</CardTitle>
         <CardDescription>Ajoutez, modifiez ou supprimez les actualités du site.</CardDescription>
@@ -370,3 +366,5 @@ const AdminNewsManager = () => {
 
 export default AdminNewsManager;
  
+
+    
