@@ -18,7 +18,7 @@ const features = [
     icon: <BarChartBig className="size-8 text-primary" />,
     title: "📊 Suivi complet des finances",
     description: "Surveillez vos revenus, dépenses, dettes, marges en temps réel. Un tableau de bord épuré, toujours à jour.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P1.png",
     imageHint: "dashboard analytics"
   },
   {
