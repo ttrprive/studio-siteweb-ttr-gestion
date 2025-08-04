@@ -96,7 +96,7 @@ const FeaturesSection = () => (
                 <LoaderLink href={`/manual#${feature.id}`}>En savoir plus</LoaderLink>
               </Button>
             </div>
-            <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
+            {/* <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
               <Image 
                 src={feature.image} 
                 alt={feature.title} 
@@ -105,7 +105,7 @@ const FeaturesSection = () => (
                 data-ai-hint={feature.imageHint}
                 className="rounded-md w-full object-cover"
               />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
@@ -138,7 +138,7 @@ const TargetAudienceSection = () => (
                  <LoaderLink href="/manual">En savoir plus</LoaderLink>
                </Button>
             </div>
-             <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
+             {/* <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
               <Image 
                 src={item.image} 
                 alt={item.title} 
@@ -147,7 +147,7 @@ const TargetAudienceSection = () => (
                 data-ai-hint={item.imageHint}
                 className="rounded-md w-full object-cover"
               />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
