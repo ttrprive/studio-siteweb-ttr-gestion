@@ -6,10 +6,12 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
-import type { NewsItem } from '@/types/news';
+import type { NewsItem, NewsCategory } from '@/types/news';
 import { Badge } from './ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { Sparkles, ArrowUpCircle, Wrench, Megaphone } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const promotions = [
   {
@@ -73,6 +75,24 @@ const promotions = [
     alt: "Appel à l'action",
   },
 ];
+
+const categoryStyles: Record<NewsCategory, { icon: React.ElementType; className: string }> = {
+  "Nouveauté": { icon: Sparkles, className: "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 border-blue-200 dark:border-blue-700" },
+  "Amélioration": { icon: ArrowUpCircle, className: "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 border-green-200 dark:border-green-700" },
+  "Correction": { icon: Wrench, className: "bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-300 border-orange-200 dark:border-orange-700" },
+  "Annonce": { icon: Megaphone, className: "bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 border-purple-200 dark:border-purple-700" },
+};
+
+const CategoryBadge = ({ category }: { category: NewsCategory }) => {
+  const { icon: Icon, className } = categoryStyles[category] || categoryStyles["Annonce"];
+  return (
+    <Badge className={cn("flex items-center gap-1.5", className)}>
+      <Icon className="size-3.5" />
+      <span>{category}</span>
+    </Badge>
+  );
+};
+
 
 export default function NewsClientPage({ initialNews }: { initialNews: NewsItem[] }) {
     const plugin = React.useRef(
@@ -144,7 +164,7 @@ export default function NewsClientPage({ initialNews }: { initialNews: NewsItem[
                             <div className={item.imageUrl ? "md:col-span-2" : "md:col-span-3"}>
                                 <CardHeader>
                                     <div className="flex items-center justify-between gap-4">
-                                        <Badge variant="secondary">{item.category}</Badge>
+                                        <CategoryBadge category={item.category} />
                                         <time className="text-sm text-muted-foreground">
                                             {format(new Date(item.date), 'dd MMMM yyyy', { locale: fr })}
                                         </time>
