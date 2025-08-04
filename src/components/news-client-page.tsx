@@ -24,19 +24,18 @@ const categoryStyles = {
 type FormattedNewsItem = NewsItem & { timeAgo: string };
 
 // Les slides sont maintenant directement intégrées ici.
-// Remplacez les `src` par les chemins vers vos images dans le dossier `public/slide-images`.
-// Exemple: src: "/slide-images/mon-image-1.jpg"
+// Remplacez les noms de fichiers "slide-1.png", "slide-2.png", etc. par les vôtres.
 const staticPromotions = [
-  { id: '1', title: 'Vision 360°', description: 'Pilotez votre entreprise avec une vision complète, du tableau de bord à la gestion client.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 1', type: 'image', imageHint: 'business meeting' },
-  { id: '2', title: 'Analyse de Données', description: 'Prenez des décisions éclairées grâce à des analyses de données claires et instantanées.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 2', type: 'image', imageHint: 'data analytics' },
-  { id: '3', title: 'Collaboration d\'Équipe', description: 'Collaborez efficacement avec votre équipe, où que vous soyez, sur une plateforme unifiée.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 3', type: 'image', imageHint: 'team collaboration' },
-  { id: '4', title: 'Planification de Projets', description: 'Planifiez vos projets avec précision et suivez leur avancement en temps réel.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 4', type: 'image', imageHint: 'project planning' },
-  { id: '5', title: 'Croissance Financière', description: 'Visualisez votre croissance financière et identifiez de nouvelles opportunités de marché.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 5', type: 'image', imageHint: 'financial growth' },
-  { id: '6', title: 'Support Client', description: 'Offrez un support client exceptionnel en centralisant toutes les interactions.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 6', type: 'image', imageHint: 'customer support' },
-  { id: '7', title: 'Espace de Travail Numérique', description: 'Créez un espace de travail optimisé pour la productivité et le bien-être de vos équipes.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 7', type: 'image', imageHint: 'office workspace' },
-  { id: '8', title: 'Mobilité et Flexibilité', description: 'Gérez votre activité en déplacement avec notre application mobile intuitive et puissante.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 8', type: 'image', imageHint: 'mobile application' },
-  { id: '9', title: 'Sécurité des Données', description: 'Protégez vos informations les plus précieuses avec une sécurité de niveau entreprise.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 9', type: 'image', imageHint: 'security technology' },
-  { id: '10', title: 'Réseau Global', description: 'Connectez-vous à un écosystème de partenaires et développez votre présence à l\'international.', src: 'https://placehold.co/1280x720.png', alt: 'Diapositive 10', type: 'image', imageHint: 'global network' },
+  { id: '1', title: 'Vision 360°', description: 'Pilotez votre entreprise avec une vision complète, du tableau de bord à la gestion client.', src: '/slide-images/slide-1.png', alt: 'Diapositive 1', type: 'image', imageHint: 'business meeting' },
+  { id: '2', title: 'Analyse de Données', description: 'Prenez des décisions éclairées grâce à des analyses de données claires et instantanées.', src: '/slide-images/slide-2.png', alt: 'Diapositive 2', type: 'image', imageHint: 'data analytics' },
+  { id: '3', title: 'Collaboration d\'Équipe', description: 'Collaborez efficacement avec votre équipe, où que vous soyez, sur une plateforme unifiée.', src: '/slide-images/slide-3.png', alt: 'Diapositive 3', type: 'image', imageHint: 'team collaboration' },
+  { id: '4', title: 'Planification de Projets', description: 'Planifiez vos projets avec précision et suivez leur avancement en temps réel.', src: '/slide-images/slide-4.png', alt: 'Diapositive 4', type: 'image', imageHint: 'project planning' },
+  { id: '5', title: 'Croissance Financière', description: 'Visualisez votre croissance financière et identifiez de nouvelles opportunités de marché.', src: '/slide-images/slide-5.png', alt: 'Diapositive 5', type: 'image', imageHint: 'financial growth' },
+  { id: '6', title: 'Support Client', description: 'Offrez un support client exceptionnel en centralisant toutes les interactions.', src: '/slide-images/slide-6.png', alt: 'Diapositive 6', type: 'image', imageHint: 'customer support' },
+  { id: '7', title: 'Espace de Travail Numérique', description: 'Créez un espace de travail optimisé pour la productivité et le bien-être de vos équipes.', src: '/slide-images/slide-7.png', alt: 'Diapositive 7', type: 'image', imageHint: 'office workspace' },
+  { id: '8', title: 'Mobilité et Flexibilité', description: 'Gérez votre activité en déplacement avec notre application mobile intuitive et puissante.', src: '/slide-images/slide-8.png', alt: 'Diapositive 8', type: 'image', imageHint: 'mobile application' },
+  { id: '9', title: 'Sécurité des Données', description: 'Protégez vos informations les plus précieuses avec une sécurité de niveau entreprise.', src: '/slide-images/slide-9.png', alt: 'Diapositive 9', type: 'image', imageHint: 'security technology' },
+  { id: '10', title: 'Réseau Global', description: 'Connectez-vous à un écosystème de partenaires et développez votre présence à l\'international.', src: '/slide-images/slide-10.png', alt: 'Diapositive 10', type: 'image', imageHint: 'global network' },
 ];
 
 export default function NewsClientPage() {
