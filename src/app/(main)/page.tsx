@@ -58,14 +58,14 @@ const audience = [
     icon: <User className="size-8 text-primary" />,
     title: "👤 Indépendants & freelances",
     description: "Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P7.png",
     imageHint: "freelancer desk"
   },
   {
     icon: <Globe className="size-8 text-primary" />,
     title: "🌍 Tous les métiers",
     description: "Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.",
-    image: "/P7.png",
+    image: "/P8.png",
     imageHint: "diverse professions"
   }
 ];
