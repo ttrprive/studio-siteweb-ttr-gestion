@@ -65,7 +65,7 @@ const audience = [
     icon: <Globe className="size-8 text-primary" />,
     title: "🌍 Tous les métiers",
     description: "Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P7.png",
     imageHint: "diverse professions"
   }
 ];
