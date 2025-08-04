@@ -3,9 +3,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
+import type { NewsItem } from '@/types/news';
+import { Badge } from './ui/badge';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 const promotions = [
   {
@@ -70,44 +74,92 @@ const promotions = [
   },
 ];
 
-
-export default function NewsClientPage() {
+export default function NewsClientPage({ initialNews }: { initialNews: NewsItem[] }) {
     const plugin = React.useRef(
         Autoplay({ delay: 3000, stopOnInteraction: true })
     );
 
   return (
-    <div className="w-full relative">
-        <Carousel
-            opts={{ align: "start", loop: true }}
-            plugins={[plugin.current]}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
-            className="w-full"
-        >
-            <CarouselContent>
-            {promotions.map((promo, index) => (
-                <CarouselItem key={index}>
-                    <div className="relative w-full h-[600px] bg-muted">
-                        <Image
-                            src={promo.src}
-                            alt={promo.alt}
-                            fill
-                            className="object-cover"
-                            sizes="100vw"
-                            priority={index < 2}
-                        />
-                        <div className="absolute inset-0 bg-black/40 flex items-end">
-                            <div className="container mx-auto px-4 py-12 md:px-6 text-white">
-                                <h2 className="text-3xl md:text-4xl font-bold mb-2">{promo.title}</h2>
-                                <p className="text-lg md:text-xl max-w-3xl">{promo.description}</p>
+    <div className="w-full">
+        <div className="w-full relative">
+            <Carousel
+                opts={{ align: "start", loop: true }}
+                plugins={[plugin.current]}
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
+                className="w-full"
+            >
+                <CarouselContent>
+                {promotions.map((promo, index) => (
+                    <CarouselItem key={index}>
+                        <div className="relative w-full h-[600px] bg-muted">
+                            <Image
+                                src={promo.src}
+                                alt={promo.alt}
+                                fill
+                                className="object-cover"
+                                sizes="100vw"
+                                priority={index < 2}
+                            />
+                            <div className="absolute inset-0 bg-black/40 flex items-end">
+                                <div className="container mx-auto px-4 py-12 md:px-6 text-white">
+                                    <h2 className="text-3xl md:text-4xl font-bold mb-2">{promo.title}</h2>
+                                    <p className="text-lg md:text-xl max-w-3xl">{promo.description}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </CarouselItem>
-            ))}
-            </CarouselContent>
-        </Carousel>
+                    </CarouselItem>
+                ))}
+                </CarouselContent>
+            </Carousel>
+        </div>
+
+        <div className="container mx-auto px-4 py-12 md:px-6 md:py-20">
+            <div className="mx-auto max-w-4xl text-center mb-16">
+                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    Actualités et Mises à Jour
+                </h1>
+                <p className="mt-6 text-lg text-muted-foreground">
+                    Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion.
+                </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto space-y-8">
+                {initialNews.length === 0 ? (
+                    <p className="text-center text-muted-foreground">Aucune actualité pour le moment.</p>
+                ) : (
+                    initialNews.map((item) => (
+                        <Card key={item.id} className="grid md:grid-cols-3 gap-6 items-center overflow-hidden">
+                            {item.imageUrl && (
+                                <div className="relative h-48 md:h-full w-full">
+                                    <Image 
+                                        src={item.imageUrl} 
+                                        alt={item.title} 
+                                        fill 
+                                        className="object-cover" 
+                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                    />
+                                </div>
+                            )}
+                            <div className={item.imageUrl ? "md:col-span-2" : "md:col-span-3"}>
+                                <CardHeader>
+                                    <div className="flex items-center justify-between gap-4">
+                                        <Badge variant="secondary">{item.category}</Badge>
+                                        <time className="text-sm text-muted-foreground">
+                                            {format(new Date(item.date), 'dd MMMM yyyy', { locale: fr })}
+                                        </time>
+                                    </div>
+                                    <CardTitle className="mt-2 text-2xl">{item.title}</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">{item.description}</p>
+                                </CardContent>
+                            </div>
+                        </Card>
+                    ))
+                )}
+            </div>
+        </div>
     </div>
   );
 }
