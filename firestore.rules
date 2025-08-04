@@ -4,53 +4,40 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper function to check for admin role
+    // Fonction pour vérifier si un utilisateur a le rôle 'admin'
     function isAdmin() {
-      // Un utilisateur est admin si son document dans la collection 'users'
-      // a le champ 'role' égal à 'admin'.
-      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      // Vérifie si l'utilisateur est authentifié et si son document utilisateur a le rôle 'admin'
+      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
 
-    // Les utilisateurs ne peuvent lire et écrire que leurs propres informations.
-    // Les admins peuvent lire les informations de n'importe quel utilisateur.
+    // Collection des utilisateurs : seuls les admins peuvent lire les rôles.
     match /users/{userId} {
-      allow read: if request.auth.uid == userId || isAdmin();
-      allow write: if request.auth.uid == userId;
+      allow read, write: if request.auth.uid == userId || isAdmin();
     }
 
-    // Tout le monde peut lire les actualités.
-    // Seuls les admins peuvent créer, modifier ou supprimer des actualités.
+    // Avis : Tout le monde peut lire et écrire.
+    // Les admins peuvent tout faire (modérer, supprimer).
+    match /reviews/{reviewId} {
+      allow read, create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // Actualités : Tout le monde peut lire. Seuls les admins peuvent écrire/supprimer.
     match /news/{newsId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Tout le monde peut lire les promotions.
-    // Seuls les admins peuvent les gérer.
-    match /promotions/{promoId} {
+    // Promotions (Carrousel) : Tout le monde peut lire. Seuls les admins peuvent écrire/supprimer.
+    match /promotions/{promotionId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Les avis ne sont lisibles publiquement que s'ils sont approuvés.
-    match /reviews/{reviewId} {
-      // Tout le monde peut lire les avis approuvés.
-      allow get: if resource.data.approved == true;
-      // Pour lister les avis, on s'assure de ne récupérer que ceux approuvés.
-      allow list: if query.filters.length > 0 && query.filters[0][0] == 'approved' && query.filters[0][2] == true;
-
-      // Un utilisateur authentifié peut créer un avis, mais il ne peut pas l'approuver lui-même.
-      allow create: if request.auth != null && request.resource.data.approved == false;
-
-      // Seuls les admins peuvent lire tous les avis (approuvés ou non) et les approuver.
-      allow read, update: if isAdmin();
-    }
-
-    // Les messages de support ne peuvent être lus que par les admins.
-    // N'importe qui (même non authentifié) peut envoyer un message.
+    // Messages de support : Tout le monde peut en créer. Seuls les admins peuvent les lire/mettre à jour.
     match /supportMessages/{messageId} {
-      allow read, update: if isAdmin();
       allow create: if true;
+      allow read, update, delete: if isAdmin();
     }
   }
 }
