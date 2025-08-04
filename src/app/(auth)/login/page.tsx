@@ -13,28 +13,55 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AuthProvider, useAuth } from "@/context/auth-context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FirebaseError } from "firebase/app";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
+
 
 function LoginComponent() {
-    const { user, loading, signInWithGoogle } = useAuth();
+    const { user, loading, signInWithGoogle, signInWithEmail } = useAuth();
     const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        // Si l'utilisateur est déjà connecté et que le chargement est terminé, on le redirige.
         if (!loading && user) {
             router.push('/admin');
         }
     }, [user, loading, router]);
 
-    // Note: La logique de connexion par email/mot de passe doit être implémentée
-    const handleEmailLogin = (e: React.FormEvent) => {
+    const handleEmailLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Redirige vers la page admin pour la démo, mais devrait être remplacé par une vraie logique d'authentification
-        window.location.href = "/admin"; 
+        setIsSubmitting(true);
+        setError(null);
+
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        
+        try {
+            await signInWithEmail(email, password);
+        } catch (err) {
+            if (err instanceof FirebaseError) {
+                switch (err.code) {
+                    case 'auth/invalid-credential':
+                    case 'auth/wrong-password':
+                    case 'auth/user-not-found':
+                        setError("L'adresse e-mail ou le mot de passe est incorrect.");
+                        break;
+                    default:
+                        setError("Une erreur est survenue. Veuillez réessayer.");
+                        break;
+                }
+            } else {
+                 setError("Une erreur inattendue est survenue.");
+            }
+            setIsSubmitting(false);
+        }
     };
   
-    // Affiche un état de chargement ou rien tant qu'on ne sait pas si l'utilisateur est connecté
     if (loading || user) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-background">
@@ -58,10 +85,20 @@ function LoginComponent() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleEmailLogin} className="grid gap-4">
+                 {error && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertTitle>Erreur de connexion</AlertTitle>
+                      <AlertDescription>
+                        {error}
+                      </AlertDescription>
+                    </Alert>
+                )}
                  <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     placeholder="m@exemple.com"
                     required
@@ -74,10 +111,10 @@ function LoginComponent() {
                       Mot de passe oublié?
                     </Link>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input id="password" name="password" type="password" required />
                 </div>
-                <Button type="submit" className="w-full">
-                    Se connecter
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? "Connexion..." : "Se connecter"}
                 </Button>
               </form>
                <div className="my-4 flex items-center">
