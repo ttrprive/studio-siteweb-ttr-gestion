@@ -34,7 +34,7 @@ const features = [
     icon: <FolderKanban className="size-8 text-primary" />,
     title: "📁 Organisation par entité ou projet",
     description: "Gérez plusieurs boutiques, comptes ou divisions depuis un seul espace, avec des options filtrées intelligentes.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P3.png",
     imageHint: "project management"
   }
 ];
