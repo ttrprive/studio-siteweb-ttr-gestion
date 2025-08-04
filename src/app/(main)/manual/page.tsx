@@ -17,7 +17,7 @@ const Section = ({ id, title, children }: { id: string, title: string, children:
     </section>
 );
 
-const SectionContent = ({ text, imageHint1, imageHint2, imageHint3 }: { text: string, imageHint1: string, imageHint2: string, imageHint3: string }) => (
+const SectionContent = ({ text, imageHint1, imageHint2, imageHint3, customText }: { text: string, imageHint1: string, imageHint2: string, imageHint3: string, customText: string }) => (
     <>
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{text}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -32,7 +32,7 @@ const SectionContent = ({ text, imageHint1, imageHint2, imageHint3 }: { text: st
             </div>
         </div>
         <p className="text-md text-muted-foreground italic">
-            Chaque clic est une action puissante qui simplifie votre gestion. L'interface est conçue pour être intuitive, vous permettant d'accomplir des tâches complexes avec une facilité déconcertante.
+            {customText}
         </p>
     </>
 );
@@ -57,141 +57,157 @@ export default function ManualPage() {
                         imageHint1="login screen"
                         imageHint2="workspace creation"
                         imageHint3="user profile settings"
+                        customText="La première étape vers une gestion maîtrisée est un accès simple et sécurisé à votre univers de travail."
                     />
                 </Section>
 
                 <Section id="dashboard" title="Tableau de Bord">
                     <SectionContent 
-                        text="Votre cockpit. Obtenez une vue d'ensemble instantanée de votre activité : statistiques clés (réservations, dépenses), actions rapides, conseil du jour personnalisé par l'IA et activité récente. Chaque clic sur le tableau de bord vous donne une information vitale, transformant des données brutes en décisions éclairées."
+                        text="Votre cockpit. Obtenez une vue d'ensemble instantanée de votre activité : statistiques clés (réservations, dépenses), actions rapides, conseil du jour personnalisé par l'IA et activité récente. Chaque élément du tableau de bord vous donne une information vitale, transformant des données brutes en décisions éclairées."
                         imageHint1="dashboard analytics chart"
                         imageHint2="quick actions buttons"
                         imageHint3="activity feed"
+                        customText="Ici, chaque information est une opportunité, transformant la complexité en clarté pour un pilotage optimal."
                     />
                 </Section>
 
                 <Section id="trix-business" title="TRIX Business (Assistant IA)">
                     <SectionContent 
-                        text="Votre consultant IA personnel. Posez des questions sur le marketing, la finance, ou la gestion et obtenez des stratégies et des conseils pratiques pour votre entreprise. Un simple clic vous connecte à une intelligence artificielle de pointe, prête à propulser votre stratégie au niveau supérieur."
+                        text="Votre consultant IA personnel. Posez des questions sur le marketing, la finance, ou la gestion et obtenez des stratégies et des conseils pratiques pour votre entreprise. Une simple interaction vous connecte à une intelligence artificielle de pointe, prête à propulser votre stratégie au niveau supérieur."
                         imageHint1="ai chat interface"
                         imageHint2="marketing strategy report"
                         imageHint3="financial advice"
+                        customText="Laissez l'intelligence artificielle devenir votre alliée stratégique pour prendre des décisions plus éclairées et innovantes."
                     />
                 </Section>
                 
                 <Section id="prestations" title="Gestion des Prestations (Réservations, Ventes...)">
                     <SectionContent 
-                        text="Le cœur de votre activité. Enregistrez et suivez toutes vos prestations (réservations, commandes, ventes) avec un statut clair. Imprimez des reçus professionnels pour vos clients. Chaque prestation enregistrée est un pas de plus vers une organisation sans faille, rendue possible par un simple clic."
+                        text="Le cœur de votre activité. Enregistrez et suivez toutes vos prestations (réservations, commandes, ventes) avec un statut clair. Imprimez des reçus professionnels pour vos clients. Chaque prestation enregistrée est un pas de plus vers une organisation sans faille."
                         imageHint1="booking calendar"
                         imageHint2="sales list"
                         imageHint3="printable receipt"
+                        customText="Organisez le pilier de votre chiffre d'affaires avec une fluidité qui libère votre temps pour l'essentiel : vos clients."
                     />
                 </Section>
 
                 <Section id="clients" title="Gestion des Clients">
                     <SectionContent 
-                        text="Centralisez les informations de vos clients. Créez des fiches détaillées, suivez les soldes (total facturé vs total payé) et encaissez des paiements directement depuis leur profil. Un clic sur un client vous ouvre un univers d'informations, simplifiant la relation et la gestion financière."
+                        text="Centralisez les informations de vos clients. Créez des fiches détaillées, suivez les soldes (total facturé vs total payé) et encaissez des paiements directement depuis leur profil. Consulter un profil client vous ouvre un univers d'informations, simplifiant la relation et la gestion financière."
                         imageHint1="client list directory"
                         imageHint2="client profile page"
                         imageHint3="payment form"
+                        customText="Transformez votre base de données clients en un véritable atout pour une relation personnalisée et un suivi financier impeccable."
                     />
                 </Section>
                 
                 <Section id="tresorerie" title="Trésorerie">
                      <SectionContent 
-                        text="Maîtrisez vos finances. Suivez toutes les entrées (revenus rapides, paiements clients) et sorties d'argent (dépenses) pour connaître votre solde de caisse en temps réel. La clarté financière est à portée de clic, vous donnant une tranquillité d'esprit inégalée."
+                        text="Maîtrisez vos finances. Suivez toutes les entrées (revenus rapides, paiements clients) et sorties d'argent (dépenses) pour connaître votre solde de caisse en temps réel. La clarté financière est à portée de main, vous donnant une tranquillité d'esprit inégalée."
                         imageHint1="cash flow statement"
                         imageHint2="income expense chart"
                         imageHint3="add expense form"
+                        customText="La santé de votre entreprise se reflète dans ses chiffres ; visualisez-la avec une simplicité déconcertante."
                     />
                 </Section>
 
                 <Section id="stock" title="Gestion de Stock">
                     <SectionContent 
-                        text="Suivez votre inventaire, définissez des seuils d'alerte pour éviter les ruptures, et ajustez facilement les quantités lors des réapprovisionnements ou des ventes. La gestion de stock, autrefois complexe, devient un jeu d'enfant avec des mises à jour en un clic."
+                        text="Suivez votre inventaire, définissez des seuils d'alerte pour éviter les ruptures, et ajustez facilement les quantités lors des réapprovisionnements ou des ventes. La gestion de stock, autrefois complexe, devient un jeu d'enfant avec des mises à jour rapides."
                         imageHint1="inventory list"
                         imageHint2="low stock alert"
                         imageHint3="update stock quantity"
+                        customText="Anticipez les besoins et optimisez vos ressources pour que votre inventaire travaille pour vous, et non l'inverse."
                     />
                 </Section>
 
                 <Section id="investissements" title="Suivi des Investissements">
                     <SectionContent 
-                        text="Planifiez et suivez la rentabilité de vos projets de développement. Évaluez le retour sur investissement attendu et prenez des décisions éclairées pour votre croissance. Chaque clic vous rapproche de vos objectifs financiers à long terme."
+                        text="Planifiez et suivez la rentabilité de vos projets de développement. Évaluez le retour sur investissement attendu et prenez des décisions éclairées pour votre croissance. Chaque analyse vous rapproche de vos objectifs financiers à long terme."
                         imageHint1="investment portfolio"
                         imageHint2="roi calculator"
                         imageHint3="project growth chart"
+                        customText="Prenez des décisions audacieuses basées sur des données fiables pour construire l'avenir de votre entreprise."
                     />
                 </Section>
 
                 <Section id="parrainage" title="Programme de Parrainage">
                     <SectionContent 
-                        text="Gagnez des récompenses en recommandant TTR Gestion. Partagez votre code, suivez vos filleuls, consultez votre solde de commissions et utilisez-le pour payer votre abonnement. Monétisez votre réseau d'un simple clic de partage."
+                        text="Gagnez des récompenses en recommandant TTR Gestion. Partagez votre code, suivez vos filleuls, consultez votre solde de commissions et utilisez-le pour payer votre abonnement. Monétisez votre réseau en toute simplicité."
                         imageHint1="referral code"
                         imageHint2="referral dashboard"
                         imageHint3="commission balance"
+                        customText="Faites de votre satisfaction un levier de croissance partagée et récoltez les fruits de votre confiance."
                     />
                 </Section>
 
                 <Section id="utilisateurs" title="Gestion des Utilisateurs (Admin)">
                     <SectionContent 
-                        text="En tant qu'administrateur, ajoutez, modifiez ou désactivez les comptes de vos employés et gérez leurs permissions d'accès aux différentes fonctionnalités. La gestion de votre équipe est simplifiée, sécurisée et contrôlable en quelques clics."
+                        text="En tant qu'administrateur, ajoutez, modifiez ou désactivez les comptes de vos employés et gérez leurs permissions d'accès aux différentes fonctionnalités. La gestion de votre équipe est simplifiée, sécurisée et contrôlable en quelques actions."
                         imageHint1="user management table"
                         imageHint2="edit user permissions"
                         imageHint3="add new user"
+                        customText="Déléguez en toute confiance en attribuant les bons outils aux bonnes personnes, pour une productivité d'équipe maximale."
                     />
                 </Section>
 
                 <Section id="journal" title="Journal d'Activité">
                     <SectionContent 
-                        text="Une traçabilité complète pour la sécurité. Consultez un historique détaillé de chaque action effectuée dans l'application : qui a fait quoi, et quand. La transparence totale est accessible d'un clic, garantissant la sécurité et la responsabilité."
+                        text="Une traçabilité complète pour la sécurité. Consultez un historique détaillé de chaque action effectuée dans l'application : qui a fait quoi, et quand. La transparence totale est accessible, garantissant la sécurité et la responsabilité."
                         imageHint1="activity log feed"
                         imageHint2="audit trail"
                         imageHint3="security event"
+                        customText="Assurez la sécurité et la transparence de vos opérations grâce à un historique complet de chaque action."
                     />
                 </Section>
 
                 <Section id="pub" title="Faire une PUB">
                     <SectionContent 
-                        text="Un raccourci pour nous contacter afin de mettre en place des campagnes publicitaires ciblées pour augmenter la visibilité et les ventes de votre entreprise. Un clic vous connecte directement à des opportunités de croissance exponentielle."
+                        text="Un raccourci pour nous contacter afin de mettre en place des campagnes publicitaires ciblées pour augmenter la visibilité et les ventes de votre entreprise. Une simple prise de contact vous connecte à des opportunités de croissance exponentielle."
                         imageHint1="contact form advertising"
                         imageHint2="marketing campaign brief"
                         imageHint3="advertising agency"
+                        customText="Passez à la vitesse supérieure en activant des leviers marketing puissants, directement depuis votre outil de gestion."
                     />
                 </Section>
 
                 <Section id="conseils" title="Conseils & Inspirations">
                     <SectionContent 
-                        text="Une sélection de proverbes et de citations sur l'entrepreneuriat pour vous motiver et vous inspirer au quotidien. Un clic pour recevoir votre dose quotidienne de motivation."
+                        text="Une sélection de proverbes et de citations sur l'entrepreneuriat pour vous motiver et vous inspirer au quotidien. Une ressource pour recevoir votre dose quotidienne de motivation."
                         imageHint1="inspirational quote"
                         imageHint2="entrepreneurship book"
                         imageHint3="motivational speech"
+                        customText="Nourrissez votre esprit d'entrepreneur avec des pensées qui ont forgé des succès."
                     />
                 </Section>
 
                 <Section id="jeux" title="Espace Jeux">
                     <SectionContent 
-                        text="Une section de détente pour vous et vos employés. Des jeux de réflexion comme les échecs ou 2048 pour stimuler l'esprit et faire une pause productive. La performance passe aussi par la détente, accessible en un clic."
+                        text="Une section de détente pour vous et vos employés. Des jeux de réflexion comme les échecs ou 2048 pour stimuler l'esprit et faire une pause productive. La performance passe aussi par la détente."
                         imageHint1="chess board game"
                         imageHint2="2048 game"
                         imageHint3="brain teaser"
+                        customText="Parce que les meilleures idées naissent souvent d'un esprit reposé, faites une pause stratégique."
                     />
                 </Section>
 
                 <Section id="tutoriels" title="Tutoriels Vidéo">
                     <SectionContent 
-                        text="Accédez à des guides vidéo pour maîtriser rapidement l'application, découvrir les nouvelles fonctionnalités et optimiser votre utilisation. L'apprentissage visuel est à portée de clic pour vous rendre expert de l'outil."
+                        text="Accédez à des guides vidéo pour maîtriser rapidement l'application, découvrir les nouvelles fonctionnalités et optimiser votre utilisation. L'apprentissage visuel est à votre disposition pour vous rendre expert de l'outil."
                         imageHint1="video tutorials library"
                         imageHint2="playing video tutorial"
                         imageHint3="feature showcase"
+                        customText="Maîtrisez chaque facette de l'outil à votre rythme grâce à des guides visuels clairs et concis."
                     />
                 </Section>
 
                 <Section id="parametres" title="Paramètres">
                     <SectionContent 
-                        text="Personnalisez l'application : modifiez les infos de votre entreprise, gérez les accès, créez vos propres types de prestations, et gérez vos espaces de travail. Façonnez l'application à l'image de votre entreprise, clic après clic."
+                        text="Personnalisez l'application : modifiez les infos de votre entreprise, gérez les accès, créez vos propres types de prestations, et gérez vos espaces de travail. Façonnez l'application à l'image de votre entreprise."
                         imageHint1="settings page"
                         imageHint2="company profile form"
                         imageHint3="manage access"
+                        customText="Configurez l'application pour qu'elle s'adapte parfaitement à vos processus et devienne une extension de votre marque."
                     />
                 </Section>
 
