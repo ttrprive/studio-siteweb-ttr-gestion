@@ -51,7 +51,7 @@ const audience = [
     icon: <Store className="size-8 text-primary" />,
     title: "🛍️ Petites boutiques",
     description: "Gardez le contrôle sur votre activité, sans tracas ni jargon complexe. Un tableau de bord simple et visuel.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P5.png",
     imageHint: "small boutique"
   },
   {
