@@ -13,9 +13,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AuthProvider, useAuth } from "@/context/auth-context";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 function LoginComponent() {
-    const { signInWithGoogle } = useAuth();
+    const { user, loading, signInWithGoogle } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        // Si l'utilisateur est déjà connecté et que le chargement est terminé, on le redirige.
+        if (!loading && user) {
+            router.push('/admin');
+        }
+    }, [user, loading, router]);
 
     // Note: La logique de connexion par email/mot de passe doit être implémentée
     const handleEmailLogin = (e: React.FormEvent) => {
@@ -23,6 +33,19 @@ function LoginComponent() {
         // Redirige vers la page admin pour la démo, mais devrait être remplacé par une vraie logique d'authentification
         window.location.href = "/admin"; 
     };
+  
+    // Affiche un état de chargement ou rien tant qu'on ne sait pas si l'utilisateur est connecté
+    if (loading || user) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-background">
+                <div className="loading-dots flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-primary"></span>
+                    <span className="h-3 w-3 rounded-full bg-primary"></span>
+                    <span className="h-3 w-3 rounded-full bg-primary"></span>
+                </div>
+            </div>
+        );
+    }
   
     return (
         <div className="flex min-h-screen items-center justify-center bg-background">

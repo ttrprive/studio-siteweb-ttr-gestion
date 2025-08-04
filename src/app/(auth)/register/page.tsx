@@ -12,8 +12,32 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { AuthProvider, useAuth } from "@/context/auth-context";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function RegisterPage() {
+function RegisterComponent() {
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading && user) {
+            router.push('/admin');
+        }
+    }, [user, loading, router]);
+    
+    if (loading || user) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-background">
+                <div className="loading-dots flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-primary"></span>
+                    <span className="h-3 w-3 rounded-full bg-primary"></span>
+                    <span className="h-3 w-3 rounded-full bg-primary"></span>
+                </div>
+            </div>
+        );
+    }
+    
     // TODO: Remplacez les href par les liens que vous souhaitez
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
@@ -60,4 +84,13 @@ export default function RegisterPage() {
       </Card>
     </div>
   )
+}
+
+
+export default function RegisterPage() {
+    return (
+        <AuthProvider>
+            <RegisterComponent />
+        </AuthProvider>
+    );
 }
