@@ -3,10 +3,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
-import CornerDecoration from './corner-decoration';
 
 const promotions = [
   {
@@ -78,44 +77,33 @@ export default function NewsClientPage() {
     );
 
   return (
-    <div className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
-        <CornerDecoration src="/photobleu.png" position="top-left" className="-translate-x-1/3 -translate-y-1/3" />
-        <CornerDecoration src="/photoblanc.png" position="bottom-right" className="translate-x-1/3 translate-y-1/3" />
-        <div className="mx-auto max-w-4xl text-center mb-16">
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Actualités et Mises à Jour
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground">
-            Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion.
-            </p>
-        </div>
-
+    <div className="w-full relative">
         <Carousel
             opts={{ align: "start", loop: true }}
             plugins={[plugin.current]}
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
-            className="w-full max-w-4xl mx-auto"
+            className="w-full"
         >
             <CarouselContent>
             {promotions.map((promo, index) => (
                 <CarouselItem key={index}>
-                    <Card className="overflow-hidden">
-                        <div className="relative w-full aspect-video bg-muted">
-                             <Image
-                                src={promo.src}
-                                alt={promo.alt}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                priority={index < 2} // Priorité au chargement des premières images
-                            />
+                    <div className="relative w-full h-[600px] bg-muted">
+                        <Image
+                            src={promo.src}
+                            alt={promo.alt}
+                            fill
+                            className="object-cover"
+                            sizes="100vw"
+                            priority={index < 2}
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex items-end">
+                            <div className="container mx-auto px-4 py-12 md:px-6 text-white">
+                                <h2 className="text-3xl md:text-4xl font-bold mb-2">{promo.title}</h2>
+                                <p className="text-lg md:text-xl max-w-3xl">{promo.description}</p>
+                            </div>
                         </div>
-                        <CardHeader>
-                            <CardTitle>{promo.title}</CardTitle>
-                            <CardDescription>{promo.description}</CardDescription>
-                        </CardHeader>
-                    </Card>
+                    </div>
                 </CarouselItem>
             ))}
             </CarouselContent>
