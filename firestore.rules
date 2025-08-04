@@ -4,40 +4,38 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Fonction pour vérifier si un utilisateur a le rôle 'admin'
+    // Helper function to check for admin role based on a specific email
     function isAdmin() {
-      // Vérifie si l'utilisateur est authentifié et si son document utilisateur a le rôle 'admin'
-      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      return request.auth != null && request.auth.token.email == "emapms@gmail.com";
     }
 
-    // Collection des utilisateurs : seuls les admins peuvent lire les rôles.
-    match /users/{userId} {
-      allow read, write: if request.auth.uid == userId || isAdmin();
-    }
-
-    // Avis : Tout le monde peut lire et écrire.
-    // Les admins peuvent tout faire (modérer, supprimer).
+    // Reviews can be read by anyone and created by anyone.
+    // Admin can delete them.
     match /reviews/{reviewId} {
       allow read, create: if true;
-      allow update, delete: if isAdmin();
+      allow delete: if isAdmin();
     }
 
-    // Actualités : Tout le monde peut lire. Seuls les admins peuvent écrire/supprimer.
+    // News can be read by anyone.
+    // Only admins can create, update, or delete news.
     match /news/{newsId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Promotions (Carrousel) : Tout le monde peut lire. Seuls les admins peuvent écrire/supprimer.
+    // Promotions can be read by anyone.
+    // Only admins can create, update, or delete promotions.
     match /promotions/{promotionId} {
       allow read: if true;
       allow write: if isAdmin();
     }
-
-    // Messages de support : Tout le monde peut en créer. Seuls les admins peuvent les lire/mettre à jour.
+    
+    // Support messages can be created by anyone.
+    // Only admins can read or modify them (e.g., mark as read).
     match /supportMessages/{messageId} {
       allow create: if true;
-      allow read, update, delete: if isAdmin();
+      allow read, update: if isAdmin();
+      allow delete: if false; // Generally not a good idea to delete support messages
     }
   }
 }
