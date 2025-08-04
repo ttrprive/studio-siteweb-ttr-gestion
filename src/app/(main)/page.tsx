@@ -18,7 +18,7 @@ const features = [
     icon: <BarChartBig className="size-8 text-primary" />,
     title: "📊 Suivi complet des finances",
     description: "Surveillez vos revenus, dépenses, dettes, marges en temps réel. Un tableau de bord épuré, toujours à jour.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/suivi complet des finances.png",
     imageHint: "dashboard analytics"
   },
   {
@@ -26,7 +26,7 @@ const features = [
     icon: <Calculator className="size-8 text-primary" />,
     title: "🧮 Planification stratégique",
     description: "Créez des prévisions, comparez des scénarios, gérez vos liquidités. TTR GESTION vous aide à anticiper l’avenir.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/planification stratégique.png",
     imageHint: "financial planning"
   },
   {
@@ -34,7 +34,7 @@ const features = [
     icon: <FolderKanban className="size-8 text-primary" />,
     title: "📁 Organisation par entité ou projet",
     description: "Gérez plusieurs boutiques, comptes ou divisions depuis un seul espace, avec des options filtrées intelligentes.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/organisation par entité ou projet.png",
     imageHint: "project management"
   }
 ];
@@ -44,28 +44,28 @@ const audience = [
     icon: <Building2 className="size-8 text-primary" />,
     title: "🏢 Grandes entreprises",
     description: "Coordonnez plusieurs antennes, services ou départements, avec suivi consolidé et délégué.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/grandes entreprises.png",
     imageHint: "corporate building"
   },
   {
     icon: <Store className="size-8 text-primary" />,
     title: "🛍️ Petites boutiques",
     description: "Gardez le contrôle sur votre activité, sans tracas ni jargon complexe. Un tableau de bord simple et visuel.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/petites boutiques.png",
     imageHint: "small boutique"
   },
   {
     icon: <User className="size-8 text-primary" />,
     title: "👤 Indépendants & freelances",
     description: "Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/indépendants & freelances.png",
     imageHint: "freelancer desk"
   },
   {
     icon: <Globe className="size-8 text-primary" />,
     title: "🌍 Tous les métiers",
     description: "Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.",
-    image: "https://placehold.co/600x400.png",
+    image: "/PUBLIC ACCUEIL/tous les métiers.png",
     imageHint: "diverse professions"
   }
 ];
@@ -96,7 +96,7 @@ const FeaturesSection = () => (
                 <LoaderLink href={`/manual#${feature.id}`}>En savoir plus</LoaderLink>
               </Button>
             </div>
-            {/* <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
+            <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
               <Image 
                 src={feature.image} 
                 alt={feature.title} 
@@ -105,7 +105,7 @@ const FeaturesSection = () => (
                 data-ai-hint={feature.imageHint}
                 className="rounded-md w-full object-cover"
               />
-            </div> */}
+            </div>
           </div>
         ))}
       </div>
@@ -138,7 +138,7 @@ const TargetAudienceSection = () => (
                  <LoaderLink href="/manual">En savoir plus</LoaderLink>
                </Button>
             </div>
-             {/* <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
+             <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
               <Image 
                 src={item.image} 
                 alt={item.title} 
@@ -147,7 +147,7 @@ const TargetAudienceSection = () => (
                 data-ai-hint={item.imageHint}
                 className="rounded-md w-full object-cover"
               />
-            </div> */}
+            </div>
           </div>
         ))}
       </div>
