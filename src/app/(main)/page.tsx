@@ -44,7 +44,7 @@ const audience = [
     icon: <Building2 className="size-8 text-primary" />,
     title: "🏢 Grandes entreprises",
     description: "Coordonnez plusieurs antennes, services ou départements, avec suivi consolidé et délégué.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P4.png",
     imageHint: "corporate building"
   },
   {
