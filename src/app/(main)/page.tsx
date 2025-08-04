@@ -26,7 +26,7 @@ const features = [
     icon: <Calculator className="size-8 text-primary" />,
     title: "🧮 Planification stratégique",
     description: "Créez des prévisions, comparez des scénarios, gérez vos liquidités. TTR GESTION vous aide à anticiper l’avenir.",
-    image: "https://placehold.co/600x400.png",
+    image: "/P2.png",
     imageHint: "financial planning"
   },
   {
