@@ -58,7 +58,7 @@ const audience = [
     icon: <User className="size-8 text-primary" />,
     title: "👤 Indépendants & freelances",
     description: "Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.",
-    image: "/P6.png",
+    image: "https://placehold.co/600x400.png",
     imageHint: "freelancer desk"
   },
   {
