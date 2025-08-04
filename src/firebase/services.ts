@@ -15,10 +15,11 @@ export const addReview = async (review: { name: string; rating: number; review: 
     throw new Error("La base de données n'est pas configurée.");
   }
   try {
+    // Les avis sont maintenant approuvés automatiquement à la création.
     await addDoc(collection(db, 'reviews'), {
       ...review,
       createdAt: serverTimestamp(),
-      approved: false,
+      approved: true, // Changement : l'avis est approuvé par défaut.
     });
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'avis : ", error);
@@ -32,27 +33,24 @@ export const getReviews = async (): Promise<Testimonial[]> => {
     return [];
   }
   try {
-    // Simplification de la requête pour éviter de devoir créer un index composite manuellement.
-    // On récupère tous les avis triés par date, puis on filtre côté client.
+    // La requête récupère directement les avis approuvés et les trie par date.
     const q = query(
       collection(db, 'reviews'),
+      where('approved', '==', true), // On s'assure de ne récupérer que les avis approuvés.
       orderBy('createdAt', 'desc')
     );
     const querySnapshot = await getDocs(q);
     const reviews: Testimonial[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      // Le filtrage se fait ici, dans le code, au lieu de la requête.
-      if (data.approved) {
-        reviews.push({
-          id: doc.id,
-          name: data.name,
-          role: data.role,
-          avatar: data.avatar || `https://i.pravatar.cc/150?u=${doc.id}`,
-          rating: data.rating,
-          quote: data.review,
-        });
-      }
+      reviews.push({
+        id: doc.id,
+        name: data.name,
+        role: data.role,
+        avatar: data.avatar || `https://i.pravatar.cc/150?u=${doc.id}`,
+        rating: data.rating,
+        quote: data.review,
+      });
     });
     return reviews;
   } catch (error) {
