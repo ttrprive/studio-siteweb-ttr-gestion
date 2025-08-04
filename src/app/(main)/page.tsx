@@ -83,29 +83,17 @@ const FeaturesSection = () => (
         </p>
       </div>
 
-      <div className="space-y-20">
-        {features.map((feature, index) => (
-          <div key={feature.title} data-aos="fade-up" className="grid md:grid-cols-2 items-center gap-12">
-            <div className={`text-left ${index % 2 === 1 ? 'md:order-last' : ''}`}>
-              <div className="mb-4 flex items-center gap-4">
-                {feature.icon}
-                <h3 className="text-2xl font-bold">{feature.title}</h3>
-              </div>
-              <p className="text-muted-foreground mb-6">{feature.description}</p>
-              <Button variant="link" asChild className="p-0 h-auto">
-                <LoaderLink href={`/manual#${feature.id}`}>En savoir plus</LoaderLink>
-              </Button>
+      <div className="space-y-16">
+        {features.map((feature) => (
+          <div key={feature.title} data-aos="fade-up" className="text-center max-w-2xl mx-auto">
+            <div className="mb-4 flex items-center justify-center gap-4">
+              {feature.icon}
+              <h3 className="text-2xl font-bold">{feature.title}</h3>
             </div>
-            <div className="bg-card p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
-              <Image 
-                src={feature.image} 
-                alt={feature.title} 
-                width={600} 
-                height={400}
-                data-ai-hint={feature.imageHint}
-                className="rounded-md w-full object-cover"
-              />
-            </div>
+            <p className="text-muted-foreground mb-6">{feature.description}</p>
+            <Button variant="link" asChild className="p-0 h-auto">
+              <LoaderLink href={`/manual#${feature.id}`}>En savoir plus</LoaderLink>
+            </Button>
           </div>
         ))}
       </div>
@@ -125,11 +113,10 @@ const TargetAudienceSection = () => (
         </p>
       </div>
       
-      <div className="space-y-20">
-        {audience.map((item, index) => (
-           <div key={item.title} data-aos="fade-up" className="grid md:grid-cols-2 items-center gap-12">
-            <div className={`text-left ${index % 2 === 1 ? 'md:order-last' : ''}`}>
-              <div className="mb-4 flex items-center gap-4">
+      <div className="space-y-16">
+        {audience.map((item) => (
+           <div key={item.title} data-aos="fade-up" className="text-center max-w-2xl mx-auto">
+              <div className="mb-4 flex items-center justify-center gap-4">
                 {item.icon}
                 <h3 className="text-2xl font-bold">{item.title}</h3>
               </div>
@@ -137,17 +124,6 @@ const TargetAudienceSection = () => (
                <Button variant="link" asChild className="p-0 h-auto">
                  <LoaderLink href="/manual">En savoir plus</LoaderLink>
                </Button>
-            </div>
-             <div className="bg-background p-2 rounded-lg border border-border/20 shadow-lg aspect-video flex items-center justify-center">
-              <Image 
-                src={item.image} 
-                alt={item.title} 
-                width={600} 
-                height={400}
-                data-ai-hint={item.imageHint}
-                className="rounded-md w-full object-cover"
-              />
-            </div>
           </div>
         ))}
       </div>
