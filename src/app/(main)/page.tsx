@@ -83,14 +83,17 @@ const FeaturesSection = () => (
         </p>
       </div>
 
-      <div className="space-y-16">
+      <div className="grid md:grid-cols-3 gap-12">
         {features.map((feature) => (
-          <div key={feature.title} data-aos="fade-up" className="text-center max-w-2xl mx-auto">
+          <div key={feature.title} data-aos="fade-up" className="flex flex-col items-center text-center">
+            <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden border shadow-lg">
+              <Image src={feature.image} alt={feature.title} fill className="object-cover" data-ai-hint={feature.imageHint} />
+            </div>
             <div className="mb-4 flex items-center justify-center gap-4">
               {feature.icon}
-              <h3 className="text-2xl font-bold">{feature.title}</h3>
+              <h3 className="text-xl font-bold">{feature.title}</h3>
             </div>
-            <p className="text-muted-foreground mb-6">{feature.description}</p>
+            <p className="text-muted-foreground mb-4 flex-grow">{feature.description}</p>
             <Button variant="link" asChild className="p-0 h-auto">
               <LoaderLink href={`/manual#${feature.id}`}>En savoir plus</LoaderLink>
             </Button>
@@ -113,14 +116,17 @@ const TargetAudienceSection = () => (
         </p>
       </div>
       
-      <div className="space-y-16">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {audience.map((item) => (
-           <div key={item.title} data-aos="fade-up" className="text-center max-w-2xl mx-auto">
+           <div key={item.title} data-aos="fade-up" className="flex flex-col items-center text-center">
+            <div className="relative w-full h-40 mb-6 rounded-lg overflow-hidden border shadow-lg">
+               <Image src={item.image} alt={item.title} fill className="object-cover" data-ai-hint={item.imageHint} />
+             </div>
               <div className="mb-4 flex items-center justify-center gap-4">
                 {item.icon}
-                <h3 className="text-2xl font-bold">{item.title}</h3>
+                <h3 className="text-xl font-bold">{item.title}</h3>
               </div>
-              <p className="text-muted-foreground mb-6">{item.description}</p>
+              <p className="text-muted-foreground mb-4 flex-grow">{item.description}</p>
                <Button variant="link" asChild className="p-0 h-auto">
                  <LoaderLink href="/manual">En savoir plus</LoaderLink>
                </Button>
