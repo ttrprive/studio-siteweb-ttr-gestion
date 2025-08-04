@@ -86,8 +86,8 @@ const FeaturesSection = () => (
       <div className="grid md:grid-cols-3 gap-12">
         {features.map((feature) => (
           <div key={feature.title} data-aos="fade-up" className="flex flex-col items-center text-center">
-            <div className="relative w-full h-48 mb-6 rounded-lg overflow-hidden border shadow-lg">
-              <Image src={feature.image} alt={feature.title} fill className="object-cover" data-ai-hint={feature.imageHint} />
+            <div className="mb-6 rounded-lg overflow-hidden border shadow-lg">
+              <Image src={feature.image} alt={feature.title} width={600} height={400} className="w-full h-auto object-cover" data-ai-hint={feature.imageHint} />
             </div>
             <div className="mb-4 flex items-center justify-center gap-4">
               {feature.icon}
@@ -119,8 +119,8 @@ const TargetAudienceSection = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {audience.map((item) => (
            <div key={item.title} data-aos="fade-up" className="flex flex-col items-center text-center">
-            <div className="relative w-full h-40 mb-6 rounded-lg overflow-hidden border shadow-lg">
-               <Image src={item.image} alt={item.title} fill className="object-cover" data-ai-hint={item.imageHint} />
+            <div className="mb-6 rounded-lg overflow-hidden border shadow-lg">
+               <Image src={item.image} alt={item.title} width={600} height={400} className="w-full h-auto object-cover" data-ai-hint={item.imageHint} />
              </div>
               <div className="mb-4 flex items-center justify-center gap-4">
                 {item.icon}
