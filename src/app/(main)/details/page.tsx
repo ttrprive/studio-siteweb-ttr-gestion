@@ -27,8 +27,8 @@ import CornerDecoration from '@/components/corner-decoration';
 
 
 export const metadata: Metadata = {
-  title: 'Détail des Fonctionnalités',
-  description: 'Explorez en détail chaque module de TTR Gestion. De la gestion des clients à l\'assistant IA, découvrez la puissance de notre outil tout-en-un.',
+  title: 'Détail des Fonctionnalités de Gestion d\'Entreprise',
+  description: 'Explorez en détail chaque module de TTR Gestion. De la gestion des clients à l\'assistant IA, découvrez la puissance de notre outil tout-en-un pour piloter votre activité.',
 };
 
 const features = [

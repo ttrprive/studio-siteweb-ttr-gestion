@@ -18,61 +18,71 @@ const promotions = [
     title: "Gestion Simplifiée",
     description: "Centralisez vos finances, clients et stocks en un seul endroit.",
     src: "/slides-images/F8.png",
-    alt: "Tableau de bord de gestion",
+    alt: "Tableau de bord de gestion d'entreprise TTR Gestion",
+    hint: "dashboard analytics"
   },
   {
     title: "Assistant IA 'TRIX'",
     description: "Obtenez des conseils stratégiques pour propulser votre croissance.",
     src: "/slides-images/F9.png",
-    alt: "Assistant Intelligence Artificielle",
+    alt: "Assistant Intelligence Artificielle TRIX Business",
+    hint: "AI assistant"
   },
   {
     title: "Adapté à Votre Métier",
     description: "Que vous soyez artisan, commerçant ou consultant, l'outil s'adapte.",
     src: "/slides-images/F10.png",
-    alt: "Différents secteurs d'activité",
+    alt: "Artisan utilisant un logiciel de gestion sur tablette",
+    hint: "diverse professions"
   },
   {
     title: "Suivi de Trésorerie",
     description: "Visualisez vos flux financiers en temps réel pour de meilleures décisions.",
     src: "/slides-images/F11.png",
-    alt: "Graphique de trésorerie",
+    alt: "Graphique de suivi de trésorerie sur TTR Gestion",
+    hint: "financial chart"
   },
   {
     title: "Gestion Client Intuitive",
     description: "Suivez les paiements et l'historique de chaque client sans effort.",
     src: "/slides-images/F12.png",
-    alt: "Fiche client détaillée",
+    alt: "Fiche client détaillée dans le CRM TTR Gestion",
+    hint: "customer profile"
   },
   {
     title: "Contrôle des Stocks",
     description: "Évitez les ruptures et optimisez vos commandes avec des alertes.",
     src: "/slides-images/F13.png",
-    alt: "Inventaire de stock",
+    alt: "Interface de gestion de stock sur TTR Gestion",
+    hint: "inventory management"
   },
   {
     title: "Nouveaux Services",
     description: "Découvrez nos solutions de création de site web et de publicité ciblée.",
     src: "/slides-images/F14.png",
-    alt: "Création de site web",
+    alt: "Exemple de site web créé par les services TTR Gestion",
+    hint: "website creation"
   },
   {
     title: "Sécurité Renforcée",
     description: "Vos données sont protégées avec les meilleures normes de sécurité.",
     src: "/slides-images/F15.png",
-    alt: "Cadenas de sécurité",
+    alt: "Cadenas symbolisant la sécurité des données sur TTR Gestion",
+    hint: "data security"
   },
   {
     title: "Support Réactif",
     description: "Notre équipe est là pour vous accompagner à chaque étape.",
     src: "/slides-images/F16.png",
-    alt: "Équipe de support client",
+    alt: "Équipe de support client de TTR Gestion disponible",
+    hint: "customer support"
   },
   {
     title: "Rejoignez l'Aventure",
     description: "Créez votre compte et découvrez la nouvelle ère de la gestion.",
     src: "/slides-images/F17.png",
-    alt: "Appel à l'action",
+    alt: "Appel à l'action pour s'inscrire sur TTR Gestion",
+    hint: "call to action"
   },
 ];
 
@@ -118,6 +128,7 @@ export default function NewsClientPage({ initialNews }: { initialNews: NewsItem[
                                 alt={promo.alt}
                                 fill
                                 className="object-cover"
+                                data-ai-hint={promo.hint}
                                 sizes="100vw"
                                 priority={index < 2}
                             />

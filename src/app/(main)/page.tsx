@@ -207,7 +207,7 @@ export default function Home() {
               TTR GESTION
             </h1>
             <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-muted-foreground mb-8 max-w-2xl">
-              La nouvelle ère de la gestion.
+              La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
             </p>
 
             <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">

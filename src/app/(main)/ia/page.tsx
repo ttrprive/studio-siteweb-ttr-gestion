@@ -5,8 +5,8 @@ import { TrixBusinessLogo } from '@/components/trix-business-logo';
 
 
 export const metadata: Metadata = {
-  title: 'TRIX Business',
-  description: 'Découvrez TRIX Business, votre assistant IA personnel pour des stratégies et des conseils pratiques pour votre entreprise.',
+  title: 'TRIX Business - Votre Assistant IA de Gestion',
+  description: 'Découvrez TTR Gestion TRIX Business, votre consultant IA personnel pour des stratégies marketing, financières et des conseils pratiques pour votre entreprise.',
 };
 
 export default function IAPage() {

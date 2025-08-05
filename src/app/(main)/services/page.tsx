@@ -8,8 +8,8 @@ import CornerDecoration from '@/components/corner-decoration';
 
 
 export const metadata: Metadata = {
-  title: 'Services sur Mesure',
-  description: 'Développez votre activité avec nos services premium : création de sites web, publicité ciblée, développement d\'applications spécifiques et optimisation SEO.',
+  title: 'Services sur Mesure pour Entreprises',
+  description: 'Développez votre activité avec nos services premium : création de sites web professionnels, publicité ciblée, développement d\'applications spécifiques et optimisation SEO.',
 };
 
 
