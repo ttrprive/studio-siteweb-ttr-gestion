@@ -19,7 +19,7 @@ export const addReview = async (review: { name: string; rating: number; review: 
     await addDoc(collection(db, 'reviews'), {
       ...review,
       createdAt: serverTimestamp(),
-      approved: true,
+      approved: true, // Les avis sont maintenant approuvés automatiquement
     });
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'avis : ", error);
