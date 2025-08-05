@@ -99,7 +99,7 @@ export default function TestimonialsSection() {
                     <Card className="h-full flex flex-col">
                         <CardHeader>
                         <div className="flex items-center gap-4">
-                            <Avatar>
+                            <Avatar className="border-2 border-border">
                             <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                             <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                             </Avatar>

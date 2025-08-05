@@ -47,7 +47,7 @@ const AddReviewForm = ({ onReviewAdded }: { onReviewAdded: () => void }) => {
                 description: "Merci pour votre retour.",
             });
             setOpen(false);
-            onReviewAdded(); // Refresh the list of reviews
+            onReviewAdded();
             (event.target as HTMLFormElement).reset();
             setRating(0);
         } catch (error) {
@@ -168,7 +168,7 @@ export default function TestimonialsPage() {
               <Card key={testimonial.id} className="h-full flex flex-col">
                 <CardHeader>
                   <div className="flex items-center gap-4">
-                    <Avatar>
+                    <Avatar className="border-2 border-border">
                       <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                       <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                     </Avatar>
