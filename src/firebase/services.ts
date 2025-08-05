@@ -1,7 +1,7 @@
 
 // src/firebase/services.ts
 import { db } from './config';
-import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit } from 'firebase/firestore';
 import type { Testimonial } from '@/types/testimonial';
 import type { NewsItem, NewsItemCreate } from '@/types/news';
 import type { Promotion, PromotionCreate } from '@/types/promotion';
@@ -44,7 +44,7 @@ export const getReviews = async (): Promise<Testimonial[]> => {
         id: doc.id,
         name: data.name,
         role: data.role,
-        avatar: data.avatar || '', // On ne fournit plus d'URL par défaut
+        avatar: data.avatar || '',
         rating: data.rating,
         quote: data.review,
       });
@@ -102,6 +102,35 @@ export const getNews = async (): Promise<NewsItem[]> => {
     return [];
   }
 };
+
+export const getLatestNews = async (): Promise<NewsItem | null> => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    return null;
+  }
+  try {
+    const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'), limit(1));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      return null;
+    }
+    const doc = querySnapshot.docs[0];
+    const data = doc.data();
+    return {
+      id: doc.id,
+      title: data.title,
+      description: data.description,
+      category: data.category,
+      date: new Date(data.createdAt.seconds * 1000).toISOString(),
+      imageUrl: data.imageUrl,
+      createdAt: data.createdAt,
+    };
+  } catch (error) {
+    console.error("Erreur lors de la récupération de la dernière actualité : ", error);
+    return null;
+  }
+};
+
 
 export const deleteNews = async (id: string) => {
   if (!db) {

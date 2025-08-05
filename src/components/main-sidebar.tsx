@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot } from "lucide-react";
 
@@ -17,10 +17,28 @@ import {
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import LoaderLink from "./loader-link";
+import { getLatestNews } from "@/firebase/services";
+import { Badge } from "./ui/badge";
 
 export function MainSidebar() {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
+  const [showNewsBadge, setShowNewsBadge] = useState(false);
+
+  useEffect(() => {
+    const checkLatestNews = async () => {
+      const latestNews = await getLatestNews();
+      if (latestNews) {
+        const newsDate = new Date(latestNews.date);
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        if (newsDate > sevenDaysAgo) {
+          setShowNewsBadge(true);
+        }
+      }
+    };
+    checkLatestNews();
+  }, []);
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -63,9 +81,14 @@ export function MainSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
-              <LoaderLink href="/news" onClick={handleLinkClick}>
-                <Newspaper />
-                <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Actualité</span>
+              <LoaderLink href="/news" onClick={handleLinkClick} className="flex w-full items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Newspaper />
+                  <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Actualité</span>
+                </div>
+                 {showNewsBadge && (
+                    <Badge variant="destructive" className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-xs px-1.5 py-0.5 h-auto">Nouveau</Badge>
+                )}
               </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
