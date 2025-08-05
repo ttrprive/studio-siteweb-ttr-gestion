@@ -30,7 +30,7 @@ export const Rating = ({ value }: { value: number }) => {
 
 export default function TestimonialsSection() {
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
@@ -88,8 +88,6 @@ export default function TestimonialsSection() {
                 loop: true,
             }}
             plugins={[plugin.current]}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
             className="w-full"
             >
             <CarouselContent className="-ml-4">
@@ -99,9 +97,9 @@ export default function TestimonialsSection() {
                     <Card className="h-full flex flex-col">
                         <CardHeader>
                         <div className="flex items-center gap-4">
-                            <Avatar className="border-2 border-border">
-                            <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                            <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                            <Avatar>
+                              <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                              <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                             </Avatar>
                             <div>
                             <p className="font-semibold">{testimonial.name}</p>

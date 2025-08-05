@@ -106,7 +106,7 @@ const CategoryBadge = ({ category }: { category: NewsCategory }) => {
 
 export default function NewsClientPage({ initialNews }: { initialNews: NewsItem[] }) {
     const plugin = React.useRef(
-        Autoplay({ delay: 3000, stopOnInteraction: true })
+        Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })
     );
 
   return (
@@ -115,8 +115,6 @@ export default function NewsClientPage({ initialNews }: { initialNews: NewsItem[
             <Carousel
                 opts={{ align: "start", loop: true }}
                 plugins={[plugin.current]}
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
                 className="w-full"
             >
                 <CarouselContent>
