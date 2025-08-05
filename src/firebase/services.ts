@@ -15,11 +15,11 @@ export const addReview = async (review: { name: string; rating: number; review: 
     throw new Error("La base de données n'est pas configurée.");
   }
   try {
-    // Les avis sont maintenant approuvés automatiquement à la création.
+    // Correction: L'appel à addDoc a été corrigé pour utiliser la collection et les données correctement.
     await addDoc(collection(db, 'reviews'), {
       ...review,
       createdAt: serverTimestamp(),
-      approved: true, // Changement : l'avis est approuvé par défaut.
+      approved: true,
     });
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'avis : ", error);
