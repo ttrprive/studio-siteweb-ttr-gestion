@@ -233,11 +233,7 @@ export default function SupportPage() {
             <CardContent className="space-y-4">
               <div className="flex items-center gap-4">
                 <Mail className="size-5 text-muted-foreground" />
-                <a href="mailto:support@exemple.com" className="hover:underline">support@exemple.com</a>
-              </div>
-              <div className="flex items-center gap-4">
-                <Phone className="size-5 text-muted-foreground" />
-                <span>+33 1 23 45 67 89</span>
+                <a href="mailto:support@ttrgestion.site" className="hover:underline">support@ttrgestion.site</a>
               </div>
             </CardContent>
           </Card>
