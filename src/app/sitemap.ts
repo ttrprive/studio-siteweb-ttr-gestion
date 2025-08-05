@@ -4,7 +4,6 @@ import { MetadataRoute } from 'next';
 const URL = 'https://ttrgestion.site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Add all static pages here
   const staticPages = [
     '/',
     '/about',
@@ -23,16 +22,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/testimonials',
   ];
 
-  const routes: MetadataRoute.Sitemap = staticPages.map((route) => ({
+  const staticRoutes = staticPages.map((route) => ({
     url: `${URL}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: route === '/' ? 1 : 0.8,
   }));
   
-  // You can add dynamic pages here later, for example:
-  // const news = await getNews();
-  // const newsRoutes = news.map(item => ({...}));
+  const serviceSlugs = [
+    "creation-site-web",
+    "publicite-ciblee",
+    "developpement-application",
+    "seo"
+  ];
+
+  const serviceRoutes = serviceSlugs.map((slug) => ({
+    url: `${URL}/services/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  }));
   
-  return routes;
+  return [...staticRoutes, ...serviceRoutes];
 }
