@@ -94,6 +94,10 @@ export default {
         'float': {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        'scintillate': {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.5', transform: 'scale(1.2)' },
         }
       },
       animation: {
@@ -101,6 +105,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 3s ease-in-out infinite',
+        'scintillate': 'scintillate 1.5s ease-in-out infinite',
       },
     },
   },

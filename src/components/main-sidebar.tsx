@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot } from "lucide-react";
+import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot, Sparkles } from "lucide-react";
 
 import {
   SidebarHeader,
@@ -81,13 +81,16 @@ export function MainSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
-              <LoaderLink href="/news" onClick={handleLinkClick} className="flex w-full items-center justify-between">
+              <LoaderLink href="/news" onClick={handleLinkClick} className="relative flex w-full items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Newspaper />
                   <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden">Actualité</span>
                 </div>
                  {showNewsBadge && (
-                    <Badge variant="destructive" className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-xs px-1.5 py-0.5 h-auto">Nouveau</Badge>
+                    <>
+                      <Badge variant="destructive" className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-xs px-1.5 py-0.5 h-auto">Nouveau</Badge>
+                      <Sparkles className="absolute top-0 right-0 size-3 hidden group-data-[collapsible=icon]/sidebar-wrapper:block text-destructive animate-scintillate" />
+                    </>
                 )}
               </LoaderLink>
             </SidebarMenuButton>
