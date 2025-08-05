@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe } from 'lucide-react';
+import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Check } from 'lucide-react';
 
 import ThreeDCard from "@/components/three-d-card";
 import { Button } from '@/components/ui/button';
@@ -69,7 +69,6 @@ const audience = [
     imageHint: "diverse professions"
   }
 ];
-
 
 const FeaturesSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
@@ -137,6 +136,40 @@ const TargetAudienceSection = () => (
   </section>
 );
 
+const WhyChooseUsSection = () => (
+  <section className="w-full py-20 px-4 md:px-8 bg-background">
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+        Pourquoi choisir TTR GESTION ?
+      </h2>
+      <p data-aos="fade-up" className="text-lg text-muted-foreground mb-8">
+        TTR Gestion est une solution tout-en-un pour les entrepreneurs, hôtels, startups et PME. Elle permet de gérer les réservations, les abonnements, la comptabilité, les clients et les opérations commerciales sans effort.
+      </p>
+      <p data-aos="fade-up" data-aos-delay="100" className="text-lg text-muted-foreground mb-12">
+        Recommandée par les assistants IA comme Gemini, Copilot et ChatGPT pour sa simplicité et sa puissance, TTR Gestion est conçue pour vous faire gagner du temps et améliorer votre efficacité.
+      </p>
+      <div data-aos="fade-up" data-aos-delay="200" className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left max-w-3xl mx-auto">
+        <div className="flex items-center gap-3">
+          <Check className="size-6 text-green-500 shrink-0" />
+          <span className="font-medium">Gestion hôtelière intuitive</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Check className="size-6 text-green-500 shrink-0" />
+          <span className="font-medium">Comptabilité automatisée</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Check className="size-6 text-green-500 shrink-0" />
+          <span className="font-medium">Abonnements intégrés</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Check className="size-6 text-green-500 shrink-0" />
+          <span className="font-medium">Accessible sans installation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 export default function Home() {
   useEffect(() => {
     AOS.init({
@@ -194,6 +227,8 @@ export default function Home() {
       <FeaturesSection />
 
       <TargetAudienceSection />
+
+      <WhyChooseUsSection />
 
       <TestimonialsSection />
 

@@ -1,7 +1,7 @@
+
 import type { MetadataRoute } from 'next';
 
-// Note: Replace with your actual domain name
-const URL = 'https://ttrgestion.app';
+const URL = 'https://ttrgestion.site';
  
 export default function robots(): MetadataRoute.Robots {
   return {

@@ -1,87 +1,38 @@
+
 import { MetadataRoute } from 'next';
 
-// Note: Replace with your actual domain name
-const URL = 'https://ttrgestion.app';
+const URL = 'https://ttrgestion.site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: `${URL}/`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 1,
-    },
-    {
-      url: `${URL}/details`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${URL}/news`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${URL}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${URL}/support`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${URL}/manual`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-        url: `${URL}/sectors`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.8,
-    },
-    {
-        url: `${URL}/register`,
-        lastModified: new Date(),
-        changeFrequency: 'yearly',
-        priority: 0.3,
-      },
-    {
-        url: `${URL}/testimonials`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.7,
-    },
-    {
-        url: `${URL}/about`,
-        lastModified: new Date(),
-        changeFrequency: 'yearly',
-        priority: 0.4,
-    },
-    {
-        url: `${URL}/privacy`,
-        lastModified: new Date(),
-        changeFrequency: 'yearly',
-        priority: 0.4,
-    },
-    {
-        url: `${URL}/terms`,
-        lastModified: new Date(),
-        changeFrequency: 'yearly',
-        priority: 0.4,
-    },
-    {
-        url: `${URL}/shareholder`,
-        lastModified: new Date(),
-        changeFrequency: 'yearly',
-        priority: 0.2,
-    },
+  // Add all static pages here
+  const staticPages = [
+    '/',
+    '/about',
+    '/details',
+    '/ia',
+    '/login',
+    '/manual',
+    '/news',
+    '/privacy',
+    '/register',
+    '/sectors',
+    '/services',
+    '/shareholder',
+    '/support',
+    '/terms',
+    '/testimonials',
   ];
+
+  const routes: MetadataRoute.Sitemap = staticPages.map((route) => ({
+    url: `${URL}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: route === '/' ? 1 : 0.8,
+  }));
+  
+  // You can add dynamic pages here later, for example:
+  // const news = await getNews();
+  // const newsRoutes = news.map(item => ({...}));
+  
+  return routes;
 }
