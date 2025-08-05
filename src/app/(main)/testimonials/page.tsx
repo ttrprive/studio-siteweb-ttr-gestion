@@ -44,11 +44,10 @@ const AddReviewForm = ({ onReviewAdded }: { onReviewAdded: () => void }) => {
             await addReview({ name, role, review, rating });
             toast({
                 title: "Avis ajouté !",
-                description: "Merci pour votre retour, il a été ajouté avec succès.",
+                description: "Merci pour votre retour.",
             });
-            setOpen(false); // Ferme la boîte de dialogue
-            onReviewAdded(); // Déclenche la mise à jour de la liste
-            // Réinitialiser le formulaire
+            setOpen(false);
+            onReviewAdded();
             (event.target as HTMLFormElement).reset();
             setRating(0);
         } catch (error) {
