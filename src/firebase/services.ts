@@ -15,9 +15,11 @@ export const addReview = async (review: { name: string; rating: number; review: 
     throw new Error("La base de données n'est pas configurée.");
   }
   try {
-    // Ajout simple du document sans le champ 'approved'
     await addDoc(collection(db, 'reviews'), {
-      ...review,
+      name: review.name,
+      role: review.role,
+      review: review.review,
+      rating: review.rating,
       createdAt: serverTimestamp(),
     });
   } catch (error) {
@@ -32,7 +34,6 @@ export const getReviews = async (): Promise<Testimonial[]> => {
     return [];
   }
   try {
-    // Requête simple sans filtre 'where', ce qui évite le besoin d'un index composite.
     const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
     
@@ -43,7 +44,7 @@ export const getReviews = async (): Promise<Testimonial[]> => {
         id: doc.id,
         name: data.name,
         role: data.role,
-        avatar: data.avatar || `https://i.pravatar.cc/150?u=${doc.id}`,
+        avatar: data.avatar || '', // On ne fournit plus d'URL par défaut
         rating: data.rating,
         quote: data.review,
       });

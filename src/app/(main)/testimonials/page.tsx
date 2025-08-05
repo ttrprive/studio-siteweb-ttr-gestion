@@ -47,7 +47,7 @@ const AddReviewForm = ({ onReviewAdded }: { onReviewAdded: () => void }) => {
                 description: "Merci pour votre retour.",
             });
             setOpen(false);
-            onReviewAdded();
+            onReviewAdded(); // Refresh the list of reviews
             (event.target as HTMLFormElement).reset();
             setRating(0);
         } catch (error) {
