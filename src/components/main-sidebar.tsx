@@ -35,7 +35,7 @@ export function MainSidebar() {
       <SidebarHeader className="h-14 justify-end p-2 data-[collapsible=icon]:justify-center">
         <SidebarTrigger className="hidden md:flex" />
       </SidebarHeader>
-      <SidebarContent className="h-full justify-between flex flex-col">
+      <SidebarContent className="flex-grow">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/")} tooltip={{children: "Accueil", side: "left"}}>
@@ -86,12 +86,12 @@ export function MainSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-        <SidebarFooter className="data-[collapsible=icon]:items-center flex flex-col gap-2">
+      </SidebarContent>
+       <SidebarFooter className="data-[collapsible=icon]:items-center flex flex-col gap-2">
           <div className="flex justify-center w-full">
-              <ThemeToggle />
+            <ThemeToggle />
           </div>
         </SidebarFooter>
-      </SidebarContent>
     </>
   );
 }

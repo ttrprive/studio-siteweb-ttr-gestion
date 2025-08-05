@@ -17,7 +17,7 @@ export default function MainLayout({
         collapsible="icon"
         variant="floating"
         side="right"
-        className="h-[320px] z-50"
+        className="h-[420px] z-50"
       >
         <MainSidebar />
         <SidebarRail />
