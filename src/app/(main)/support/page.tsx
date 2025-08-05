@@ -116,6 +116,36 @@ export default function SupportPage() {
   
   useEffect(() => {
     document.title = 'Support & Aide | TTR GESTION';
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    };
+
+    let script = document.getElementById('faq-schema');
+    if (!script) {
+        script = document.createElement('script');
+        script.id = 'faq-schema';
+        script.type = 'application/ld+json';
+        document.head.appendChild(script);
+    }
+    script.innerHTML = JSON.stringify(jsonLd);
+    
+    // Cleanup script on component unmount
+    return () => {
+        const scriptToRemove = document.getElementById('faq-schema');
+        if (scriptToRemove) {
+            document.head.removeChild(scriptToRemove);
+        }
+    };
   }, []);
 
 
