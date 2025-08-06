@@ -74,7 +74,7 @@ export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
                         <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
                       )}
                       {isCollapsed && (
-                        <Sparkles className="absolute top-0 right-0 size-3 text-destructive animate-scintillate" />
+                        <Sparkles className="absolute top-0 right-0 size-3.5 text-destructive fill-destructive animate-scintillate" />
                       )}
                     </>
                 )}

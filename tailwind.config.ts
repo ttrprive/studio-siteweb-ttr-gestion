@@ -97,7 +97,7 @@ export default {
         },
         'scintillate': {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.5', transform: 'scale(1.2)' },
+          '50%': { opacity: '0.7', transform: 'scale(1.2)' },
         }
       },
       animation: {
