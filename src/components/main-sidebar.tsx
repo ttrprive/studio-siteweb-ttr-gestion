@@ -64,14 +64,14 @@ export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            {isCollapsed && showNewsBadge && (
-              <div className="absolute top-[138px] right-[10px] z-50 pointer-events-none">
-                <Sparkles className="size-4 text-destructive fill-destructive animate-scintillate" />
-              </div>
-            )}
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
               <LoaderLink href="/news" onClick={handleLinkClick}>
-                <Newspaper />
+                <div className="relative">
+                  <Newspaper />
+                  {isCollapsed && showNewsBadge && (
+                    <Sparkles className="absolute -top-1 -right-1 size-4 text-destructive fill-destructive animate-scintillate" />
+                  )}
+                </div>
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden ml-2">Actualité</span>
                  {!isCollapsed && showNewsBadge && (
                     <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
