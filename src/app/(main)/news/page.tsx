@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: 'Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion. Restez informé des évolutions de votre outil de gestion.',
 };
 
+// Revalide la page toutes les 60 secondes pour refléter les changements du CMS.
+export const revalidate = 60;
+
 export default async function NewsPage() {
   const newsItems = await getNews();
 
