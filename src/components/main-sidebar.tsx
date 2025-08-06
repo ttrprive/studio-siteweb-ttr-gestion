@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
 import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot, Sparkles } from "lucide-react";
 
@@ -17,21 +17,11 @@ import {
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import LoaderLink from "./loader-link";
-import { getNewsBadgeStatus } from "@/firebase/services";
 import { Badge } from "./ui/badge";
 
-export function MainSidebar() {
+export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
-  const [showNewsBadge, setShowNewsBadge] = useState(false);
-
-  useEffect(() => {
-    const checkBadgeStatus = async () => {
-      const status = await getNewsBadgeStatus();
-      setShowNewsBadge(status);
-    };
-    checkBadgeStatus();
-  }, []);
 
   const isActive = (path: string) => {
     return pathname === path;

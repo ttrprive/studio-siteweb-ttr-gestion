@@ -4,13 +4,24 @@
 import { AppFooter } from '@/components/app-footer';
 import { MainSidebar } from '@/components/main-sidebar';
 import { Sidebar, SidebarInset, SidebarProvider, SidebarRail, SidebarTrigger } from '@/components/ui/sidebar';
-import React from 'react';
+import { getNewsBadgeStatus } from '@/firebase/services';
+import React, { useEffect, useState } from 'react';
 
 export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [showNewsBadge, setShowNewsBadge] = useState(false);
+
+  useEffect(() => {
+    const checkBadgeStatus = async () => {
+      const status = await getNewsBadgeStatus();
+      setShowNewsBadge(status);
+    };
+    checkBadgeStatus();
+  }, []);
+
   return (
     <SidebarProvider>
       <Sidebar
@@ -19,7 +30,7 @@ export default function MainLayout({
         side="right"
         className="h-[420px] z-50"
       >
-        <MainSidebar />
+        <MainSidebar showNewsBadge={showNewsBadge} />
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
