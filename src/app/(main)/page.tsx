@@ -212,7 +212,7 @@ export default function Home() {
 
             <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild>
-                    <Link href="#">Créer un nouveau compte</Link>
+                    <Link href="https://app.ttrgestion.site/register">Créer un nouveau compte</Link>
                 </Button>
                 <Button asChild variant="outline">
                     <Link href="#">Se connecter</Link>
