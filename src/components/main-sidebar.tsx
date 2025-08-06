@@ -65,7 +65,9 @@ export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
           </SidebarMenuItem>
           <SidebarMenuItem>
             {isCollapsed && showNewsBadge && (
-              <Sparkles className="absolute top-1 right-1 z-10 size-3.5 text-destructive fill-destructive animate-scintillate" />
+              <div className="absolute top-[138px] right-[10px] z-50 pointer-events-none">
+                <Sparkles className="size-4 text-destructive fill-destructive animate-scintillate" />
+              </div>
             )}
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
               <LoaderLink href="/news" onClick={handleLinkClick}>
