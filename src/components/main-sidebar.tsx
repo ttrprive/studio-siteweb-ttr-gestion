@@ -21,7 +21,8 @@ import { Badge } from "./ui/badge";
 
 export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
   const pathname = usePathname();
-  const { setOpenMobile } = useSidebar();
+  const { setOpenMobile, state } = useSidebar();
+  const isCollapsed = state === 'collapsed';
 
   const isActive = (path: string) => {
     return pathname === path;
@@ -62,15 +63,19 @@ export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
               </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem className="group/menu-item">
+          <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
               <LoaderLink href="/news" onClick={handleLinkClick} className="relative flex w-full items-center justify-start">
                 <Newspaper />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden ml-2">Actualité</span>
                  {showNewsBadge && (
                     <>
-                      <Badge variant="destructive" className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
-                       <Sparkles className="absolute top-0 right-0 size-3 hidden group-data-[collapsible=icon]/sidebar-wrapper:!block text-destructive animate-scintillate" />
+                      {!isCollapsed && (
+                        <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
+                      )}
+                      {isCollapsed && (
+                        <Sparkles className="absolute top-0 right-0 size-3 text-destructive animate-scintillate" />
+                      )}
                     </>
                 )}
               </LoaderLink>
