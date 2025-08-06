@@ -155,7 +155,7 @@ export default function ManualPage() {
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Chaque fonctionnalité est pensée pour vous donner le pouvoir. Il est temps de l'utiliser.</p>
                     <div className="mt-8">
                         <Button size="lg" asChild>
-                            <Link href="#">Commencez gratuitement</Link>
+                            <Link href="https://app.ttrgestion.site/register">Commencez gratuitement</Link>
                         </Button>
                     </div>
                 </div>
