@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -8,12 +7,21 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import Autoplay from "embla-carousel-autoplay";
 import type { NewsItem, NewsCategory } from '@/types/news';
 import { getNews } from '@/firebase/services';
-import { Badge } from './ui/badge';
+import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Sparkles, ArrowUpCircle, Wrench, Megaphone } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Skeleton } from './ui/skeleton';
+import { Skeleton } from '@/components/ui/skeleton';
+import type { Metadata } from 'next';
+
+// Note: Metadata export is ignored in client components, but can be kept for reference
+// or if this component is used in a server component tree later.
+// export const metadata: Metadata = {
+//   title: 'Actualités et Mises à Jour',
+//   description: 'Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion. Restez informé des évolutions de votre outil de gestion.',
+// };
+
 
 const promotions = [
   {
@@ -106,7 +114,7 @@ const CategoryBadge = ({ category }: { category: NewsCategory }) => {
 };
 
 
-export default function NewsClientPage() {
+export default function NewsPage() {
     const [news, setNews] = useState<NewsItem[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -125,7 +133,7 @@ export default function NewsClientPage() {
     );
 
   return (
-    <div className="w-full">
+    <main className="w-full">
         <div className="w-full relative">
             <Carousel
                 opts={{ align: "start", loop: true }}
@@ -219,6 +227,6 @@ export default function NewsClientPage() {
                 )}
             </div>
         </div>
-    </div>
+    </main>
   );
 }
