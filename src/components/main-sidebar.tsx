@@ -64,19 +64,15 @@ export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
+            {isCollapsed && showNewsBadge && (
+              <Sparkles className="absolute top-1 right-1 z-10 size-3.5 text-destructive fill-destructive animate-scintillate" />
+            )}
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
-              <LoaderLink href="/news" onClick={handleLinkClick} className="relative flex w-full items-center justify-start">
+              <LoaderLink href="/news" onClick={handleLinkClick}>
                 <Newspaper />
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden ml-2">Actualité</span>
-                 {showNewsBadge && (
-                    <>
-                      {!isCollapsed && (
-                        <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
-                      )}
-                      {isCollapsed && (
-                        <Sparkles className="absolute top-0 right-0 z-10 size-3.5 text-destructive fill-destructive animate-scintillate" />
-                      )}
-                    </>
+                 {!isCollapsed && showNewsBadge && (
+                    <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
                 )}
               </LoaderLink>
             </SidebarMenuButton>
