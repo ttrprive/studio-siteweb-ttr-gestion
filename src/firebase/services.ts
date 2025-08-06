@@ -1,7 +1,7 @@
 
 // src/firebase/services.ts
 import { db } from './config';
-import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit, getDoc, setDoc } from 'firebase/firestore';
 import type { Testimonial } from '@/types/testimonial';
 import type { NewsItem, NewsItemCreate } from '@/types/news';
 import type { Promotion, PromotionCreate } from '@/types/promotion';
@@ -102,35 +102,6 @@ export const getNews = async (): Promise<NewsItem[]> => {
     return [];
   }
 };
-
-export const getLatestNews = async (): Promise<NewsItem | null> => {
-  if (!db) {
-    console.error("Firestore is not initialized.");
-    return null;
-  }
-  try {
-    const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'), limit(1));
-    const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) {
-      return null;
-    }
-    const doc = querySnapshot.docs[0];
-    const data = doc.data();
-    return {
-      id: doc.id,
-      title: data.title,
-      description: data.description,
-      category: data.category,
-      date: new Date(data.createdAt.seconds * 1000).toISOString(),
-      imageUrl: data.imageUrl,
-      createdAt: data.createdAt,
-    };
-  } catch (error) {
-    console.error("Erreur lors de la récupération de la dernière actualité : ", error);
-    return null;
-  }
-};
-
 
 export const deleteNews = async (id: string) => {
   if (!db) {
@@ -278,4 +249,37 @@ export const updateSupportMessageReadStatus = async (id: string, read: boolean) 
     console.error("Erreur lors de la mise à jour du message : ", error);
     throw new Error("Impossible de mettre à jour le message.");
   }
+};
+
+// ====== SITE SETTINGS ======
+const settingsDocRef = doc(db, 'settings', 'siteControls');
+
+export const getNewsBadgeStatus = async (): Promise<boolean> => {
+    if (!db) {
+        console.error("Firestore is not initialized.");
+        return false;
+    }
+    try {
+        const docSnap = await getDoc(settingsDocRef);
+        if (docSnap.exists()) {
+            return docSnap.data().showNewsBadge || false;
+        }
+        return false;
+    } catch (error) {
+        console.error("Erreur lors de la récupération du statut du badge : ", error);
+        return false;
+    }
+};
+
+export const setNewsBadgeStatus = async (status: boolean): Promise<void> => {
+    if (!db) {
+        console.error("Firestore is not initialized.");
+        throw new Error("La base de données n'est pas configurée.");
+    }
+    try {
+        await setDoc(settingsDocRef, { showNewsBadge: status });
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour du statut du badge : ", error);
+        throw new Error("Impossible de mettre à jour le statut du badge.");
+    }
 };

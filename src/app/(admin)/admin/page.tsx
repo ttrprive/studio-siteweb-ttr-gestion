@@ -4,6 +4,7 @@
 import AdminNewsManager from '@/components/admin-news-manager';
 import AdminCarouselManager from '@/components/admin-carousel-manager';
 import AdminSupportManager from '@/components/admin-support-manager';
+import AdminSettingsManager from '@/components/admin-settings-manager';
 
 export default function AdminPage() {
   
@@ -23,6 +24,7 @@ export default function AdminPage() {
         </div>
         
         <div className="flex flex-col gap-8">
+            <AdminSettingsManager />
             <AdminNewsManager />
             <AdminCarouselManager />
             <AdminSupportManager />

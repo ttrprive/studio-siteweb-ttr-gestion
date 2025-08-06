@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import LoaderLink from "./loader-link";
-import { getLatestNews } from "@/firebase/services";
+import { getNewsBadgeStatus } from "@/firebase/services";
 import { Badge } from "./ui/badge";
 
 export function MainSidebar() {
@@ -26,18 +26,11 @@ export function MainSidebar() {
   const [showNewsBadge, setShowNewsBadge] = useState(false);
 
   useEffect(() => {
-    const checkLatestNews = async () => {
-      const latestNews = await getLatestNews();
-      if (latestNews) {
-        const newsDate = new Date(latestNews.date);
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-        if (newsDate > sevenDaysAgo) {
-          setShowNewsBadge(true);
-        }
-      }
+    const checkBadgeStatus = async () => {
+      const status = await getNewsBadgeStatus();
+      setShowNewsBadge(status);
     };
-    checkLatestNews();
+    checkBadgeStatus();
   }, []);
 
   const isActive = (path: string) => {
@@ -79,7 +72,7 @@ export function MainSidebar() {
               </LoaderLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem className="group/menu-item-news">
+          <SidebarMenuItem className="group/menu-item">
             <SidebarMenuButton asChild isActive={isActive("/news")} tooltip={{children: "Actualité", side: "left"}}>
               <LoaderLink href="/news" onClick={handleLinkClick} className="relative flex w-full items-center justify-start">
                 <Newspaper />
@@ -87,7 +80,7 @@ export function MainSidebar() {
                  {showNewsBadge && (
                     <>
                       <Badge variant="destructive" className="group-data-[collapsible=icon]/sidebar-wrapper:hidden text-xs px-1.5 py-0.5 h-auto ml-auto">Nouveau</Badge>
-                      <Sparkles className="absolute top-0 right-0 size-3 hidden group-data-[collapsible=icon]/sidebar-wrapper:block text-destructive animate-scintillate" />
+                       <Sparkles className="absolute top-0 right-0 size-3 hidden group-data-[collapsible=icon]/sidebar-wrapper:!block text-destructive animate-scintillate" />
                     </>
                 )}
               </LoaderLink>
