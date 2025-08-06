@@ -69,7 +69,7 @@ export function MainSidebar({ showNewsBadge }: { showNewsBadge: boolean }) {
                 <div className="relative">
                   <Newspaper />
                   {isCollapsed && showNewsBadge && (
-                    <Sparkles className="absolute -top-1 -right-1 size-4 text-destructive fill-destructive animate-scintillate" />
+                    <Sparkles className="absolute -top-1.5 -right-1.5 size-5 text-yellow-400 fill-yellow-400 animate-scintillate" />
                   )}
                 </div>
                 <span className="group-data-[collapsible=icon]/sidebar-wrapper:hidden ml-2">Actualité</span>
