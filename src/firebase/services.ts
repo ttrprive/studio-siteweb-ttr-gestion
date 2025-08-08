@@ -81,17 +81,21 @@ export const getNews = async (): Promise<NewsItem[]> => {
     return [];
   }
   try {
+    // Requête pour récupérer toutes les actualités, triées par date de création (la plus récente en premier)
     const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
+    
     const news: NewsItem[] = [];
     querySnapshot.forEach((doc) => {
       const data = doc.data();
+      const createdAt = data.createdAt?.seconds ? new Date(data.createdAt.seconds * 1000) : new Date();
+      
       news.push({
         id: doc.id,
         title: data.title,
         description: data.description,
         category: data.category,
-        date: new Date(data.createdAt.seconds * 1000).toISOString(),
+        date: createdAt.toISOString(),
         imageUrl: data.imageUrl,
         createdAt: data.createdAt,
       });
@@ -101,40 +105,6 @@ export const getNews = async (): Promise<NewsItem[]> => {
     console.error("Erreur lors de la récupération des actualités : ", error);
     return [];
   }
-};
-
-export const getNewsRealtime = (callback: (news: NewsItem[]) => void) => {
-  if (!db) {
-    console.error("Firestore is not initialized.");
-    callback([]);
-    return () => {}; // Return an empty unsubscribe function
-  }
-  
-  const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
-
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const news: NewsItem[] = [];
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      if (data.createdAt) { // Ensure createdAt exists
-        news.push({
-          id: doc.id,
-          title: data.title,
-          description: data.description,
-          category: data.category,
-          date: new Date(data.createdAt.seconds * 1000).toISOString(),
-          imageUrl: data.imageUrl,
-          createdAt: data.createdAt,
-        });
-      }
-    });
-    callback(news);
-  }, (error) => {
-    console.error("Erreur lors de l'écoute des actualités en temps réel : ", error);
-    callback([]);
-  });
-
-  return unsubscribe;
 };
 
 
