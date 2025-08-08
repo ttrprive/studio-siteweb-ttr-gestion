@@ -21,7 +21,7 @@ import { fr } from 'date-fns/locale';
 import { Skeleton } from './ui/skeleton';
 import { uploadMedia } from '@/app/actions/uploadImage';
 import { Trash2, Edit } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose, DialogDescription } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
 const newsSchema = z.object({
@@ -162,7 +162,7 @@ const AdminNewsManager = () => {
             const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {
-                throw new Error(result.error || 'Échec du téléversement de l\'image.');
+                throw new Error(result.error || 'Échec du téléversement de l\\'image.');
             }
             newsData.imageUrl = result.url;
         }
@@ -193,6 +193,9 @@ const AdminNewsManager = () => {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Modifier l'actualité</DialogTitle>
+                    <DialogDescription>
+                      Modifiez les détails de l'actualité ci-dessous.
+                    </DialogDescription>
                 </DialogHeader>
                 {editingNewsItem && (
                     <EditForm 
