@@ -1,7 +1,7 @@
 
 // src/firebase/services.ts
 import { db } from './config';
-import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit, getDoc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
 import type { Testimonial } from '@/types/testimonial';
 import type { NewsItem, NewsItemCreate } from '@/types/news';
 import type { Promotion, PromotionCreate } from '@/types/promotion';
@@ -102,6 +102,41 @@ export const getNews = async (): Promise<NewsItem[]> => {
     return [];
   }
 };
+
+export const getNewsRealtime = (callback: (news: NewsItem[]) => void) => {
+  if (!db) {
+    console.error("Firestore is not initialized.");
+    callback([]);
+    return () => {}; // Return an empty unsubscribe function
+  }
+  
+  const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
+
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const news: NewsItem[] = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.createdAt) { // Ensure createdAt exists
+        news.push({
+          id: doc.id,
+          title: data.title,
+          description: data.description,
+          category: data.category,
+          date: new Date(data.createdAt.seconds * 1000).toISOString(),
+          imageUrl: data.imageUrl,
+          createdAt: data.createdAt,
+        });
+      }
+    });
+    callback(news);
+  }, (error) => {
+    console.error("Erreur lors de l'écoute des actualités en temps réel : ", error);
+    callback([]);
+  });
+
+  return unsubscribe;
+};
+
 
 export const deleteNews = async (id: string) => {
   if (!db) {

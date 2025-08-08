@@ -7,21 +7,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import type { NewsItem, NewsCategory } from '@/types/news';
-import { getNews } from '@/firebase/services';
+import { getNewsRealtime } from '@/firebase/services';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Sparkles, ArrowUpCircle, Wrench, Megaphone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
-import type { Metadata } from 'next';
-
-// Note: Metadata export is ignored in client components, but can be kept for reference
-// or if this component is used in a server component tree later.
-// export const metadata: Metadata = {
-//   title: 'Actualités et Mises à Jour',
-//   description: 'Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion. Restez informé des évolutions de votre outil de gestion.',
-// };
+import type { Unsubscribe } from 'firebase/firestore';
 
 
 const promotions = [
@@ -120,14 +113,29 @@ export default function NewsPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchNews = async () => {
-            setLoading(true);
-            const newsItems = await getNews();
-            setNews(newsItems);
-            setLoading(false);
+        let unsubscribe: Unsubscribe | undefined;
+
+        const setupListener = () => {
+            try {
+                unsubscribe = getNewsRealtime((newsItems) => {
+                    setNews(newsItems);
+                    if (loading) setLoading(false);
+                });
+            } catch (error) {
+                console.error("Failed to set up real-time news listener:", error);
+                setLoading(false);
+            }
         };
-        fetchNews();
-    }, []);
+
+        setupListener();
+
+        // Cleanup subscription on component unmount
+        return () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+        };
+    }, [loading]); // Rerun if loading state changes (e.g. for retries, though not implemented here)
 
     const plugin = React.useRef(
         Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })
