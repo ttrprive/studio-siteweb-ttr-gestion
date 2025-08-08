@@ -1,21 +1,22 @@
 
-"use client";
-
-import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import type { NewsItem, NewsCategory } from '@/types/news';
-import { getNewsRealtime } from '@/firebase/services';
+import { getNews } from '@/firebase/services';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Sparkles, ArrowUpCircle, Wrench, Megaphone } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
-import type { Unsubscribe } from 'firebase/firestore';
+import type { Metadata } from 'next';
 
+
+export const metadata: Metadata = {
+  title: 'Actualités et Mises à Jour',
+  description: 'Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion.',
+};
 
 const promotions = [
   {
@@ -108,45 +109,14 @@ const CategoryBadge = ({ category }: { category: NewsCategory }) => {
 };
 
 
-export default function NewsPage() {
-    const [news, setNews] = useState<NewsItem[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        let unsubscribe: Unsubscribe | undefined;
-
-        const setupListener = () => {
-            try {
-                unsubscribe = getNewsRealtime((newsItems) => {
-                    setNews(newsItems);
-                    if (loading) setLoading(false);
-                });
-            } catch (error) {
-                console.error("Failed to set up real-time news listener:", error);
-                setLoading(false);
-            }
-        };
-
-        setupListener();
-
-        // Cleanup subscription on component unmount
-        return () => {
-            if (unsubscribe) {
-                unsubscribe();
-            }
-        };
-    }, [loading]); // Rerun if loading state changes (e.g. for retries, though not implemented here)
-
-    const plugin = React.useRef(
-        Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true })
-    );
+export default async function NewsPage() {
+    const news = await getNews();
 
   return (
     <main className="w-full">
         <div className="w-full relative">
             <Carousel
                 opts={{ align: "start", loop: true }}
-                plugins={[plugin.current]}
                 className="w-full"
             >
                 <CarouselContent>
@@ -186,22 +156,7 @@ export default function NewsPage() {
             </div>
 
             <div className="max-w-4xl mx-auto space-y-8">
-                {loading ? (
-                    [...Array(3)].map((_, i) => (
-                       <Card key={i} className="grid md:grid-cols-3 gap-6 items-center overflow-hidden">
-                            <Skeleton className="relative h-48 md:h-full w-full" />
-                            <div className="md:col-span-2 p-6">
-                                <div className="flex items-center justify-between gap-4 mb-4">
-                                    <Skeleton className="h-6 w-24 rounded-full" />
-                                    <Skeleton className="h-4 w-20" />
-                                </div>
-                                <Skeleton className="h-8 w-3/4 mb-4" />
-                                <Skeleton className="h-4 w-full" />
-                                <Skeleton className="h-4 w-5/6 mt-2" />
-                            </div>
-                       </Card>
-                    ))
-                ) : news.length === 0 ? (
+                {news.length === 0 ? (
                     <p className="text-center text-muted-foreground">Aucune actualité pour le moment.</p>
                 ) : (
                     news.map((item) => (

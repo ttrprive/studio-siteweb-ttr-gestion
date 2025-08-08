@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -9,9 +9,9 @@ import { Star, StarHalf, ArrowRight } from 'lucide-react';
 import Autoplay from "embla-carousel-autoplay";
 import LoaderLink from './loader-link';
 import { Button } from './ui/button';
-import { getReviews } from '@/firebase/services';
 import type { Testimonial } from '@/types/testimonial';
 import { Skeleton } from './ui/skeleton';
+import AOS from 'aos';
 
 export const Rating = ({ value }: { value: number }) => {
   const fullStars = Math.floor(value);
@@ -28,21 +28,20 @@ export const Rating = ({ value }: { value: number }) => {
 };
 
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
-    const fetchReviews = async () => {
-        const reviewsData = await getReviews();
-        setTestimonials(reviewsData);
-        setLoading(false);
-    }
-    fetchReviews();
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-in-out',
+    });
   }, []);
+  
+  const loading = testimonials.length === 0;
 
   return (
     <section className="w-full py-20 px-4 md:px-8 bg-background">

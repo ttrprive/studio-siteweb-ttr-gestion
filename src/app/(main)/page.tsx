@@ -1,8 +1,5 @@
 
-"use client";
-
-import React, { useEffect } from 'react';
-import AOS from 'aos';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Check } from 'lucide-react';
@@ -11,6 +8,8 @@ import ThreeDCard from "@/components/three-d-card";
 import { Button } from '@/components/ui/button';
 import LoaderLink from '@/components/loader-link';
 import TestimonialsSection from '@/components/testimonials-section';
+import { getReviews } from '@/firebase/services';
+import type { Testimonial } from '@/types/testimonial';
 
 const features = [
   {
@@ -170,14 +169,8 @@ const WhyChooseUsSection = () => (
   </section>
 );
 
-export default function Home() {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
+export default async function Home() {
+  const testimonials: Testimonial[] = await getReviews();
 
   return (
     <>
@@ -230,7 +223,7 @@ export default function Home() {
 
       <WhyChooseUsSection />
 
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
 
       <section className="w-full py-20 px-4 md:px-8 bg-card">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-8 text-center">
