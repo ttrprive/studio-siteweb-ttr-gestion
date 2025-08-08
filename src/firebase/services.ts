@@ -81,7 +81,6 @@ export const getNews = async (): Promise<NewsItem[]> => {
     return [];
   }
   try {
-    // Requête pour récupérer toutes les actualités, triées par date de création (la plus récente en premier)
     const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
     
@@ -105,6 +104,46 @@ export const getNews = async (): Promise<NewsItem[]> => {
     console.error("Erreur lors de la récupération des actualités : ", error);
     return [];
   }
+};
+
+
+// Real-time listener for news
+export const getNewsRealtime = (
+  callback: (news: NewsItem[]) => void,
+  onError: (error: Error) => void
+) => {
+  if (!db) {
+    const error = new Error("Firestore is not initialized.");
+    console.error(error.message);
+    onError(error);
+    return () => {}; // Return an empty unsubscribe function
+  }
+  
+  const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
+  
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const news: NewsItem[] = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const createdAt = data.createdAt?.seconds ? new Date(data.createdAt.seconds * 1000) : new Date();
+      
+      news.push({
+        id: doc.id,
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        date: createdAt.toISOString(),
+        imageUrl: data.imageUrl,
+        createdAt: data.createdAt,
+      });
+    });
+    callback(news);
+  }, (error) => {
+    console.error("Erreur lors de l'écoute des actualités en temps réel : ", error);
+    onError(error);
+  });
+
+  return unsubscribe; // Return the unsubscribe function
 };
 
 
