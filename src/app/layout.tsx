@@ -12,15 +12,20 @@ export const metadata: Metadata = {
     default: 'TTR Gestion – Plateforme de gestion d’entreprise et hôtellerie',
     template: '%s | TTR GESTION',
   },
-  description: 'TTR Gestion est une solution complète pour gérer les entreprises, hôtels, abonnements et comptabilité. Accessible, intuitive et puissante.',
-  keywords: ['TTR Gestion', 'ttrgestion.site', 'logiciel de gestion', 'application hôtelière', 'comptabilité', 'gestion d’entreprise', 'CRM', 'ERP', 'France', 'SaaS', 'abonnement', 'plateforme de gestion'],
+  description: 'TTR Gestion est une solution complète pour gérer les entreprises, hôtels, abonnements et comptabilité. Accessible, intuitive et puissante. Essayez gratuitement.',
+  keywords: ['TTR Gestion', 'ttrgestion.site', 'logiciel de gestion', 'application hôtelière', 'comptabilité', 'gestion d’entreprise', 'CRM', 'ERP', 'France', 'SaaS', 'abonnement', 'plateforme de gestion', 'facturation', 'gestion de stock', 'auto-entrepreneur', 'TPE', 'PME'],
   authors: [{ name: 'TTR GESTION', url: siteUrl }],
   creator: 'TTR GESTION',
   publisher: 'TTR GESTION',
-  robots: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+  robots: 'index, follow',
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
+  },
+  // IMPORTANT: Ajoutez votre code de vérification Google ici pour que Google puisse indexer votre site.
+  // Remplacez "VOTRE_CODE_DE_VERIFICATION_GOOGLE" par la valeur fournie par Google Search Console.
+  verification: {
+    google: 'VOTRE_CODE_DE_VERIFICATION_GOOGLE',
   },
   openGraph: {
     title: 'TTR Gestion – Gérez votre entreprise avec efficacité',
@@ -42,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'TTR Gestion – Plateforme de gestion tout-en-un',
     description: 'Gérez vos hôtels, abonnements et comptabilité avec TTR Gestion. Simple, rapide, efficace.',
-    images: ['/twitter-card.jpg'], // L'image doit être dans le dossier public
+    images: [`${siteUrl}/twitter-card.jpg`], 
   },
   icons: {
     icon: '/favicon.ico',
@@ -60,32 +65,22 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'TTR Gestion',
-    url: siteUrl,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'EUR',
-      description: 'Essai gratuit disponible',
+      description: 'Essai gratuit disponible pour tester toutes les fonctionnalités.',
     },
     creator: {
       '@type': 'Organization',
       name: 'TTR Gestion',
+      url: siteUrl,
+      logo: `${siteUrl}/favicon.png`
     },
     description: "TTR Gestion est une application web complète pour gérer les entreprises, les hôtels, les abonnements et la comptabilité. Accessible à tous, sans installation.",
-    keywords: [
-      "TTR Gestion",
-      "ttrgestion.site",
-      "logiciel de gestion",
-      "application hôtelière",
-      "comptabilité",
-      "gestion d’entreprise",
-      "CRM",
-      "ERP",
-      "plateforme SaaS",
-      "abonnement"
-    ],
+    keywords: "TTR Gestion, ttrgestion.site, logiciel de gestion, application hôtelière, comptabilité, gestion d’entreprise, CRM, ERP, plateforme SaaS, abonnement, facturation, TPE, PME",
   };
 
   return (
