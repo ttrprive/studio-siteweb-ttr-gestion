@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description: 'Suivez les dernières nouveautés, améliorations et annonces concernant TTR Gestion.',
 };
 
+// Force la page à être dynamique pour toujours récupérer les dernières actualités
+export const dynamic = 'force-dynamic';
+
 const promotions = [
   {
     title: "Gestion Simplifiée",
