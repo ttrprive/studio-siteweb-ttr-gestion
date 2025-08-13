@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useRef, MouseEvent, TouchEvent } from 'react';
@@ -76,7 +77,7 @@ const ThreeDCard = () => {
         onTouchEnd={handleTouchEnd}
         ref={cardRef}
         className={cn(
-          "group relative h-[280px] w-[420px] rounded-xl [transform-style:preserve-3d] overflow-hidden",
+          "group relative h-[220px] w-[340px] md:h-[280px] md:w-[420px] rounded-xl [transform-style:preserve-3d] overflow-hidden",
           "bg-gradient-to-br from-neutral-800 via-neutral-900 to-black",
           "border border-white/10", // More subtle border for a metallic look
           "transition-transform duration-300 ease-out",
@@ -109,7 +110,7 @@ const ThreeDCard = () => {
 
 
 const LogoSvg = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-[320px] h-auto">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 141.75 141.750002" preserveAspectRatio="xMidYMid meet" version="1.2" className="w-[280px] md:w-[320px] h-auto">
       <defs>
         <clipPath id="a35518f290"><path d="M 44.976562 44.976562 L 58.621094 44.976562 L 58.621094 101.347656 L 44.976562 101.347656 Z M 44.976562 44.976562 " /></clipPath>
         <clipPath id="917d89fbb1"><path d="M 63.929688 44.976562 L 77.570312 44.976562 L 77.570312 101.347656 L 63.929688 101.347656 Z M 63.929688 44.976562 " /></clipPath>

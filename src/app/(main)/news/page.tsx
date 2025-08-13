@@ -138,7 +138,7 @@ export default function NewsPage() {
                 <CarouselContent>
                 {promotions.map((promo, index) => (
                     <CarouselItem key={index}>
-                        <div className="relative w-full h-[600px] bg-muted">
+                        <div className="relative w-full h-[450px] md:h-[600px] bg-muted">
                             <Image
                                 src={promo.src}
                                 alt={promo.alt}
@@ -191,7 +191,7 @@ export default function NewsPage() {
                     <p className="text-center text-muted-foreground">Aucune actualité pour le moment.</p>
                 ) : (
                     news.map((item) => (
-                        <Card key={item.id} className="grid md:grid-cols-3 gap-6 items-center overflow-hidden">
+                        <Card key={item.id} className="grid md:grid-cols-3 gap-0 md:gap-6 items-center overflow-hidden">
                             {item.imageUrl && (
                                 <div className="relative h-48 md:h-full w-full">
                                     <Image 
@@ -203,8 +203,8 @@ export default function NewsPage() {
                                     />
                                 </div>
                             )}
-                            <div className={item.imageUrl ? "md:col-span-2" : "md:col-span-3"}>
-                                <CardHeader>
+                            <div className={item.imageUrl ? "md:col-span-2 p-6" : "md:col-span-3 p-6"}>
+                                <CardHeader className="p-0">
                                     <div className="flex items-center justify-between gap-4">
                                         <CategoryBadge category={item.category} />
                                         <time className="text-sm text-muted-foreground">
@@ -213,7 +213,7 @@ export default function NewsPage() {
                                     </div>
                                     <CardTitle className="mt-2 text-2xl">{item.title}</CardTitle>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className="p-0 mt-4">
                                     <p className="text-muted-foreground">{item.description}</p>
                                 </CardContent>
                             </div>
