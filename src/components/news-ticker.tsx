@@ -9,6 +9,7 @@ import type { NewsItem } from '@/types/news';
 import { Button } from '@/components/ui/button';
 import { Newspaper } from 'lucide-react';
 import LoaderLink from './loader-link';
+import { cn } from '@/lib/utils';
 
 const NewsTicker = ({ newsItems }: { newsItems: NewsItem[] }) => {
   const plugin = React.useRef(
