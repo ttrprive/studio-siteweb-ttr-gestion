@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Badge } from '@/components/ui/badge';
 import CornerDecoration from '@/components/corner-decoration';
 import { TrixBusinessLogo } from '@/components/trix-business-logo';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 
 export const metadata: Metadata = {
@@ -24,10 +26,12 @@ export default function IAPage() {
             TRIX Business
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
-            Votre consultant IA personnel. Posez des questions sur le marketing, la finance, ou la gestion et obtenez des stratégies et des conseils pratiques pour votre entreprise. TRIX Business est conçu pour être votre copilote, vous aidant à prendre des décisions éclairées et à accélérer votre croissance.
+            Votre consultant IA personnel est maintenant disponible ! Posez des questions sur le marketing, la finance, ou la gestion et obtenez des stratégies et des conseils pratiques pour votre entreprise. TRIX Business est conçu pour être votre copilote, vous aidant à prendre des décisions éclairées et à accélérer votre croissance.
             </p>
             <div className="mt-12">
-                <Badge variant="secondary" className="text-lg py-2 px-4">Disponible Bientôt</Badge>
+                 <Button size="lg" asChild>
+                    <Link href="https://app.ttrgestion.site/login">Essayez TRIX Business maintenant</Link>
+                </Button>
             </div>
         </div>
     </main>

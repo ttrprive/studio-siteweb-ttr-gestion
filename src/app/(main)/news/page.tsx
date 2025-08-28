@@ -174,9 +174,9 @@ export default function NewsPage() {
             <div className="max-w-4xl mx-auto space-y-8">
                 {loading ? (
                     [...Array(3)].map((_, i) => (
-                       <Card key={i} className="grid md:grid-cols-3 gap-6 items-center overflow-hidden">
-                            <Skeleton className="relative h-48 md:h-full w-full" />
-                            <div className="md:col-span-2 p-6">
+                       <Card key={i} className="overflow-hidden">
+                            <Skeleton className="h-48 w-full" />
+                            <div className="p-6">
                                 <div className="flex items-center justify-between gap-4 mb-4">
                                     <Skeleton className="h-6 w-24 rounded-full" />
                                     <Skeleton className="h-4 w-20" />
@@ -191,19 +191,19 @@ export default function NewsPage() {
                     <p className="text-center text-muted-foreground">Aucune actualité pour le moment.</p>
                 ) : (
                     news.map((item) => (
-                        <Card key={item.id} className="grid md:grid-cols-3 gap-0 md:gap-6 items-center overflow-hidden">
+                        <Card key={item.id} className="overflow-hidden">
                             {item.imageUrl && (
-                                <div className="relative h-48 md:h-full w-full">
+                                <div className="relative h-64 w-full bg-muted">
                                     <Image 
                                         src={item.imageUrl} 
                                         alt={item.title} 
                                         fill 
                                         className="object-cover" 
-                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                        sizes="100vw"
                                     />
                                 </div>
                             )}
-                            <div className={item.imageUrl ? "md:col-span-2 p-6" : "md:col-span-3 p-6"}>
+                            <div className="p-6">
                                 <CardHeader className="p-0">
                                     <div className="flex items-center justify-between gap-4">
                                         <CategoryBadge category={item.category} />

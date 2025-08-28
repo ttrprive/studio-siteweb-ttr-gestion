@@ -2,6 +2,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
 import type { NewsItem } from '@/types/news';
@@ -20,13 +21,19 @@ const NewsTicker = ({ newsItems }: { newsItems: NewsItem[] }) => {
         <Carousel
           opts={{ align: "start", loop: true }}
           plugins={[plugin.current]}
-          orientation="vertical"
-          className="w-full h-6 overflow-hidden"
+          className="w-full h-16 overflow-hidden" // Increased height for image
         >
           <CarouselContent>
             {newsItems.map((item) => (
-              <CarouselItem key={item.id}>
-                <p className="text-sm text-card-foreground truncate">{item.title}</p>
+              <CarouselItem key={item.id} className="flex items-center gap-3">
+                {item.imageUrl && (
+                    <div className="relative w-12 h-12 rounded-md overflow-hidden shrink-0 bg-muted">
+                        <Image src={item.imageUrl} alt={item.title} fill className="object-cover" />
+                    </div>
+                )}
+                <p className={cn("text-sm text-card-foreground truncate", !item.imageUrl && "w-full")}>
+                  {item.title}
+                </p>
               </CarouselItem>
             ))}
           </CarouselContent>
