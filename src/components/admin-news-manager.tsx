@@ -348,7 +348,3 @@ const AdminNewsManager = () => {
 };
 
 export default AdminNewsManager;
-
-    
-
-    
