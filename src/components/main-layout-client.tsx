@@ -4,7 +4,8 @@
 import React from 'react';
 import { AppFooter } from '@/components/app-footer';
 import { MainSidebar } from '@/components/main-sidebar';
-import { Sidebar, SidebarInset, SidebarProvider, SidebarRail, SidebarTrigger, Sheet, SheetContent } from '@/components/ui/sidebar';
+import { Sidebar, SidebarInset, SidebarProvider, SidebarRail, SidebarTrigger } from '@/components/ui/sidebar';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { useIsMobile } from '@/hooks/use-mobile';
 import NewsTicker from './news-ticker';
 import { getNews } from '@/firebase/services';
