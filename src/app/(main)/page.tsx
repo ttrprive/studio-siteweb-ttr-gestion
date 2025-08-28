@@ -15,7 +15,7 @@ const features = [
   {
     id: "tresorerie",
     icon: <BarChartBig className="size-8 text-primary" />,
-    title: "📊 Suivi complet des finances",
+    title: "Suivi complet des finances",
     description: "Surveillez vos revenus, dépenses, dettes, marges en temps réel. Un tableau de bord épuré, toujours à jour.",
     image: "/P1.png",
     imageHint: "dashboard analytics"
@@ -23,7 +23,7 @@ const features = [
   {
     id: "investissements",
     icon: <Calculator className="size-8 text-primary" />,
-    title: "🧮 Planification stratégique",
+    title: "Planification stratégique",
     description: "Créez des prévisions, comparez des scénarios, gérez vos liquidités. TTR GESTION vous aide à anticiper l’avenir.",
     image: "/P2.png",
     imageHint: "financial planning"
@@ -31,7 +31,7 @@ const features = [
   {
     id: "prestations",
     icon: <FolderKanban className="size-8 text-primary" />,
-    title: "📁 Organisation par entité ou projet",
+    title: "Organisation par entité ou projet",
     description: "Gérez plusieurs boutiques, comptes ou divisions depuis un seul espace, avec des options filtrées intelligentes.",
     image: "/P3.png",
     imageHint: "project management"
@@ -41,28 +41,28 @@ const features = [
 const audience = [
   {
     icon: <Building2 className="size-8 text-primary" />,
-    title: "🏢 Grandes entreprises",
+    title: "Grandes entreprises",
     description: "Coordonnez plusieurs antennes, services ou départements, avec suivi consolidé et délégué.",
     image: "/P4.png",
     imageHint: "corporate building"
   },
   {
     icon: <Store className="size-8 text-primary" />,
-    title: "🛍️ Petites boutiques",
+    title: "Petites boutiques",
     description: "Gardez le contrôle sur votre activité, sans tracas ni jargon complexe. Un tableau de bord simple et visuel.",
     image: "/P5.png",
     imageHint: "small boutique"
   },
   {
     icon: <User className="size-8 text-primary" />,
-    title: "👤 Indépendants & freelances",
+    title: "Indépendants & freelances",
     description: "Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.",
     image: "/P7.png",
     imageHint: "freelancer desk"
   },
   {
     icon: <Globe className="size-8 text-primary" />,
-    title: "🌍 Tous les métiers",
+    title: "Tous les métiers",
     description: "Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.",
     image: "/P8.png",
     imageHint: "diverse professions"
