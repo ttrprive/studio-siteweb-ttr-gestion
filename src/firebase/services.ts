@@ -75,13 +75,18 @@ export const addNews = async (newsItem: NewsItemCreate) => {
   }
 };
 
-export const getNews = async (): Promise<NewsItem[]> => {
+export const getNews = async (max?: number): Promise<NewsItem[]> => {
   if (!db) {
     console.error("Firestore is not initialized.");
     return [];
   }
   try {
-    const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
+    const constraints = [orderBy('createdAt', 'desc')];
+    if (max) {
+      constraints.push(limit(max));
+    }
+    const q = query(collection(db, 'news'), ...constraints);
+
     const querySnapshot = await getDocs(q);
     
     const news: NewsItem[] = [];
