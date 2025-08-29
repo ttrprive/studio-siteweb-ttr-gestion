@@ -162,7 +162,7 @@ const AdminNewsManager = () => {
             const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {
-                throw new Error(result.error || "Échec du téléversement de l'image.");
+                throw new Error(result.error || "Echec du televersement de l'image.");
             }
             newsData.imageUrl = result.url;
         }

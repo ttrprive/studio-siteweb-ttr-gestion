@@ -81,7 +81,7 @@ const AdminCarouselManager = () => {
             const result = await uploadMedia(formData);
 
             if (!result.success || !result.url) {
-                throw new Error(result.error || 'Échec du téléversement du média.');
+                throw new Error(result.error || 'Echec du televersement du media.');
             }
 
             await addPromotion({
