@@ -29,7 +29,7 @@ const NewsTicker = ({ newsItems }: { newsItems: NewsItem[] }) => {
               <CarouselItem key={item.id} className="flex items-center gap-3">
                 {item.imageUrl && (
                     <div className="relative w-12 h-12 rounded-md overflow-hidden shrink-0 bg-muted">
-                        <Image src={item.imageUrl} alt={item.title} fill className="object-cover" />
+                        <Image src={item.imageUrl} alt={item.title} fill className="object-cover" sizes="48px" />
                     </div>
                 )}
                 <p className={cn("text-sm text-card-foreground truncate", !item.imageUrl && "w-full")}>
