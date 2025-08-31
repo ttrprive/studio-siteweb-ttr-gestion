@@ -1,1 +1,2 @@
-// Flows will be imported for their side effects in this file.
+
+// Ce fichier est conservé pour une utilisation future mais les importations ont été supprimées.
