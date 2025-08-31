@@ -17,12 +17,12 @@ const NewsTicker = ({ newsItems }: { newsItems: NewsItem[] }) => {
   );
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-3">
+    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-3 animate-float">
       <div className="hidden sm:block max-w-xs p-3 rounded-lg bg-card/80 backdrop-blur-sm border shadow-lg">
         <Carousel
           opts={{ align: "start", loop: true }}
           plugins={[plugin.current]}
-          className="w-full h-16 overflow-hidden" // Increased height for image
+          className="w-full h-16 overflow-hidden" 
         >
           <CarouselContent>
             {newsItems.map((item) => (
@@ -32,9 +32,16 @@ const NewsTicker = ({ newsItems }: { newsItems: NewsItem[] }) => {
                         <Image src={item.imageUrl} alt={item.title} fill className="object-cover" sizes="48px" />
                     </div>
                 )}
-                <p className={cn("text-sm text-card-foreground truncate", !item.imageUrl && "w-full")}>
-                  {item.title}
-                </p>
+                <div className={cn("overflow-hidden flex-grow", !item.imageUrl && "w-full")}>
+                    <p className="text-sm font-semibold text-card-foreground truncate">
+                        {item.title}
+                    </p>
+                     {item.description && (
+                        <p className="text-xs text-muted-foreground truncate mt-1">
+                            {item.description}
+                        </p>
+                    )}
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>

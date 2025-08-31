@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -6,15 +7,13 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = React.useState("light");
 
   React.useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
-    // Default to dark theme if nothing is stored or system preference is dark
+    // Default to light theme if nothing is stored
     if (storedTheme) {
       setTheme(storedTheme);
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-       setTheme("dark");
     } else {
        setTheme("light");
     }
