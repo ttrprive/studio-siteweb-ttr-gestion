@@ -130,7 +130,7 @@ export default function SupportPage() {
       }))
     };
 
-    let script = document.getElementById('faq-schema');
+    let script = document.getElementById('faq-schema') as HTMLScriptElement | null;
     if (!script) {
         script = document.createElement('script');
         script.id = 'faq-schema';
