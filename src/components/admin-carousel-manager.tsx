@@ -44,6 +44,8 @@ const AdminCarouselManager = () => {
         },
     });
 
+    const fileRef = form.register("media");
+
     const fetchPromotions = async () => {
         setLoading(true);
         const promoItems = await getPromotions();
@@ -145,7 +147,13 @@ const AdminCarouselManager = () => {
                              <FormField control={form.control} name="media" render={({ field: { onChange, ...rest } }) => (
                                 <FormItem>
                                     <FormLabel>Fichier Média</FormLabel>
-                                    <FormControl><Input type="file" accept="image/*,video/*" onChange={(e) => { const file = e.target.files?.[0]; if(file) onChange(file); }} {...rest} /></FormControl>
+                                    <FormControl>
+                                        <Input
+                                            type="file"
+                                            accept="image/*,video/*"
+                                            {...fileRef}
+                                        />
+                                    </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )} />
