@@ -1,7 +1,7 @@
 
 // src/firebase/services.ts
 import { db } from './config';
-import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, where, updateDoc, limit, getDoc, setDoc, onSnapshot, Query } from 'firebase/firestore';
 import type { Testimonial } from '@/types/testimonial';
 import type { NewsItem, NewsItemCreate } from '@/types/news';
 import type { Promotion, PromotionCreate } from '@/types/promotion';
@@ -81,11 +81,12 @@ export const getNews = async (max?: number): Promise<NewsItem[]> => {
     return [];
   }
   try {
-    const constraints = [orderBy('createdAt', 'desc')];
+    let q: Query;
     if (max) {
-      constraints.push(limit(max));
+      q = query(collection(db, 'news'), orderBy('createdAt', 'desc'), limit(max));
+    } else {
+      q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
     }
-    const q = query(collection(db, 'news'), ...constraints);
 
     const querySnapshot = await getDocs(q);
     
