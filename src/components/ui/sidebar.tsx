@@ -433,8 +433,8 @@ const SidebarGroupLabel = ({
       )}
       {...props}
     />
-  );
-};
+  )
+}
 SidebarGroupLabel.displayName = "SidebarGroupLabel"
 
 const SidebarGroupAction = ({
