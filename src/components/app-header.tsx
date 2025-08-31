@@ -4,7 +4,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot, Menu, X, Sparkles } from "lucide-react";
+import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot, Menu, X, Sparkles, Compass, LogIn } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import LoaderLink from "./loader-link";
@@ -16,6 +16,7 @@ const navItems = [
   { href: "/", label: "Accueil", icon: Home },
   { href: "/details", label: "Détails", icon: Info },
   { href: "/ia", label: "IA", icon: Bot },
+  { href: "/sectors", label: "Découvrir", icon: Compass },
   { href: "/news", label: "Actualité", icon: Newspaper, badge: true },
   { href: "/services", label: "Services", icon: Briefcase },
   { href: "/support", label: "Support", icon: LifeBuoy },
@@ -50,7 +51,7 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
   return (
     <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <Link href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base">
+        <Link href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base mr-4">
           <span className="font-bold">TTR GESTION</span>
         </Link>
         {navItems.map((item) => (
@@ -89,6 +90,16 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
                 onClick={() => setIsMobileMenuOpen(false)}
               />
             ))}
+             <div className="border-t pt-4">
+                 <NavLink
+                    href="/login"
+                    label="Connexion"
+                    icon={LogIn}
+                    isActive={pathname === "/login"}
+                    showNewsBadge={false}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            </div>
           </nav>
         </SheetContent>
       </Sheet>
@@ -98,6 +109,14 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
             <Link href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base">
                 <span className="font-bold">TTR GESTION</span>
             </Link>
+        </div>
+        <div className="hidden md:flex items-center gap-2">
+            <Button variant="ghost" asChild>
+                <LoaderLink href="/login">
+                    <LogIn className="size-4 mr-2"/>
+                    Connexion
+                </LoaderLink>
+            </Button>
         </div>
         <ThemeToggle />
       </div>
