@@ -138,7 +138,7 @@ export default function NewsPage() {
                 <CarouselContent>
                 {promotions.map((promo, index) => (
                     <CarouselItem key={index}>
-                        <div className="relative w-full h-[450px] md:h-[600px] bg-muted">
+                        <div className="relative w-full aspect-[3/2] bg-muted">
                             <Image
                                 src={promo.src}
                                 alt={promo.alt}
@@ -149,9 +149,9 @@ export default function NewsPage() {
                                 priority={index < 2}
                             />
                             <div className="absolute inset-0 bg-black/40 flex items-end">
-                                <div className="container mx-auto px-4 py-12 md:px-6 text-white">
-                                    <h2 className="text-3xl md:text-4xl font-bold mb-2">{promo.title}</h2>
-                                    <p className="text-lg md:text-xl max-w-3xl">{promo.description}</p>
+                                <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 text-white">
+                                    <h2 className="text-2xl md:text-4xl font-bold mb-2">{promo.title}</h2>
+                                    <p className="text-base md:text-xl max-w-3xl">{promo.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@ export default function NewsPage() {
                     news.map((item) => (
                         <Card key={item.id} className="overflow-hidden">
                             {item.imageUrl && (
-                                <div className="relative h-64 w-full bg-muted">
+                                <div className="relative aspect-[3/2] w-full bg-muted">
                                     <Image 
                                         src={item.imageUrl} 
                                         alt={item.title} 
