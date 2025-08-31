@@ -39,13 +39,13 @@ export const AppFooter = () => {
                     <LoaderLink href="/terms" className="hover:text-foreground transition-colors">Conditions</LoaderLink>
                 </nav>
                 <div data-aos="fade-up" data-aos-delay="100" className="flex justify-center items-center gap-6">
-                    <a href="#" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <a href="https://www.youtube.com/@ttrgestion" target="_blank" rel="noopener noreferrer" aria-label="Youtube" className="text-muted-foreground hover:text-foreground transition-colors">
                         <Youtube className="size-6" />
                     </a>
-                    <a href="#" aria-label="X (Twitter)" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <a href="https://x.com/ttrgestion" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-muted-foreground hover:text-foreground transition-colors">
                         <XIcon />
                     </a>
-                    <a href="#" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <a href="https://www.facebook.com/profile.php?id=61578837105446" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground transition-colors">
                         <Facebook className="size-6" />
                     </a>
                 </div>
