@@ -10,10 +10,10 @@ const siteUrl = 'https://ttrgestion.site';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'TTR Gestion – Plateforme de gestion d’entreprise et hôtellerie',
+    default: 'TTR Gestion – Logiciel de gestion d’entreprise et hôtellerie',
     template: '%s | TTR GESTION',
   },
-  description: 'TTR Gestion (Togo Tech Renove) est une solution complète pour gérer les entreprises, hôtels, abonnements et comptabilité. Créée par TTR Studio, elle est accessible, intuitive et puissante. Essayez gratuitement.',
+  description: 'TTR Gestion est un logiciel tout-en-un pour entreprises et hôtels. Gérez comptabilité, clients et stocks de manière simple et intuitive. Essayez gratuitement.',
   keywords: ['TTR Gestion', 'TTR Studio', 'Togo Tech Renove', 'TTR GROUPE', 'ttrgestion.site', 'logiciel de gestion', 'application hôtelière', 'comptabilité', 'gestion d’entreprise', 'CRM', 'ERP', 'France', 'SaaS', 'abonnement', 'plateforme de gestion', 'facturation', 'gestion de stock', 'auto-entrepreneur', 'TPE', 'PME', 'restauration', 'BTP', 'santé', 'commerce de détail', 'freelance', 'consultant', 'gestion financière', 'tableau de bord', 'assistant IA', 'TRIX Business', 'Gemini', 'Copilot', 'ChatGPT', 'alternative logiciel gestion'],
   authors: [{ name: 'TTR GESTION', url: siteUrl }],
   creator: 'TTR Studio',
