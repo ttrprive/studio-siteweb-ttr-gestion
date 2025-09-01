@@ -8,17 +8,17 @@ import GlobalLoader from '@/components/global-loader';
 const siteUrl = 'https://ttrgestion.site';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'TTR Gestion – Plateforme de gestion d’entreprise et hôtellerie',
     template: '%s | TTR GESTION',
   },
-  description: 'TTR Gestion est une solution complète pour gérer les entreprises, hôtels, abonnements et comptabilité. Accessible, intuitive et puissante. Essayez gratuitement.',
-  keywords: ['TTR Gestion', 'ttrgestion.site', 'logiciel de gestion', 'application hôtelière', 'comptabilité', 'gestion d’entreprise', 'CRM', 'ERP', 'France', 'SaaS', 'abonnement', 'plateforme de gestion', 'facturation', 'gestion de stock', 'auto-entrepreneur', 'TPE', 'PME', 'restauration', 'BTP', 'santé', 'commerce de détail', 'freelance', 'consultant', 'gestion financière', 'tableau de bord', 'assistant IA', 'TRIX Business', 'Gemini', 'Copilot', 'ChatGPT', 'alternative logiciel gestion'],
+  description: 'TTR Gestion (Togo Tech Renove) est une solution complète pour gérer les entreprises, hôtels, abonnements et comptabilité. Accessible, intuitive et puissante. Essayez gratuitement.',
+  keywords: ['TTR Gestion', 'Togo Tech Renove', 'TTR GROUPE', 'ttrgestion.site', 'logiciel de gestion', 'application hôtelière', 'comptabilité', 'gestion d’entreprise', 'CRM', 'ERP', 'France', 'SaaS', 'abonnement', 'plateforme de gestion', 'facturation', 'gestion de stock', 'auto-entrepreneur', 'TPE', 'PME', 'restauration', 'BTP', 'santé', 'commerce de détail', 'freelance', 'consultant', 'gestion financière', 'tableau de bord', 'assistant IA', 'TRIX Business', 'Gemini', 'Copilot', 'ChatGPT', 'alternative logiciel gestion'],
   authors: [{ name: 'TTR GESTION', url: siteUrl }],
   creator: 'TTR GESTION',
   publisher: 'TTR GESTION',
   robots: 'index, follow',
-  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
   },
@@ -63,6 +63,8 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'TTR Gestion',
+    alternateName: 'Togo Tech Renove',
+    description: 'TTR Gestion (Togo Tech Renove) est une filiale de TTR GROUPE, offrant une solution complète pour la gestion d’entreprise, la comptabilité et la gestion hôtelière.',
     url: siteUrl,
     logo: `${siteUrl}/favicon.png`,
     sameAs: [
@@ -78,7 +80,10 @@ export default function RootLayout({
     url: siteUrl,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${siteUrl}/search?q={search_term_string}`,
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${siteUrl}/search?q={search_term_string}`
+      },
       'query-input': 'required name=search_term_string',
     },
   };
@@ -87,6 +92,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="eRqixi-mnh7fV3kHRdtBlGZ5JkHNdRqXihCerbs6j-g" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -110,5 +116,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    

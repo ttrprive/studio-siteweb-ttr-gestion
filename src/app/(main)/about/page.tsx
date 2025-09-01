@@ -5,7 +5,7 @@ import { TrixBusinessLogo } from '@/components/trix-business-logo';
 
 export const metadata: Metadata = {
   title: 'À Propos de TTR Gestion',
-  description: 'Découvrez notre mission, notre vision et l\'histoire derrière TTR Gestion. Nous simplifions la gestion d\'entreprise pour tous les métiers.',
+  description: 'Découvrez notre mission, notre vision et l\'histoire derrière TTR Gestion (Togo Tech Renove). Nous simplifions la gestion d\'entreprise pour tous les métiers.',
 };
 
 export default function AboutPage() {
@@ -24,7 +24,7 @@ export default function AboutPage() {
                 À Propos de TTR Gestion
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
-                L’intelligence au service de chaque métier. Nous avons créé TTR Gestion avec une conviction : chaque entrepreneur, quelle que soit sa taille ou son secteur, mérite des outils puissants, simples et accessibles pour piloter son activité.
+                L’intelligence au service de chaque métier. Filiale de TTR GROUPE, TTR Gestion (Togo Tech Renove) a été créé avec une conviction : chaque entrepreneur, quelle que soit sa taille ou son secteur, mérite des outils puissants, simples et accessibles pour piloter son activité.
             </p>
         </div>
 
