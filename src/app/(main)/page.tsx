@@ -82,10 +82,10 @@ const FeaturesSection = () => (
       </div>
 
       <div className="grid md:grid-cols-3 gap-12">
-        {features.map((feature) => (
+        {features.map((feature, index) => (
           <div key={feature.title} data-aos="fade-up" className="flex flex-col items-center text-center">
             <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative">
-              <Image src={feature.image} alt={feature.title} fill className="object-cover" data-ai-hint={feature.imageHint} />
+              <Image src={feature.image} alt={feature.description} fill className="object-cover" data-ai-hint={feature.imageHint} priority={index < 3} />
             </div>
             <div className="mb-4 flex items-center justify-center gap-4">
               {feature.icon}
@@ -118,7 +118,7 @@ const TargetAudienceSection = () => (
         {audience.map((item) => (
            <div key={item.title} data-aos="fade-up" className="flex flex-col items-center text-center">
             <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative">
-               <Image src={item.image} alt={item.title} fill className="object-cover" data-ai-hint={item.imageHint} />
+               <Image src={item.image} alt={item.description} fill className="object-cover" data-ai-hint={item.imageHint} />
              </div>
               <div className="mb-4 flex items-center justify-center gap-4">
                 {item.icon}
@@ -238,3 +238,5 @@ export default async function Home() {
     </>
   );
 }
+
+    

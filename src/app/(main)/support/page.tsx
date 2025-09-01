@@ -17,6 +17,12 @@ import LoaderLink from "@/components/loader-link";
 import CornerDecoration from "@/components/corner-decoration";
 import { useRouter } from "next/navigation";
 import { addSupportMessage } from "@/firebase/services";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Support & Aide | TTR GESTION',
+    description: "Besoin d'aide ou une question ? Consultez notre FAQ ou contactez notre équipe. Nous sommes là pour vous aider.",
+};
 
 
 const formSchema = z.object({
@@ -91,6 +97,28 @@ const faqItems = [
     }
 ]
 
+// Component to generate FAQ JSON-LD Schema
+const FaqSchema = () => {
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    };
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+    );
+};
+
 export default function SupportPage() {
   const { toast } = useToast();
   const router = useRouter();
@@ -113,41 +141,6 @@ export default function SupportPage() {
       router.push("/login");
     }
   }, [messageValue, router]);
-  
-  useEffect(() => {
-    document.title = 'Support & Aide | TTR GESTION';
-
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqItems.map(item => ({
-        "@type": "Question",
-        "name": item.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": item.answer
-        }
-      }))
-    };
-
-    let script = document.getElementById('faq-schema') as HTMLScriptElement | null;
-    if (!script) {
-        script = document.createElement('script');
-        script.id = 'faq-schema';
-        script.type = 'application/ld+json';
-        document.head.appendChild(script);
-    }
-    script.innerHTML = JSON.stringify(jsonLd);
-    
-    // Cleanup script on component unmount
-    return () => {
-        const scriptToRemove = document.getElementById('faq-schema');
-        if (scriptToRemove) {
-            document.head.removeChild(scriptToRemove);
-        }
-    };
-  }, []);
-
 
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
@@ -170,37 +163,66 @@ export default function SupportPage() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
-      <CornerDecoration src="/photoblanc.png" position="top-right" className="translate-x-1/3 -translate-y-1/3" />
-      <CornerDecoration src="/photobleu.png" position="bottom-left" className="-translate-x-1/3 translate-y-1/3" />
-      <div className="mx-auto max-w-4xl text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-          Support & Aide
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground">
-          Besoin d'aide ou une question ? Nous sommes là pour vous aider.
-        </p>
-      </div>
+    <>
+      <FaqSchema />
+      <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 relative overflow-hidden">
+        <CornerDecoration src="/photoblanc.png" position="top-right" className="translate-x-1/3 -translate-y-1/3" />
+        <CornerDecoration src="/photobleu.png" position="bottom-left" className="-translate-x-1/3 translate-y-1/3" />
+        <div className="mx-auto max-w-4xl text-center mb-16">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            Support & Aide
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground">
+            Besoin d'aide ou une question ? Nous sommes là pour vous aider.
+          </p>
+        </div>
 
-      <div className="grid gap-12 md:grid-cols-5">
-        <div className="md:col-span-3">
-          <Card>
-            <CardHeader>
-              <CardTitle>Envoyez-nous un message</CardTitle>
-              <CardDescription>Remplissez le formulaire ci-dessous et notre équipe vous recontactera.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-12 md:grid-cols-5">
+          <div className="md:col-span-3">
+            <Card>
+              <CardHeader>
+                <CardTitle>Envoyez-nous un message</CardTitle>
+                <CardDescription>Remplissez le formulaire ci-dessous et notre équipe vous recontactera.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Votre nom</FormLabel>
+                            <FormControl>
+                              <Input placeholder="John Doe" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Votre email</FormLabel>
+                            <FormControl>
+                              <Input placeholder="email@exemple.com" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                     <FormField
                       control={form.control}
-                      name="name"
+                      name="subject"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Votre nom</FormLabel>
+                          <FormLabel>Objet</FormLabel>
                           <FormControl>
-                            <Input placeholder="John Doe" {...field} />
+                            <Input placeholder="Question sur la facturation" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -208,122 +230,98 @@ export default function SupportPage() {
                     />
                     <FormField
                       control={form.control}
-                      name="email"
+                      name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Votre email</FormLabel>
+                          <FormLabel>Votre message</FormLabel>
                           <FormControl>
-                            <Input placeholder="email@exemple.com" {...field} />
+                            <Textarea placeholder="Bonjour, j'aimerais savoir..." className="min-h-[120px]" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name="subject"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Objet</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Question sur la facturation" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Votre message</FormLabel>
-                        <FormControl>
-                          <Textarea placeholder="Bonjour, j'aimerais savoir..." className="min-h-[120px]" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                    </Button>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="space-y-8 md:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Nos coordonnées</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <Mail className="size-5 text-muted-foreground" />
+                  <a href="mailto:support@ttrgestion.site" className="hover:underline">support@ttrgestion.site</a>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Ressources</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                  <LoaderLink href="/shareholder" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                      <div className="flex items-center gap-3">
+                          <Handshake className="size-5 text-muted-foreground" />
+                          <span className="text-sm">Devenir actionnaire</span>
+                      </div>
+                      <ChevronRight className="size-4 text-muted-foreground" />
+                  </LoaderLink>
+                  <LoaderLink href="/about" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                      <div className="flex items-center gap-3">
+                          <Info className="size-5 text-muted-foreground" />
+                          <span className="text-sm">À propos de TTR Gestion</span>
+                      </div>
+                      <ChevronRight className="size-4 text-muted-foreground" />
+                  </LoaderLink>
+                  <LoaderLink href="/privacy" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                      <div className="flex items-center gap-3">
+                          <Shield className="size-5 text-muted-foreground" />
+                          <span className="text-sm">Politique de confidentialité</span>
+                      </div>
+                      <ChevronRight className="size-4 text-muted-foreground" />
+                  </LoaderLink>
+                  <LoaderLink href="/terms" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
+                      <div className="flex items-center gap-3">
+                          <FileText className="size-5 text-muted-foreground" />
+                          <span className="text-sm">Politique d'utilisation</span>
+                      </div>
+                      <ChevronRight className="size-4 text-muted-foreground" />
+                  </LoaderLink>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+        
+        <div className="mt-20">
+          <div className="mx-auto max-w-4xl text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight">Questions fréquentes (FAQ)</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Trouvez les réponses à vos questions les plus courantes.</p>
+          </div>
+          <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+            {faqItems.map(item => (
+              <AccordionItem key={item.value} value={item.value}>
+                <AccordionTrigger className="text-left text-lg">{item.question}</AccordionTrigger>
+                <AccordionContent>
+                  <p className="mb-4 text-base text-muted-foreground leading-relaxed">{item.answer}</p>
+                  <Button variant="link" asChild className="p-0 h-auto">
+                    <LoaderLink href={item.link}>En savoir plus <ChevronRight className="ml-1 size-4" /></LoaderLink>
                   </Button>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
-
-        <div className="space-y-8 md:col-span-2">
-           <Card>
-            <CardHeader>
-              <CardTitle>Nos coordonnées</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-4">
-                <Mail className="size-5 text-muted-foreground" />
-                <a href="mailto:support@ttrgestion.site" className="hover:underline">support@ttrgestion.site</a>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Ressources</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-1">
-                <LoaderLink href="/shareholder" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
-                    <div className="flex items-center gap-3">
-                        <Handshake className="size-5 text-muted-foreground" />
-                        <span className="text-sm">Devenir actionnaire</span>
-                    </div>
-                    <ChevronRight className="size-4 text-muted-foreground" />
-                </LoaderLink>
-                <LoaderLink href="/about" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
-                    <div className="flex items-center gap-3">
-                        <Info className="size-5 text-muted-foreground" />
-                        <span className="text-sm">À propos de TTR Gestion</span>
-                    </div>
-                    <ChevronRight className="size-4 text-muted-foreground" />
-                </LoaderLink>
-                <LoaderLink href="/privacy" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
-                    <div className="flex items-center gap-3">
-                        <Shield className="size-5 text-muted-foreground" />
-                        <span className="text-sm">Politique de confidentialité</span>
-                    </div>
-                    <ChevronRight className="size-4 text-muted-foreground" />
-                </LoaderLink>
-                <LoaderLink href="/terms" className="flex items-center justify-between p-2 -m-2 rounded-md hover:bg-muted">
-                    <div className="flex items-center gap-3">
-                        <FileText className="size-5 text-muted-foreground" />
-                        <span className="text-sm">Politique d'utilisation</span>
-                    </div>
-                    <ChevronRight className="size-4 text-muted-foreground" />
-                </LoaderLink>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-      
-      <div className="mt-20">
-        <div className="mx-auto max-w-4xl text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tight">Questions fréquentes (FAQ)</h2>
-            <p className="mt-4 text-lg text-muted-foreground">Trouvez les réponses à vos questions les plus courantes.</p>
-        </div>
-        <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-          {faqItems.map(item => (
-            <AccordionItem key={item.value} value={item.value}>
-              <AccordionTrigger className="text-left text-lg">{item.question}</AccordionTrigger>
-              <AccordionContent>
-                <p className="mb-4 text-base text-muted-foreground leading-relaxed">{item.answer}</p>
-                <Button variant="link" asChild className="p-0 h-auto">
-                  <LoaderLink href={item.link}>En savoir plus <ChevronRight className="ml-1 size-4" /></LoaderLink>
-                </Button>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
+
+    

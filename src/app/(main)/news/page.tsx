@@ -105,6 +105,38 @@ const CategoryBadge = ({ category }: { category: NewsCategory }) => {
   );
 };
 
+const NewsArticleSchema = ({ item }: { item: NewsItem }) => {
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'NewsArticle',
+        headline: item.title,
+        description: item.description,
+        image: item.imageUrl ? [item.imageUrl] : [],
+        datePublished: item.date,
+        dateModified: item.date,
+        author: {
+            '@type': 'Organization',
+            name: 'TTR GESTION',
+            url: 'https://ttrgestion.site',
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'TTR GESTION',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://ttrgestion.site/favicon.png',
+            },
+        },
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+    );
+};
+
 
 export default function NewsPage() {
     const [news, setNews] = useState<NewsItem[]>([]);
@@ -191,33 +223,36 @@ export default function NewsPage() {
                     <p className="text-center text-muted-foreground">Aucune actualité pour le moment.</p>
                 ) : (
                     news.map((item) => (
-                        <Card key={item.id} className="overflow-hidden">
-                            {item.imageUrl && (
-                                <div className="relative aspect-[3/2] w-full bg-muted">
-                                    <Image 
-                                        src={item.imageUrl} 
-                                        alt={item.title} 
-                                        fill 
-                                        className="object-cover" 
-                                        sizes="100vw"
-                                    />
-                                </div>
-                            )}
-                            <div className="p-6">
-                                <CardHeader className="p-0">
-                                    <div className="flex items-center justify-between gap-4">
-                                        <CategoryBadge category={item.category} />
-                                        <time className="text-sm text-muted-foreground">
-                                            {format(new Date(item.date), 'dd MMMM yyyy', { locale: fr })}
-                                        </time>
+                        <article key={item.id}>
+                            <NewsArticleSchema item={item} />
+                            <Card className="overflow-hidden">
+                                {item.imageUrl && (
+                                    <div className="relative aspect-[3/2] w-full bg-muted">
+                                        <Image 
+                                            src={item.imageUrl} 
+                                            alt={item.title} 
+                                            fill 
+                                            className="object-cover" 
+                                            sizes="100vw"
+                                        />
                                     </div>
-                                    <CardTitle className="mt-2 text-2xl">{item.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="p-0 mt-4">
-                                    <p className="text-muted-foreground">{item.description}</p>
-                                </CardContent>
-                            </div>
-                        </Card>
+                                )}
+                                <div className="p-6">
+                                    <CardHeader className="p-0">
+                                        <div className="flex items-center justify-between gap-4">
+                                            <CategoryBadge category={item.category} />
+                                            <time dateTime={item.date} className="text-sm text-muted-foreground">
+                                                {format(new Date(item.date), 'dd MMMM yyyy', { locale: fr })}
+                                            </time>
+                                        </div>
+                                        <CardTitle className="mt-2 text-2xl">{item.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="p-0 mt-4">
+                                        <p className="text-muted-foreground">{item.description}</p>
+                                    </CardContent>
+                                </div>
+                            </Card>
+                        </article>
                     ))
                 )}
             </div>
@@ -225,3 +260,5 @@ export default function NewsPage() {
     </main>
   );
 }
+
+    

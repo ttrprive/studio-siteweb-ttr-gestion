@@ -61,25 +61,28 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    '@type': 'Organization',
     name: 'TTR Gestion',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'EUR',
-      description: 'Essai gratuit disponible pour tester toutes les fonctionnalités.',
-    },
-    creator: {
-      '@type': 'Organization',
-      name: 'TTR Gestion',
-      url: siteUrl,
-      logo: `${siteUrl}/favicon.png`
-    },
-    description: "TTR Gestion est une application web complète pour gérer les entreprises, les hôtels, les abonnements et la comptabilité. Accessible à tous, sans installation.",
-    keywords: "TTR Gestion, ttrgestion.site, logiciel de gestion, application hôtelière, comptabilité, gestion d’entreprise, CRM, ERP, plateforme SaaS, abonnement, facturation, TPE, PME",
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.png`,
+    sameAs: [
+      "https://www.youtube.com/@ttrgestion",
+      "https://x.com/ttrgestion",
+      "https://www.facebook.com/profile.php?id=61578837105446"
+    ]
   };
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    url: siteUrl,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
 
   return (
     <html lang="fr" suppressHydrationWarning>
@@ -87,6 +90,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -103,3 +110,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    
