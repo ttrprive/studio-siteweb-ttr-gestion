@@ -6,18 +6,18 @@ const APP_URL = 'https://app.ttrgestion.site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
-    { url: '/', priority: 1.0, changeFrequency: 'weekly' },
+    { url: '/', priority: 1.0, changeFrequency: 'monthly' },
+    { url: '/services', priority: 0.9, changeFrequency: 'monthly' },
+    { url: '/support', priority: 0.7, changeFrequency: 'yearly' },
+    { url: '/privacy', priority: 0.5, changeFrequency: 'yearly' },
+    { url: '/terms', priority: 0.5, changeFrequency: 'yearly' },
     { url: '/details', priority: 0.9, changeFrequency: 'monthly' },
     { url: '/sectors', priority: 0.9, changeFrequency: 'monthly' },
-    { url: '/services', priority: 0.9, changeFrequency: 'monthly' },
     { url: '/news', priority: 0.8, changeFrequency: 'weekly' },
     { url: '/ia', priority: 0.8, changeFrequency: 'monthly' },
     { url: '/testimonials', priority: 0.8, changeFrequency: 'monthly' },
     { url: '/manual', priority: 0.7, changeFrequency: 'yearly' },
-    { url: '/support', priority: 0.6, changeFrequency: 'yearly' },
     { url: '/about', priority: 0.5, changeFrequency: 'yearly' },
-    { url: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
-    { url: '/terms', priority: 0.3, changeFrequency: 'yearly' },
     { url: '/shareholder', priority: 0.3, changeFrequency: 'yearly' },
   ];
 
@@ -47,7 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${APP_URL}/login`,
       lastModified: new Date(),
       changeFrequency: 'yearly' as const,
-      priority: 0.8,
+      priority: 1.0,
     },
     {
       url: `${APP_URL}/register`,

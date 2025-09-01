@@ -22,10 +22,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  // IMPORTANT: Ajoutez votre code de vérification Google ici pour que Google puisse indexer votre site.
-  // Remplacez "VOTRE_CODE_DE_VERIFICATION_GOOGLE" par la valeur fournie par Google Search Console.
   verification: {
-    google: 'VOTRE_CODE_DE_VERIFICATION_GOOGLE',
+    google: 'eRqixi-mnh7fV3kHRdtBlGZ5JkHNdRqXihCerbs6j-g',
   },
   openGraph: {
     title: 'TTR Gestion – Gérez votre entreprise avec efficacité',
