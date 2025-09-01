@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: 'TTR GESTION',
     images: [
       {
-        url: '/og-image.jpg', // L'image doit être dans le dossier public
+        url: `${siteUrl}/og-image.jpg`, // L'image doit être dans le dossier public
         width: 1200,
         height: 630,
         alt: 'TTR GESTION - Gestion d’entreprise simplifiée',
