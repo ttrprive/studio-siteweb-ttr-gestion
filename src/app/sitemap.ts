@@ -2,6 +2,7 @@
 import { MetadataRoute } from 'next';
 
 const URL = 'https://ttrgestion.site';
+const APP_URL = 'https://app.ttrgestion.site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
@@ -15,8 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: '/manual', priority: 0.7, changeFrequency: 'yearly' },
     { url: '/support', priority: 0.6, changeFrequency: 'yearly' },
     { url: '/about', priority: 0.5, changeFrequency: 'yearly' },
-    { url: '/login', priority: 0.5, changeFrequency: 'yearly' },
-    { url: '/register', priority: 0.5, changeFrequency: 'yearly' },
     { url: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
     { url: '/terms', priority: 0.3, changeFrequency: 'yearly' },
     { url: '/shareholder', priority: 0.3, changeFrequency: 'yearly' },
@@ -42,6 +41,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'monthly' as MetadataRoute.Sitemap[0]['changeFrequency'],
     priority: 0.85,
   }));
+
+  const appRoutes = [
+    {
+      url: `${APP_URL}/login`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${APP_URL}/register`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.8,
+    },
+  ];
   
-  return [...staticRoutes, ...serviceRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...appRoutes];
 }
