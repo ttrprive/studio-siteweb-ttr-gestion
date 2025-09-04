@@ -22,30 +22,36 @@ const navItems = [
   { href: "/support", label: "Support", icon: LifeBuoy },
 ];
 
-const NavLink = ({ href, label, icon: Icon, isActive, showNewsBadge, isSpecial, onClick }: any) => (
-  <LoaderLink
-    href={href}
-    onClick={onClick}
-    className={cn(
-      "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
-      isActive && "text-primary bg-muted"
-    )}
-  >
-    <div className="relative">
-      <Icon className="h-4 w-4" />
-       {label === "Actualité" && showNewsBadge && (
-         <Sparkles className="absolute -top-1.5 -right-1.5 size-4 text-yellow-400 fill-yellow-400 animate-scintillate" />
-      )}
-    </div>
-    {label}
-    {isSpecial && (
-      <Gift className="size-4 text-primary opacity-80" />
-    )}
-    {label === "Actualité" && showNewsBadge && (
-        <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto hidden sm:inline-flex">Nouveau</Badge>
-    )}
-  </LoaderLink>
-);
+const NavLink = ({ href, label, icon: Icon, isActive, showNewsBadge, isSpecial, onClick, isExternal = false }: any) => {
+    const Component = isExternal ? 'a' : LoaderLink;
+    return (
+        <Component
+            href={href}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
+            onClick={onClick}
+            className={cn(
+            "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+            isActive && "text-primary bg-muted"
+            )}
+        >
+            <div className="relative">
+                <Icon className="h-4 w-4" />
+                {label === "Actualité" && showNewsBadge && (
+                    <Sparkles className="absolute -top-1.5 -right-1.5 size-4 text-yellow-400 fill-yellow-400 animate-scintillate" />
+                )}
+            </div>
+            {label}
+            {isSpecial && (
+                <Gift className="size-4 text-primary opacity-80" />
+            )}
+            {label === "Actualité" && showNewsBadge && (
+                <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto hidden sm:inline-flex">Nouveau</Badge>
+            )}
+        </Component>
+    );
+};
+
 
 export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
   const pathname = usePathname();
@@ -97,11 +103,10 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
             ))}
              <div className="border-t pt-4">
                  <NavLink
-                    href="/login"
+                    href="https://app.ttrgestion.site/login"
                     label="Connexion"
                     icon={LogIn}
-                    isActive={pathname === "/login"}
-                    showNewsBadge={false}
+                    isExternal={true}
                     onClick={() => setIsMobileMenuOpen(false)}
                 />
             </div>
@@ -117,10 +122,10 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
         </div>
         <div className="hidden md:flex items-center gap-2">
             <Button variant="ghost" asChild>
-                <LoaderLink href="/login">
+                <a href="https://app.ttrgestion.site/login" target="_blank" rel="noopener noreferrer">
                     <LogIn className="size-4 mr-2"/>
                     Connexion
-                </LoaderLink>
+                </a>
             </Button>
         </div>
         <ThemeToggle />
