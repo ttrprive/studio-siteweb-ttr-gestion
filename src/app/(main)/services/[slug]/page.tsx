@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare, Sparkles, Video, Palette, Users, Globe } from 'lucide-react';
@@ -123,12 +123,18 @@ const servicesData = {
   }
 };
 
+const contactMethods = [
+  { id: "email", label: "Email" },
+  { id: "phone", label: "Téléphone" },
+] as const;
+
 const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
   email: z.string().email("L'adresse email est invalide."),
+  phone: z.string().min(10, "Le numéro de téléphone doit contenir au moins 10 chiffres."),
   message: z.string().min(10, "Le message doit contenir au moins 10 caractères."),
-  contactMethod: z.enum(["email", "whatsapp"], {
-    required_error: "Vous devez sélectionner une méthode de contact.",
+  contactMethods: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "Vous devez sélectionner au moins une méthode de contact.",
   }),
 });
 
@@ -144,8 +150,9 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
       message: "",
-      contactMethod: "email",
+      contactMethods: ["email"],
     },
   });
 
@@ -161,26 +168,26 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
     try {
-      if (data.contactMethod === 'whatsapp') {
-        const whatsappMessage = `Bonjour, je suis intéressé par le service "${service.title}".\n\nNom: ${data.name}\nEmail: ${data.email}\n\nMessage: ${data.message}`;
-        const whatsappUrl = `https://wa.me/33XXXXXXXXX?text=${encodeURIComponent(whatsappMessage)}`; // Remplacez par votre numéro
-        window.open(whatsappUrl, '_blank');
-        toast({
-          title: "Redirection vers WhatsApp",
-          description: "Préparez votre message pour l'envoyer.",
-        });
-      } else {
-        await addSupportMessage({
-          name: data.name,
-          email: data.email,
-          subject: `Demande de service: ${service.title}`,
-          message: data.message,
-        });
-        toast({
-          title: "Message envoyé !",
-          description: "Nous avons bien reçu votre demande et nous vous répondrons par email dans les plus brefs délais.",
-        });
-      }
+      const preferredContact = data.contactMethods.join(", ");
+      const fullMessage = `
+        ${data.message}
+
+        ---
+        Préférence de contact : ${preferredContact}
+        Numéro de téléphone : ${data.phone}
+      `;
+
+      await addSupportMessage({
+        name: data.name,
+        email: data.email,
+        subject: `Demande de service: ${service.title}`,
+        message: fullMessage,
+      });
+
+      toast({
+        title: "Message envoyé !",
+        description: "Nous avons bien reçu votre demande et nous vous répondrons dans les plus brefs délais.",
+      });
       form.reset();
     } catch (error) {
        toast({
@@ -237,17 +244,30 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Votre email</FormLabel>
-                      <FormControl><Input placeholder="email@exemple.com" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                 <div className="grid gap-4 sm:grid-cols-2">
+                    <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Votre email</FormLabel>
+                        <FormControl><Input placeholder="email@exemple.com" {...field} /></FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Votre téléphone</FormLabel>
+                        <FormControl><Input placeholder="06 12 34 56 78" {...field} /></FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                </div>
                 <FormField
                   control={form.control}
                   name="message"
@@ -259,34 +279,56 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="contactMethod"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <FormLabel>Comment nous envoyer votre message ?</FormLabel>
-                      <FormControl>
-                        <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col space-y-1">
-                          <FormItem className="flex items-center space-x-3 space-y-0">
-                            <FormControl><RadioGroupItem value="email" /></FormControl>
-                            <FormLabel className="font-normal flex items-center gap-2"><Mail className="size-4" /> Envoyer par Email</FormLabel>
-                          </FormItem>
-                          <FormItem className="flex items-center space-x-3 space-y-0">
-                            <FormControl><RadioGroupItem value="whatsapp" /></FormControl>
-                            <FormLabel className="font-normal flex items-center gap-2"><MessageSquare className="size-4" /> Envoyer par WhatsApp</FormLabel>
-                          </FormItem>
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                 <FormField
+                    control={form.control}
+                    name="contactMethods"
+                    render={() => (
+                        <FormItem>
+                        <div className="mb-4">
+                            <FormLabel className="text-base">Comment préférez-vous être contacté ?</FormLabel>
+                            <FormDescription>
+                            Sélectionnez au moins une option.
+                            </FormDescription>
+                        </div>
+                        {contactMethods.map((item) => (
+                            <FormField
+                            key={item.id}
+                            control={form.control}
+                            name="contactMethods"
+                            render={({ field }) => {
+                                return (
+                                <FormItem
+                                    key={item.id}
+                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                >
+                                    <FormControl>
+                                    <Checkbox
+                                        checked={field.value?.includes(item.id)}
+                                        onCheckedChange={(checked) => {
+                                        return checked
+                                            ? field.onChange([...field.value, item.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                (value) => value !== item.id
+                                                )
+                                            )
+                                        }}
+                                    />
+                                    </FormControl>
+                                    <FormLabel className="font-normal">
+                                    {item.label}
+                                    </FormLabel>
+                                </FormItem>
+                                )
+                            }}
+                            />
+                        ))}
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
-                   {isSubmitting
-                    ? "Envoi en cours..."
-                    : form.getValues("contactMethod") === 'whatsapp'
-                    ? "Préparer le message WhatsApp"
-                    : "Envoyer le message"}
+                   {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
                 </Button>
               </form>
             </Form>
