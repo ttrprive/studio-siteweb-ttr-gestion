@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare, Sparkles, Video, Palette } from 'lucide-react';
+import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare, Sparkles, Video, Palette, Users, Globe } from 'lucide-react';
 import { addSupportMessage } from '@/firebase/services';
 
 const servicesData = {
@@ -97,6 +97,28 @@ const servicesData = {
       "Des supports de communication (cartes de visite, flyers) percutants.",
       "Une crédibilité et une confiance accrues auprès de vos clients.",
       "Une base solide pour toutes vos futures actions de marketing."
+    ]
+  },
+  "gestion-reseaux-sociaux": {
+    icon: <Users className="size-12 mb-4 text-primary" />,
+    title: "Gestion des Réseaux Sociaux",
+    description: "Développez votre communauté et engagez votre audience avec une gestion professionnelle de vos comptes sociaux.",
+    advantages: [
+      "Stratégie de contenu et calendrier éditorial pour une communication cohérente.",
+      "Création et publication de posts engageants et adaptés à chaque plateforme.",
+      "Modération active et interaction avec votre communauté pour renforcer les liens.",
+      "Rapports de performance mensuels pour suivre la croissance et l'engagement."
+    ]
+  },
+  "gestion-site-web-google-ads": {
+    icon: <Globe className="size-12 mb-4 text-primary" />,
+    title: "Gestion de Site Web & Google Ads",
+    description: "Confiez-nous la maintenance de votre site et le pilotage de vos campagnes Google Ads pour une performance optimale et continue.",
+    advantages: [
+      "Mises à jour techniques, de contenu et de sécurité régulières pour votre site.",
+      "Optimisation continue de la vitesse et de l'expérience utilisateur.",
+      "Création, gestion et optimisation de vos campagnes publicitaires sur Google Ads.",
+      "Suivi précis des conversions et reporting détaillé pour maximiser votre ROI."
     ]
   }
 };

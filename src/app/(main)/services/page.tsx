@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift } from 'lucide-react';
+import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift, Users, Globe } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
@@ -111,6 +111,34 @@ const services = [
       "Conseil en image de marque"
     ],
     cta: "Construire ma marque"
+  },
+  {
+    slug: "gestion-reseaux-sociaux",
+    icon: <Users className="size-10 mb-4 text-primary" />,
+    title: "Gestion des Réseaux Sociaux",
+    description: "Développez votre communauté et engagez votre audience avec une gestion professionnelle de vos comptes sociaux.",
+    price: "À partir de 500 € / mois",
+    features: [
+      "Stratégie et calendrier éditorial",
+      "Création et publication de posts",
+      "Modération et interaction",
+      "Rapports de performance mensuels"
+    ],
+    cta: "Dynamiser ma présence"
+  },
+  {
+    slug: "gestion-site-web-google-ads",
+    icon: <Globe className="size-10 mb-4 text-primary" />,
+    title: "Gestion de Site Web & Google Ads",
+    description: "Confiez-nous la maintenance de votre site et le pilotage de vos campagnes Google Ads pour une performance optimale.",
+    price: "Sur devis",
+    features: [
+      "Mises à jour techniques et de sécurité",
+      "Optimisation de la vitesse",
+      "Gestion des campagnes Google Ads",
+      "Suivi des conversions et reporting"
+    ],
+    cta: "Optimiser ma performance"
   }
 ];
 

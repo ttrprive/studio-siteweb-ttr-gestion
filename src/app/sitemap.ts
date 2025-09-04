@@ -34,7 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "seo",
     "creation-contenu-digital",
     "montage-video",
-    "design-graphique"
+    "design-graphique",
+    "gestion-reseaux-sociaux",
+    "gestion-site-web-google-ads"
   ];
 
   const serviceRoutes = serviceSlugs.map((slug) => ({
