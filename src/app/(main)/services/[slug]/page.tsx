@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare, Sparkles, Video, Palette, Users, Globe } from 'lucide-react';
 import { addSupportMessage } from '@/firebase/services';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const servicesData = {
   "creation-site-web": {
@@ -123,6 +124,20 @@ const servicesData = {
   }
 };
 
+const countries = [
+    { value: "FR", label: "France" },
+    { value: "TG", label: "Togo" },
+    { value: "BJ", label: "Bénin" },
+    { value: "CI", label: "Côte d'Ivoire" },
+    { value: "SN", label: "Sénégal" },
+    { value: "CM", label: "Cameroun" },
+    { value: "BE", label: "Belgique" },
+    { value: "CH", label: "Suisse" },
+    { value: "CA", label: "Canada" },
+    { value: "US", label: "États-Unis" },
+    { value: "GB", label: "Royaume-Uni" },
+];
+
 const contactMethods = [
   { id: "email", label: "Email" },
   { id: "phone", label: "Téléphone" },
@@ -132,6 +147,7 @@ const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
   email: z.string().email("L'adresse email est invalide."),
   phone: z.string().min(10, "Le numéro de téléphone doit contenir au moins 10 chiffres."),
+  country: z.string().min(2, "Veuillez sélectionner un pays."),
   message: z.string().min(10, "Le message doit contenir au moins 10 caractères."),
   contactMethods: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "Vous devez sélectionner au moins une méthode de contact.",
@@ -151,6 +167,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       name: "",
       email: "",
       phone: "",
+      country: "",
       message: "",
       contactMethods: ["email"],
     },
@@ -169,12 +186,14 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
     setIsSubmitting(true);
     try {
       const preferredContact = data.contactMethods.join(", ");
+      const countryLabel = countries.find(c => c.value === data.country)?.label || data.country;
       const fullMessage = `
         ${data.message}
 
         ---
-        Préférence de contact : ${preferredContact}
+        Pays : ${countryLabel}
         Numéro de téléphone : ${data.phone}
+        Préférence de contact : ${preferredContact}
       `;
 
       await addSupportMessage({
@@ -268,6 +287,30 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     )}
                     />
                 </div>
+                 <FormField
+                    control={form.control}
+                    name="country"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Pays</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Sélectionnez votre pays" />
+                            </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {countries.map((country) => (
+                                    <SelectItem key={country.value} value={country.value}>
+                                        {country.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
                 <FormField
                   control={form.control}
                   name="message"
