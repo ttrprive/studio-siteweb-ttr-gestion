@@ -15,6 +15,22 @@ import { Label } from "@/components/ui/label";
 import { AuthProvider, useAuth } from "@/context/auth-context";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const countries = [
+    { value: "FR", label: "France" },
+    { value: "TG", label: "Togo" },
+    { value: "BJ", label: "Bénin" },
+    { value: "CI", label: "Côte d'Ivoire" },
+    { value: "SN", label: "Sénégal" },
+    { value: "CM", label: "Cameroun" },
+    { value: "BE", label: "Belgique" },
+    { value: "CH", label: "Suisse" },
+    { value: "CA", label: "Canada" },
+    { value: "US", label: "États-Unis" },
+    { value: "GB", label: "Royaume-Uni" },
+];
+
 
 function RegisterComponent() {
     const { user, loading } = useAuth();
@@ -59,6 +75,21 @@ function RegisterComponent() {
                 <Label htmlFor="last-name">Nom</Label>
                 <Input id="last-name" placeholder="Robinson" required />
               </div>
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="country">Pays</Label>
+                <Select>
+                    <SelectTrigger id="country">
+                        <SelectValue placeholder="Sélectionnez votre pays" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {countries.map((country) => (
+                            <SelectItem key={country.value} value={country.value}>
+                                {country.label}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
