@@ -7,6 +7,7 @@ import NewsTicker from './news-ticker';
 import { getNews } from '@/firebase/services';
 import type { NewsItem } from '@/types/news';
 import { AppHeader } from './app-header';
+import ShareholderCta from './shareholder-cta';
 
 export default function MainLayoutClient({
   children,
@@ -34,6 +35,7 @@ export default function MainLayoutClient({
         <main className="flex-grow">{children}</main>
         <AppFooter />
       </div>
+      <ShareholderCta />
       {showNewsBadge && latestNews.length > 0 && <NewsTicker newsItems={latestNews} />}
     </>
   );
