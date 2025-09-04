@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare } from 'lucide-react';
+import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare, Sparkles, Video, Palette } from 'lucide-react';
 
 const servicesData = {
   "creation-site-web": {
@@ -60,6 +60,42 @@ const servicesData = {
       "Augmentez la confiance et la crédibilité de votre marque.",
       "Un meilleur retour sur investissement que la publicité payante à long terme.",
       "Analyse concurrentielle pour vous démarquer de vos compétiteurs."
+    ]
+  },
+  "creation-contenu-digital": {
+    icon: <Sparkles className="size-12 mb-4 text-primary" />,
+    title: "Création de Contenu Digital",
+    description: "Engagez votre audience avec des visuels percutants et des contenus créatifs pour vos réseaux sociaux et campagnes marketing.",
+    advantages: [
+      "Des publications professionnelles qui captent l'attention.",
+      "Une stratégie de contenu alignée sur vos objectifs commerciaux.",
+      "Des visuels (images, infographies) qui renforcent votre image de marque.",
+      "Un gain de temps considérable dans la gestion de votre communication.",
+      "Une augmentation de l'engagement et de l'interaction avec votre communauté."
+    ]
+  },
+  "montage-video": {
+    icon: <Video className="size-12 mb-4 text-primary" />,
+    title: "Montage Vidéo Professionnel",
+    description: "Transformez vos séquences brutes en vidéos dynamiques et professionnelles pour vos publicités, formations ou réseaux sociaux.",
+    advantages: [
+      "Un rendu cinématographique qui valorise votre message.",
+      "Des vidéos optimisées pour chaque plateforme (YouTube, Instagram, TikTok).",
+      "L'intégration d'animations et d'effets pour un résultat dynamique.",
+      "Un sound design et une musique qui créent une véritable ambiance.",
+      "Des délais de production rapides pour répondre à vos besoins marketing."
+    ]
+  },
+  "design-graphique": {
+    icon: <Palette className="size-12 mb-4 text-primary" />,
+    title: "Design Graphique & Identité Visuelle",
+    description: "Créez une image de marque forte et cohérente, du logo à la charte graphique, pour vous démarquer de la concurrence.",
+    advantages: [
+      "Un logo mémorable et professionnel qui représente vos valeurs.",
+      "Une charte graphique complète pour une communication cohérente sur tous les supports.",
+      "Des supports de communication (cartes de visite, flyers) percutants.",
+      "Une crédibilité et une confiance accrues auprès de vos clients.",
+      "Une base solide pour toutes vos futures actions de marketing."
     ]
   }
 };

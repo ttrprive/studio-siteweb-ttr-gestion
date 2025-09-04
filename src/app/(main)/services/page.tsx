@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Paintbrush, Megaphone, Code, Search } from 'lucide-react';
+import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
@@ -59,7 +59,7 @@ const services = [
   {
     slug: "seo",
     icon: <Search className="size-10 mb-4 text-primary" />,
-    title: "Optimisation pour les Moteurs de Recherche (SEO)",
+    title: "Optimisation SEO",
     description: "Améliorez votre visibilité sur Google et attirez plus de trafic qualifié. Nous optimisons votre site pour le classer en haut des résultats de recherche.",
     price: "À partir de 600 € / mois",
     features: [
@@ -69,6 +69,48 @@ const services = [
       "Création de liens (Netlinking)"
     ],
     cta: "Améliorer mon SEO"
+  },
+  {
+    slug: "creation-contenu-digital",
+    icon: <Sparkles className="size-10 mb-4 text-primary" />,
+    title: "Création de Contenu Digital",
+    description: "Engagez votre audience avec des visuels percutants et des contenus créatifs pour vos réseaux sociaux et campagnes marketing.",
+    price: "Sur devis",
+    features: [
+      "Création de posts pour réseaux sociaux",
+      "Design de bannières publicitaires",
+      "Infographies et visuels de marque",
+      "Contenu adapté à votre audience"
+    ],
+    cta: "Donner vie à mes idées"
+  },
+  {
+    slug: "montage-video",
+    icon: <Video className="size-10 mb-4 text-primary" />,
+    title: "Montage Vidéo Professionnel",
+    description: "Transformez vos séquences brutes en vidéos dynamiques et professionnelles pour vos publicités, formations ou réseaux sociaux.",
+    price: "À partir de 300 € / vidéo",
+    features: [
+      "Montage, colorimétrie et étalonnage",
+      "Ajout de titres, sous-titres et animations",
+      "Musique libre de droits et sound design",
+      "Formats optimisés pour chaque plateforme"
+    ],
+    cta: "Monter ma vidéo"
+  },
+  {
+    slug: "design-graphique",
+    icon: <Palette className="size-10 mb-4 text-primary" />,
+    title: "Design Graphique & Identité Visuelle",
+    description: "Créez une image de marque forte et cohérente, du logo à la charte graphique, pour vous démarquer de la concurrence.",
+    price: "Sur devis",
+    features: [
+      "Création de logo et charte graphique",
+      "Design de supports de communication (flyers, cartes)",
+      "Maquettes pour interfaces web et mobile (UI/UX)",
+      "Conseil en image de marque"
+    ],
+    cta: "Construire ma marque"
   }
 ];
 
@@ -86,13 +128,13 @@ export default function ServicesPage() {
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <Card key={service.title} className="flex flex-col border-border/40 hover:border-primary/60 transition-colors duration-300 hover:shadow-lg">
             <CardHeader className="text-center items-center">
               {service.icon}
               <CardTitle className="text-2xl">{service.title}</CardTitle>
-              <CardDescription className="px-6">{service.description}</CardDescription>
+              <CardDescription className="px-6 h-16">{service.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
               <ul className="space-y-3 text-muted-foreground">
@@ -113,8 +155,18 @@ export default function ServicesPage() {
           </Card>
         ))}
       </div>
+
+       <div className="mt-20 text-center bg-gradient-to-r from-blue-500/10 to-cyan-500/10 p-8 rounded-lg border border-primary/20">
+          <div className="flex justify-center items-center gap-4 mb-4">
+            <Gift className="size-10 text-primary" />
+            <h2 className="text-3xl font-bold tracking-tight">Bonus pour les Utilisateurs de TTR Gestion</h2>
+          </div>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground text-lg">
+            En tant qu'utilisateur de notre application, vous êtes un partenaire privilégié. Bénéficiez de <strong className="text-primary">30% de réduction</strong> sur tous nos services, ainsi que d'un suivi personnalisé pour garantir le succès de vos projets.
+          </p>
+      </div>
       
-      <div className="mt-20 text-center bg-muted/50 p-8 rounded-lg">
+      <div className="mt-16 text-center bg-muted/50 p-8 rounded-lg">
           <h2 className="text-3xl font-bold tracking-tight">Un projet en tête ?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Nous sommes à votre écoute pour discuter de vos idées et trouver la solution la plus adaptée à vos ambitions.</p>
           <div className="mt-8">

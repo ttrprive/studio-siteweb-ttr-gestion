@@ -1,4 +1,3 @@
-
 import { MetadataRoute } from 'next';
 
 const URL = 'https://ttrgestion.site';
@@ -32,7 +31,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "creation-site-web",
     "publicite-ciblee",
     "developpement-application",
-    "seo"
+    "seo",
+    "creation-contenu-digital",
+    "montage-video",
+    "design-graphique"
   ];
 
   const serviceRoutes = serviceSlugs.map((slug) => ({
