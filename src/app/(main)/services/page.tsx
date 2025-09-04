@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift, Users, Globe } from 'lucide-react';
+import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift, Users, Globe, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import LoaderLink from '@/components/loader-link';
@@ -154,6 +154,20 @@ export default function ServicesPage() {
         <p className="mt-6 text-lg text-muted-foreground">
           En plus de notre application de gestion, nous mettons notre expertise technique à votre service pour vous aider à grandir, innover et atteindre vos objectifs.
         </p>
+      </div>
+
+      <div className="max-w-5xl mx-auto mb-16">
+        <Card className="bg-muted/50 border-primary/20">
+            <CardHeader className="items-center text-center">
+                <TrendingUp className="size-12 text-primary" />
+                <CardTitle className="text-2xl md:text-3xl">Investir dans votre visibilité, c'est garantir votre croissance.</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+                <p>
+                    Nos services sont bien plus qu'une simple dépense, ils sont un accélérateur pour votre entreprise. Nous ne nous contentons pas de créer de jolis designs ; nous construisons des stratégies digitales qui attirent des clients et génèrent un retour sur investissement tangible. Pour un coût maîtrisé, vous accédez à une qualité d'expert qui transforme votre présence en ligne en un véritable moteur de revenus.
+                </p>
+            </CardContent>
+        </Card>
       </div>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
