@@ -4,7 +4,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot, Menu, X, Sparkles, Compass, LogIn } from "lucide-react";
+import { Home, Newspaper, Info, LifeBuoy, Briefcase, Bot, Menu, X, Sparkles, Compass, LogIn, Gift } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import LoaderLink from "./loader-link";
@@ -18,11 +18,11 @@ const navItems = [
   { href: "/ia", label: "IA", icon: Bot },
   { href: "/sectors", label: "Découvrir", icon: Compass },
   { href: "/news", label: "Actualité", icon: Newspaper, badge: true },
-  { href: "/services", label: "Services", icon: Briefcase },
+  { href: "/services", label: "Services", icon: Briefcase, special: true },
   { href: "/support", label: "Support", icon: LifeBuoy },
 ];
 
-const NavLink = ({ href, label, icon: Icon, isActive, showNewsBadge, onClick }: any) => (
+const NavLink = ({ href, label, icon: Icon, isActive, showNewsBadge, isSpecial, onClick }: any) => (
   <LoaderLink
     href={href}
     onClick={onClick}
@@ -38,6 +38,9 @@ const NavLink = ({ href, label, icon: Icon, isActive, showNewsBadge, onClick }: 
       )}
     </div>
     {label}
+    {isSpecial && (
+      <Gift className="size-4 text-primary opacity-80" />
+    )}
     {label === "Actualité" && showNewsBadge && (
         <Badge variant="destructive" className="text-xs px-1.5 py-0.5 h-auto ml-auto hidden sm:inline-flex">Nouveau</Badge>
     )}
@@ -62,6 +65,7 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
             icon={item.icon}
             isActive={pathname === item.href}
             showNewsBadge={item.badge && showNewsBadge}
+            isSpecial={item.special}
           />
         ))}
       </nav>
@@ -87,6 +91,7 @@ export function AppHeader({ showNewsBadge }: { showNewsBadge: boolean }) {
                 icon={item.icon}
                 isActive={pathname === item.href}
                 showNewsBadge={item.badge && showNewsBadge}
+                isSpecial={item.special}
                 onClick={() => setIsMobileMenuOpen(false)}
               />
             ))}
