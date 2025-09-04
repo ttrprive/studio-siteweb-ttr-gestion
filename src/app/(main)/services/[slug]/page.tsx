@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -125,17 +126,41 @@ const servicesData = {
 };
 
 const countries = [
-    { value: "FR", label: "France" },
-    { value: "TG", label: "Togo" },
+    // Afrique
+    { value: "DZ", label: "Algérie" },
     { value: "BJ", label: "Bénin" },
-    { value: "CI", label: "Côte d'Ivoire" },
-    { value: "SN", label: "Sénégal" },
+    { value: "BF", label: "Burkina Faso" },
     { value: "CM", label: "Cameroun" },
+    { value: "CD", label: "Congo (RDC)" },
+    { value: "CG", label: "Congo (Brazzaville)" },
+    { value: "CI", label: "Côte d'Ivoire" },
+    { value: "GA", label: "Gabon" },
+    { value: "GN", label: "Guinée" },
+    { value: "MG", label: "Madagascar" },
+    { value: "ML", label: "Mali" },
+    { value: "MA", label: "Maroc" },
+    { value: "NE", label: "Niger" },
+    { value: "SN", label: "Sénégal" },
+    { value: "TD", label: "Tchad" },
+    { value: "TG", label: "Togo" },
+    { value: "TN", label: "Tunisie" },
+    // Europe
+    { value: "DE", label: "Allemagne" },
     { value: "BE", label: "Belgique" },
+    { value: "ES", label: "Espagne" },
+    { value: "FR", label: "France" },
+    { value: "IT", label: "Italie" },
+    { value: "LU", label: "Luxembourg" },
+    { value: "PT", label: "Portugal" },
+    { value: "GB", label: "Royaume-Uni" },
     { value: "CH", label: "Suisse" },
+    // Amérique
     { value: "CA", label: "Canada" },
     { value: "US", label: "États-Unis" },
-    { value: "GB", label: "Royaume-Uni" },
+    // Reste du monde
+    { value: "CN", label: "Chine" },
+    { value: "AE", label: "Émirats Arabes Unis" },
+    { value: "OTHER", label: "Autre" }
 ];
 
 const contactMethods = [
@@ -188,12 +213,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
       const preferredContact = data.contactMethods.join(", ");
       const countryLabel = countries.find(c => c.value === data.country)?.label || data.country;
       const fullMessage = `
-        ${data.message}
+${data.message}
 
-        ---
-        Pays : ${countryLabel}
-        Numéro de téléphone : ${data.phone}
-        Préférence de contact : ${preferredContact}
+---
+Pays : ${countryLabel}
+Numéro de téléphone : ${data.phone}
+Préférence de contact : ${preferredContact}
       `;
 
       await addSupportMessage({
