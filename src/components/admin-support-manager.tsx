@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -12,7 +11,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Skeleton } from './ui/skeleton';
 import { Badge } from './ui/badge';
-import { Mail, MailOpen } from 'lucide-react';
+import { Mail, MailOpen, Sparkles } from 'lucide-react';
 
 const AdminSupportManager = () => {
     const { toast } = useToast();
@@ -68,39 +67,46 @@ const AdminSupportManager = () => {
                     <p className="text-sm text-muted-foreground text-center py-8">Aucun message dans la boîte de réception.</p>
                 ) : (
                     <Accordion type="single" collapsible className="w-full">
-                        {messages.map(msg => (
-                            <AccordionItem value={msg.id} key={msg.id} className={!msg.read ? 'border-primary/50' : ''}>
-                                <AccordionTrigger>
-                                    <div className="flex items-center justify-between w-full pr-4">
-                                        <div className="flex items-center gap-4">
-                                            {!msg.read ? <Mail className="size-5 text-primary" /> : <MailOpen className="size-5 text-muted-foreground" />}
-                                            <div className="text-left">
-                                                <p className={`font-semibold ${!msg.read ? 'text-foreground' : 'text-muted-foreground'}`}>{msg.subject}</p>
-                                                <p className="text-sm text-muted-foreground">{msg.name} &lt;{msg.email}&gt;</p>
+                        {messages.map(msg => {
+                            const isServiceRequest = msg.subject.startsWith('Demande de service:');
+                            return (
+                                <AccordionItem value={msg.id} key={msg.id} className={!msg.read ? 'border-primary/50' : ''}>
+                                    <AccordionTrigger>
+                                        <div className="flex items-center justify-between w-full pr-4">
+                                            <div className="flex items-center gap-4">
+                                                {isServiceRequest ? (
+                                                     <Sparkles className={`size-5 ${!msg.read ? 'text-yellow-500' : 'text-muted-foreground'}`} />
+                                                ) : (
+                                                    !msg.read ? <Mail className="size-5 text-primary" /> : <MailOpen className="size-5 text-muted-foreground" />
+                                                )}
+                                                <div className="text-left">
+                                                    <p className={`font-semibold ${!msg.read ? 'text-foreground' : 'text-muted-foreground'}`}>{msg.subject}</p>
+                                                    <p className="text-sm text-muted-foreground">{msg.name} &lt;{msg.email}&gt;</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col items-end gap-1">
+                                                <span className="text-xs text-muted-foreground">
+                                                    {formatDistanceToNow(new Date(msg.createdAt.seconds * 1000), { addSuffix: true, locale: fr })}
+                                                </span>
+                                                {!msg.read && <Badge variant="secondary">Nouveau</Badge>}
                                             </div>
                                         </div>
-                                        <div className="flex flex-col items-end gap-1">
-                                            <span className="text-xs text-muted-foreground">
-                                                {formatDistanceToNow(new Date(msg.createdAt.seconds * 1000), { addSuffix: true, locale: fr })}
-                                            </span>
-                                            {!msg.read && <Badge variant="secondary">Nouveau</Badge>}
+                                    </AccordionTrigger>
+                                    <AccordionContent>
+                                        <div className="prose prose-sm dark:prose-invert max-w-none p-4 bg-muted/50 rounded-md">
+                                            <p>{msg.message}</p>
                                         </div>
-                                    </div>
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    <div className="prose prose-sm dark:prose-invert max-w-none p-4 bg-muted/50 rounded-md">
-                                        <p>{msg.message}</p>
-                                    </div>
-                                    {!msg.read && (
-                                        <div className="mt-4 flex justify-end">
-                                            <Button size="sm" onClick={(e) => handleMarkAsRead(msg.id, e)}>
-                                                Marquer comme lu
-                                            </Button>
-                                        </div>
-                                    )}
-                                </AccordionContent>
-                            </AccordionItem>
-                        ))}
+                                        {!msg.read && (
+                                            <div className="mt-4 flex justify-end">
+                                                <Button size="sm" onClick={(e) => handleMarkAsRead(msg.id, e)}>
+                                                    Marquer comme lu
+                                                </Button>
+                                            </div>
+                                        )}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            );
+                        })}
                     </Accordion>
                 )}
             </CardContent>

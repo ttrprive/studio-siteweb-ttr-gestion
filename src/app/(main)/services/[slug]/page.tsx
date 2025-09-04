@@ -12,6 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, Paintbrush, Megaphone, Code, Search, Mail, MessageSquare, Sparkles, Video, Palette } from 'lucide-react';
+import { addSupportMessage } from '@/firebase/services';
 
 const servicesData = {
   "creation-site-web": {
@@ -113,6 +114,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const service = servicesData[params.slug as keyof typeof servicesData];
 
   const form = useForm<FormData>({
@@ -134,24 +136,39 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
     )
   }
 
-  function onSubmit(data: FormData) {
-    if (data.contactMethod === 'whatsapp') {
-      const whatsappMessage = `Bonjour, je suis intéressé par le service "${service.title}".\n\nNom: ${data.name}\nEmail: ${data.email}\n\nMessage: ${data.message}`;
-      const whatsappUrl = `https://wa.me/33XXXXXXXXX?text=${encodeURIComponent(whatsappMessage)}`; // Remplacez par votre numéro
-      window.open(whatsappUrl, '_blank');
-      toast({
-        title: "Redirection vers WhatsApp",
-        description: "Préparez votre message pour l'envoyer.",
+  async function onSubmit(data: FormData) {
+    setIsSubmitting(true);
+    try {
+      if (data.contactMethod === 'whatsapp') {
+        const whatsappMessage = `Bonjour, je suis intéressé par le service "${service.title}".\n\nNom: ${data.name}\nEmail: ${data.email}\n\nMessage: ${data.message}`;
+        const whatsappUrl = `https://wa.me/33XXXXXXXXX?text=${encodeURIComponent(whatsappMessage)}`; // Remplacez par votre numéro
+        window.open(whatsappUrl, '_blank');
+        toast({
+          title: "Redirection vers WhatsApp",
+          description: "Préparez votre message pour l'envoyer.",
+        });
+      } else {
+        await addSupportMessage({
+          name: data.name,
+          email: data.email,
+          subject: `Demande de service: ${service.title}`,
+          message: data.message,
+        });
+        toast({
+          title: "Message envoyé !",
+          description: "Nous avons bien reçu votre demande et nous vous répondrons par email dans les plus brefs délais.",
+        });
+      }
+      form.reset();
+    } catch (error) {
+       toast({
+        title: "Erreur",
+        description: "Une erreur est survenue. Veuillez réessayer.",
+        variant: "destructive",
       });
-    } else {
-      // Logique d'envoi d'email (simulation)
-      console.log("Envoi de l'email avec les données :", data);
-      toast({
-        title: "Message envoyé !",
-        description: "Nous avons bien reçu votre demande et nous vous répondrons par email dans les plus brefs délais.",
-      });
+    } finally {
+        setIsSubmitting(false);
     }
-    form.reset();
   }
 
   return (
@@ -242,8 +259,12 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  {form.getValues("contactMethod") === 'whatsapp' ? "Préparer le message WhatsApp" : "Envoyer le message"}
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                   {isSubmitting
+                    ? "Envoi en cours..."
+                    : form.getValues("contactMethod") === 'whatsapp'
+                    ? "Préparer le message WhatsApp"
+                    : "Envoyer le message"}
                 </Button>
               </form>
             </Form>
