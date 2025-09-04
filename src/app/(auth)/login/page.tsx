@@ -21,7 +21,7 @@ import { AlertCircle } from "lucide-react";
 
 
 function LoginComponent() {
-    const { user, loading, signInWithGoogle, signInWithEmail } = useAuth();
+    const { user, loading, signInWithEmail } = useAuth();
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -117,14 +117,6 @@ function LoginComponent() {
                     {isSubmitting ? "Connexion..." : "Se connecter"}
                 </Button>
               </form>
-               <div className="my-4 flex items-center">
-                    <div className="flex-grow border-t border-muted-foreground"></div>
-                    <span className="mx-4 flex-shrink text-xs uppercase text-muted-foreground">Ou</span>
-                    <div className="flex-grow border-t border-muted-foreground"></div>
-                </div>
-                <Button variant="outline" className="w-full" onClick={signInWithGoogle}>
-                    Se connecter avec Google
-                </Button>
             </CardContent>
           </Card>
         </div>
