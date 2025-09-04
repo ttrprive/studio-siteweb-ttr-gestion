@@ -17,13 +17,6 @@ import LoaderLink from "@/components/loader-link";
 import CornerDecoration from "@/components/corner-decoration";
 import { useRouter } from "next/navigation";
 import { addSupportMessage } from "@/firebase/services";
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-    title: 'Support & Aide | TTR GESTION',
-    description: "Besoin d'aide ou une question ? Consultez notre FAQ ou contactez notre équipe. Nous sommes là pour vous aider.",
-};
-
 
 const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
@@ -323,5 +316,3 @@ export default function SupportPage() {
     </>
   );
 }
-
-    
