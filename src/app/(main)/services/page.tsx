@@ -177,7 +177,7 @@ export default function ServicesPage() {
             <CardHeader className="text-center items-center">
               {service.icon}
               <CardTitle className="text-2xl">{service.title}</CardTitle>
-              <CardDescription className="px-6 h-16">{service.description}</CardDescription>
+              <CardDescription className="px-6 h-20 leading-snug">{service.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
               <ul className="space-y-3 text-muted-foreground">
