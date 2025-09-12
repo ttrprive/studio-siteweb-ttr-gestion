@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift, Users, Globe, TrendingUp } from 'lucide-react';
