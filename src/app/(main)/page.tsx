@@ -191,8 +191,8 @@ export default async function Home() {
             />
         </div>
         <div className="relative z-10 flex flex-col items-center">
-            <h1 data-aos="fade-up" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent mb-6 max-w-4xl">
-              La gestion d'entreprise, enfin simple.
+            <h1 data-aos="fade-up" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
+              Pilotez votre entreprise sans effort.
             </h1>
             <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-muted-foreground mb-8 max-w-2xl">
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
@@ -203,7 +203,7 @@ export default async function Home() {
                     <Link href="https://app.ttrgestion.site/register">Créer un nouveau compte</Link>
                 </Button>
                 <Button asChild variant="outline">
-                    <Link href="https://app.ttrgestion.site/login">Se connecter</Link>
+                    <a href="https://app.ttrgestion.site/login" target="_blank" rel="noopener noreferrer">Se connecter</a>
                 </Button>
                 <Button asChild variant="secondary">
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
@@ -233,5 +233,3 @@ export default async function Home() {
     </>
   );
 }
-
-    
