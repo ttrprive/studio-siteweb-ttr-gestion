@@ -192,7 +192,7 @@ export default async function Home() {
         </div>
         <div className="relative z-10 flex flex-col items-center">
             <h1 data-aos="fade-up" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
-              Pilotez votre entreprise sans effort.
+              La gestion de votre entreprise, désormais dans votre poche.
             </h1>
             <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-muted-foreground mb-8 max-w-2xl">
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
