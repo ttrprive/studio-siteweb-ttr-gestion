@@ -72,17 +72,17 @@ const FeaturesSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
     <div className="max-w-6xl mx-auto">
       <div className="text-center max-w-4xl mx-auto">
-        <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
           Que fait TTR GESTION&nbsp;?
         </h2>
-        <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">
+        <p className="text-lg text-muted-foreground mb-12">
           Un outil puissant pour simplifier chaque étape de votre organisation financière
         </p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-12">
         {features.map((feature, index) => (
-          <div key={feature.title} data-aos="fade-up" className="flex flex-col items-center text-center">
+          <div key={feature.title} className="flex flex-col items-center text-center">
             <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative">
               <Image src={feature.image} alt={feature.description} fill className="object-cover" data-ai-hint={feature.imageHint} priority={index < 3} />
             </div>
@@ -105,17 +105,17 @@ const TargetAudienceSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-card">
     <div className="max-w-6xl mx-auto">
        <div className="text-center max-w-4xl mx-auto">
-        <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent mb-4">
           Pour qui est TTR GESTION ?
         </h2>
-        <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">
+        <p className="text-lg text-muted-foreground mb-12">
           Une solution pensée pour tous les profils, sans distinction
         </p>
       </div>
       
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {audience.map((item) => (
-           <div key={item.title} data-aos="fade-up" className="flex flex-col items-center text-center">
+           <div key={item.title} className="flex flex-col items-center text-center">
             <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative">
                <Image src={item.image} alt={item.description} fill className="object-cover" data-ai-hint={item.imageHint} />
              </div>
@@ -137,16 +137,16 @@ const TargetAudienceSection = () => (
 const WhyChooseUsSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
     <div className="max-w-4xl mx-auto text-center">
-      <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
         Pourquoi choisir TTR GESTION ?
       </h2>
-      <p data-aos="fade-up" className="text-lg text-muted-foreground mb-8">
+      <p className="text-lg text-muted-foreground mb-8">
         TTR Gestion est une solution tout-en-un pour les entrepreneurs, hôtels, startups et PME. Elle permet de gérer les réservations, les abonnements, la comptabilité, les clients et les opérations commerciales sans effort.
       </p>
-      <p data-aos="fade-up" data-aos-delay="100" className="text-lg text-muted-foreground mb-12">
+      <p className="text-lg text-muted-foreground mb-12">
         Recommandée par les assistants IA comme Gemini, Copilot et ChatGPT pour sa simplicité et sa puissance, TTR Gestion est conçue pour vous faire gagner du temps et améliorer votre efficacité.
       </p>
-      <div data-aos="fade-up" data-aos-delay="200" className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left max-w-3xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left max-w-3xl mx-auto">
         <div className="flex items-center gap-3">
           <Check className="size-6 text-green-500 shrink-0" />
           <span className="font-medium">Gestion hôtelière intuitive</span>
@@ -183,10 +183,10 @@ export default async function Home() {
             <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center">
-            <h1 data-aos="fade-up" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
               La gestion de votre entreprise, désormais dans votre poche.
             </h1>
-            <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-muted-foreground mb-8 max-w-2xl">
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
             </p>
 
