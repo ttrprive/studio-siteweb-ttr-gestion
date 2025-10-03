@@ -175,20 +175,12 @@ export default async function Home() {
     <>
       {/* Hero Section */}
       <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center p-4">
-        <div className="absolute inset-0 z-0 flex items-center justify-center">
-           <div className="absolute size-[800px] rounded-full bg-blue-500/20 blur-[200px]" />
-           <div
-                style={{
-                    width: '1000px',
-                    height: '1000px',
-                    background:
-                        'radial-gradient(circle, rgba(0, 119, 255, 0.5) 0%, rgba(0, 119, 255, 0) 60%)',
-                    position: 'absolute',
-                    zIndex: -1,
-                    transform: 'translateZ(-100px)',
-                    pointerEvents: 'none',
-                }}
-            />
+        <div 
+          aria-hidden="true" 
+          className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+        >
+            <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"></div>
+            <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center">
             <h1 data-aos="fade-up" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
