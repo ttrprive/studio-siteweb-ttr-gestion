@@ -198,7 +198,7 @@ export default async function Home() {
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
             </p>
 
-            <div data-aos="fade-up" data-aos-delay="300" className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild>
                     <Link href="https://app.ttrgestion.site/register">Créer un nouveau compte</Link>
                 </Button>
