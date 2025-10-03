@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Check } from 'lucide-react';
 
-import ThreeDCard from "@/components/three-d-card";
 import { Button } from '@/components/ui/button';
 import LoaderLink from '@/components/loader-link';
 import TestimonialsSection from '@/components/testimonials-section';
@@ -192,12 +191,8 @@ export default async function Home() {
             />
         </div>
         <div className="relative z-10 flex flex-col items-center">
-            <div data-aos="fade-down" className="scale-90 md:scale-100">
-                <ThreeDCard />
-            </div>
-
-            <h1 data-aos="fade-up" data-aos-delay="100" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4 mt-8">
-              TTR GESTION
+            <h1 data-aos="fade-up" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent mb-6 max-w-4xl">
+              La gestion d'entreprise, enfin simple.
             </h1>
             <p data-aos="fade-up" data-aos-delay="200" className="text-lg text-muted-foreground mb-8 max-w-2xl">
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
