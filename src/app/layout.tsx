@@ -103,7 +103,7 @@ export default function RootLayout({
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
       </head>
       <body className="font-body antialiased bg-background text-foreground">

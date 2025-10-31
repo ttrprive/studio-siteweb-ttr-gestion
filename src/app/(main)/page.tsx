@@ -72,7 +72,7 @@ const FeaturesSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
     <div className="max-w-6xl mx-auto">
       <div className="text-center max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
           Que fait TTR GESTION&nbsp;?
         </h2>
         <p className="text-lg text-muted-foreground mb-12">
@@ -88,7 +88,7 @@ const FeaturesSection = () => (
             </div>
             <div className="mb-4 flex items-center justify-center gap-4">
               {feature.icon}
-              <h3 className="text-xl font-bold">{feature.title}</h3>
+              <h3 className="text-xl font-bold font-headline">{feature.title}</h3>
             </div>
             <p className="text-muted-foreground mb-4 flex-grow">{feature.description}</p>
             <Button variant="link" asChild className="p-0 h-auto">
@@ -105,7 +105,7 @@ const TargetAudienceSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-card">
     <div className="max-w-6xl mx-auto">
        <div className="text-center max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold font-headline bg-gradient-to-r from-cyan-400 via-teal-400 to-green-400 bg-clip-text text-transparent mb-4">
           Pour qui est TTR GESTION ?
         </h2>
         <p className="text-lg text-muted-foreground mb-12">
@@ -121,7 +121,7 @@ const TargetAudienceSection = () => (
              </div>
               <div className="mb-4 flex items-center justify-center gap-4">
                 {item.icon}
-                <h3 className="text-xl font-bold">{item.title}</h3>
+                <h3 className="text-xl font-bold font-headline">{item.title}</h3>
               </div>
               <p className="text-muted-foreground mb-4 flex-grow">{item.description}</p>
                <Button variant="link" asChild className="p-0 h-auto">
@@ -137,7 +137,7 @@ const TargetAudienceSection = () => (
 const WhyChooseUsSection = () => (
   <section className="w-full py-20 px-4 md:px-8 bg-background">
     <div className="max-w-4xl mx-auto text-center">
-      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+      <h2 className="text-4xl md:text-5xl font-bold font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
         Pourquoi choisir TTR GESTION ?
       </h2>
       <p className="text-lg text-muted-foreground mb-8">
@@ -183,7 +183,7 @@ export default async function Home() {
             <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight font-headline bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
               La gestion de votre entreprise, désormais dans votre poche.
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl">

@@ -182,7 +182,7 @@ export default function NewsPage() {
                             />
                             <div className="absolute inset-0 bg-black/40 flex items-end">
                                 <div className="container mx-auto px-4 py-8 md:px-6 md:py-12 text-white">
-                                    <h2 className="text-2xl md:text-4xl font-bold mb-2">{promo.title}</h2>
+                                    <h2 className="text-2xl md:text-4xl font-bold font-headline mb-2">{promo.title}</h2>
                                     <p className="text-base md:text-xl max-w-3xl">{promo.description}</p>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@ export default function NewsPage() {
 
         <div className="container mx-auto px-4 py-12 md:px-6 md:py-20">
             <div className="mx-auto max-w-4xl text-center mb-16">
-                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                 <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     Actualités et Mises à Jour
                 </h1>
                 <p className="mt-6 text-lg text-muted-foreground">
@@ -245,7 +245,7 @@ export default function NewsPage() {
                                                 {format(new Date(item.date), 'dd MMMM yyyy', { locale: fr })}
                                             </time>
                                         </div>
-                                        <CardTitle className="mt-2 text-2xl">{item.title}</CardTitle>
+                                        <CardTitle className="mt-2 text-2xl font-headline">{item.title}</CardTitle>
                                     </CardHeader>
                                     <CardContent className="p-0 mt-4">
                                         <p className="text-muted-foreground">{item.description}</p>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Section = ({ id, title, children }: { id: string, title: string, children: React.ReactNode }) => (
     <section id={id} className="mb-16 scroll-mt-20">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground mb-6 pb-2 border-b-2 border-primary/20">{title}</h2>
+        <h2 className="text-3xl font-bold tracking-tight font-headline text-foreground mb-6 pb-2 border-b-2 border-primary/20">{title}</h2>
         {children}
     </section>
 );
@@ -29,7 +29,7 @@ export default function ManualPage() {
     return (
         <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
             <div className="mx-auto max-w-4xl text-center mb-16">
-                <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     Manuel d'Utilisation
                 </h1>
                 <p className="mt-6 text-lg text-muted-foreground">
@@ -151,7 +151,7 @@ export default function ManualPage() {
                 </Section>
 
                  <div className="mt-20 text-center">
-                    <h2 className="text-3xl font-bold tracking-tight">Prêt à transformer votre gestion ?</h2>
+                    <h2 className="text-3xl font-bold tracking-tight font-headline">Prêt à transformer votre gestion ?</h2>
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Chaque fonctionnalité est pensée pour vous donner le pouvoir. Il est temps de l'utiliser.</p>
                     <div className="mt-8">
                         <Button size="lg" asChild>

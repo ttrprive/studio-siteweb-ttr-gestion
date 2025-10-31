@@ -130,7 +130,7 @@ export default function DetailsPage() {
       <CornerDecoration src="/photobleu.png" position="top-left" className="-translate-x-1/3 -translate-y-1/3" />
       <CornerDecoration src="/photoblanc.png" position="bottom-right" className="translate-x-1/3 translate-y-1/3" />
       <div className="mx-auto max-w-4xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Un écosystème complet pour votre entreprise
         </h1>
         <p className="mt-6 text-lg text-muted-foreground">
@@ -144,7 +144,7 @@ export default function DetailsPage() {
             <Card className="flex flex-col h-full hover:border-primary/60 transition-colors duration-300 hover:shadow-lg">
               <CardHeader>
                 {feature.icon}
-                <CardTitle>{feature.title}</CardTitle>
+                <CardTitle className="font-headline">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">{feature.description}</p>
@@ -155,7 +155,7 @@ export default function DetailsPage() {
       </div>
       
       <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold tracking-tight">Prêt à simplifier votre quotidien ?</h2>
+          <h2 className="text-3xl font-bold tracking-tight font-headline">Prêt à simplifier votre quotidien ?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Libérez le potentiel de votre entreprise. Créez votre compte gratuitement dès aujourd'hui et découvrez la puissance d'une gestion intuitive.</p>
           <div className="mt-8">
               <Button size="lg" asChild>

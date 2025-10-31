@@ -20,7 +20,7 @@ export default function AboutPage() {
                   <TrixBusinessLogo />
                 </div>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 À Propos de TTR Gestion
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
@@ -31,21 +31,21 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto grid gap-12 md:grid-cols-3">
             <div className="text-center flex flex-col items-center">
                 <Rocket className="size-12 mb-4 text-primary" />
-                <h2 className="text-2xl font-bold mb-2">Notre Mission</h2>
+                <h2 className="text-2xl font-bold font-headline mb-2">Notre Mission</h2>
                 <p className="text-muted-foreground">
                     Fournir une solution de gestion tout-en-un qui simplifie la complexité administrative, libère du temps et fournit des informations claires pour aider les entreprises à prospérer. Nous voulons être le copilote de votre croissance.
                 </p>
             </div>
             <div className="text-center flex flex-col items-center">
                 <Target className="size-12 mb-4 text-primary" />
-                <h2 className="text-2xl font-bold mb-2">Notre Vision</h2>
+                <h2 className="text-2xl font-bold font-headline mb-2">Notre Vision</h2>
                 <p className="text-muted-foreground">
                     Devenir la plateforme de gestion de référence pour les TPE, PME et indépendants en Europe, en intégrant les meilleures technologies, notamment l'intelligence artificielle, pour offrir des conseils et des automatisations qui font vraiment la différence.
                 </p>
             </div>
             <div className="text-center flex flex-col items-center">
                 <Users className="size-12 mb-4 text-primary" />
-                <h2 className="text-2xl font-bold mb-2">Notre Équipe</h2>
+                <h2 className="text-2xl font-bold font-headline mb-2">Notre Équipe</h2>
                 <p className="text-muted-foreground">
                     Nous sommes une équipe de développeurs, de designers et de stratèges passionnés par l'entrepreneuriat. Frustrés par les outils existants, nous avons décidé de construire la solution dont nous rêvions : flexible, intelligente et centrée sur l'utilisateur.
                 </p>

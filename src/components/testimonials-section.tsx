@@ -47,7 +47,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
     <section className="w-full py-20 px-4 md:px-8 bg-background">
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-4xl mx-auto">
-          <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
+          <h2 data-aos="fade-down" className="text-4xl md:text-5xl font-bold font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent mb-4">
             Ce que disent nos utilisateurs
           </h2>
           <p data-aos="fade-up" className="text-lg text-muted-foreground mb-12">

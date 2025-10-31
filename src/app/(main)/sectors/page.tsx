@@ -113,7 +113,7 @@ export default function SectorsPage() {
       <CornerDecoration src="/photobleu.png" position="top-right" className="translate-x-1/3 -translate-y-1/3" />
       <CornerDecoration src="/photoblanc.png" position="bottom-left" className="-translate-x-1/3 translate-y-1/3" />
       <div className="mx-auto max-w-4xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Une solution pour chaque secteur d'activité
         </h1>
         <p className="mt-6 text-lg text-muted-foreground">
@@ -126,7 +126,7 @@ export default function SectorsPage() {
             <Card key={index} className="flex flex-col h-full hover:border-primary/60 transition-colors duration-300 hover:shadow-lg">
               <CardHeader>
                 {sector.icon}
-                <CardTitle>{sector.title}</CardTitle>
+                <CardTitle className="font-headline">{sector.title}</CardTitle>
                  <CardDescription>{sector.description}</CardDescription>
               </CardHeader>
             </Card>
@@ -134,7 +134,7 @@ export default function SectorsPage() {
       </div>
       
       <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold tracking-tight">Votre secteur n'est pas listé ?</h2>
+          <h2 className="text-3xl font-bold tracking-tight font-headline">Votre secteur n'est pas listé ?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">La flexibilité de TTR Gestion lui permet de s'adapter à de nombreux autres métiers. Contactez-nous pour discuter de vos besoins spécifiques.</p>
           <div className="mt-8">
               <Button size="lg" asChild>

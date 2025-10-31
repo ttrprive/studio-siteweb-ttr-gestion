@@ -22,7 +22,7 @@ export default function IAPage() {
                   <TrixBusinessLogo />
                 </div>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
             TRIX Business
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">

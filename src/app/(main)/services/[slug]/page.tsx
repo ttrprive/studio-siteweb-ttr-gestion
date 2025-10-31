@@ -126,283 +126,434 @@ const servicesData = {
 };
 
 const countries = [
-    // Afrique
-    { value: "DZ", label: "Algérie" },
-    { value: "BJ", label: "Bénin" },
-    { value: "BF", label: "Burkina Faso" },
-    { value: "CM", label: "Cameroun" },
-    { value: "CD", label: "Congo (RDC)" },
-    { value: "CG", label: "Congo (Brazzaville)" },
-    { value: "CI", label: "Côte d'Ivoire" },
-    { value: "GA", label: "Gabon" },
-    { value: "GN", label: "Guinée" },
-    { value: "MG", label: "Madagascar" },
-    { value: "ML", label: "Mali" },
-    { value: "MA", label: "Maroc" },
-    { value: "NE", label: "Niger" },
-    { value: "SN", label: "Sénégal" },
-    { value: "TD", label: "Tchad" },
-    { value: "TG", label: "Togo" },
-    { value: "TN", label: "Tunisie" },
-    // Europe
-    { value: "DE", label: "Allemagne" },
-    { value: "BE", label: "Belgique" },
-    { value: "ES", label: "Espagne" },
-    { value: "FR", label: "France" },
-    { value: "IT", label: "Italie" },
-    { value: "LU", label: "Luxembourg" },
-    { value: "PT", label: "Portugal" },
-    { value: "GB", label: "Royaume-Uni" },
-    { value: "CH", label: "Suisse" },
-    // Amérique
-    { value: "CA", label: "Canada" },
-    { value: "US", label: "États-Unis" },
-    // Reste du monde
-    { value: "CN", label: "Chine" },
-    { value: "AE", label: "Émirats Arabes Unis" },
-    { value: "OTHER", label: "Autre" }
-];
+  { value: "AF", label: "Afghanistan" },
+  { value: "ZA", label: "Afrique du Sud" },
+  { value: "AL", label: "Albanie" },
+  { value: "DZ", label: "Algérie" },
+  { value: "DE", label: "Allemagne" },
+  { value: "AD", label: "Andorre" },
+  { value: "AO", label: "Angola" },
+  { value: "AI", label: "Anguilla" },
+  { value: "AQ", label: "Antarctique" },
+  { value: "AG", label: "Antigua-et-Barbuda" },
+  { value: "SA", label: "Arabie saoudite" },
+  { value: "AR", label: "Argentine" },
+  { value: "AM", label: "Arménie" },
+  { value: "AW", label: "Aruba" },
+  { value: "AU", label: "Australie" },
+  { value: "AT", label: "Autriche" },
+  { value: "AZ", label: "Azerbaïdjan" },
+  { value: "BS", label: "Bahamas" },
+  { value: "BH", label: "Bahreïn" },
+  { value: "BD", label: "Bangladesh" },
+  { value: "BB", label: "Barbade" },
+  { value: "BE", label: "Belgique" },
+  { value: "BZ", label: "Belize" },
+  { value: "BJ", label: "Bénin" },
+  { value: "BM", label: "Bermudes" },
+  { value: "BT", label: "Bhoutan" },
+  { value: "BY", label: "Biélorussie" },
+  { value: "BO", label: "Bolivie" },
+  { value: "BA", label: "Bosnie-Herzégovine" },
+  { value: "BW", label: "Botswana" },
+  { value: "BR", label: "Brésil" },
+  { value: "BN", label: "Brunei Darussalam" },
+  { value: "BG", label: "Bulgarie" },
+  { value: "BF", label: "Burkina Faso" },
+  { value: "BI", label: "Burundi" },
+  { value: "KH", label: "Cambodge" },
+  { value: "CM", label: "Cameroun" },
+  { value: "CA", label: "Canada" },
+  { value: "CV", label: "Cap-Vert" },
+  { value: "CF", label: "République centrafricaine" },
+  { value: "CL", label: "Chili" },
+  { value: "CN", label: "Chine" },
+  { value: "CY", label: "Chypre" },
+  { value: "CO", label: "Colombie" },
+  { value: "KM", label: "Comores" },
+  { value: "CG", label: "Congo" },
+  { value: "CD", label: "Congo (RDC)" },
+  { value: "KR", label: "Corée du Sud" },
+  { value: "KP", label: "Corée du Nord" },
+  { value: "CR", label: "Costa Rica" },
+  { value: "CI", label: "Côte d'Ivoire" },
+  { value: "HR", label: "Croatie" },
+  { value: "CU", label: "Cuba" },
+  { value: "CW", label: "Curaçao" },
+  { value: "DK", label: "Danemark" },
+  { value: "DJ", label: "Djibouti" },
+  { value: "DM", label: "Dominique" },
+  { value: "EG", label: "Égypte" },
+  { value: "AE", label: "Émirats arabes unis" },
+  { value: "EC", label: "Équateur" },
+  { value: "ER", label: "Érythrée" },
+  { value: "ES", label: "Espagne" },
+  { value: "EE", label: "Estonie" },
+  { value: "US", label: "États-Unis" },
+  { value: "ET", label: "Éthiopie" },
+  { value: "FJ", label: "Fidji" },
+  { value: "FI", label: "Finlande" },
+  { value: "FR", label: "France" },
+  { value: "GA", label: "Gabon" },
+  { value: "GM", label: "Gambie" },
+  { value: "GE", label: "Géorgie" },
+  { value: "GH", label: "Ghana" },
+  { value: "GI", label: "Gibraltar" },
+  { value: "GR", label: "Grèce" },
+  { value: "GD", label: "Grenade" },
+  { value: "GL", label: "Groenland" },
+  { value: "GP", label: "Guadeloupe" },
+  { value: "GU", label: "Guam" },
+  { value: "GT", label: "Guatemala" },
+  { value: "GG", label: "Guernesey" },
+  { value: "GN", label: "Guinée" },
+  { value: "GQ", label: "Guinée équatoriale" },
+  { value: "GW", label: "Guinée-Bissau" },
+  { value: "GY", label: "Guyana" },
+  { value: "GF", label: "Guyane française" },
+  { value: "HT", label: "Haïti" },
+  { value: "HN", label: "Honduras" },
+  { value: "HK", label: "Hong Kong" },
+  { value: "HU", label: "Hongrie" },
+  { value: "IM", label: "Île de Man" },
+  { value: "CX", label: "Île Christmas" },
+  { value: "NF", label: "Île Norfolk" },
+  { value: "AX", label: "Îles Åland" },
+  { value: "KY", label: "Îles Caïmans" },
+  { value: "CC", label: "Îles Cocos" },
+  { value: "CK", label: "Îles Cook" },
+  { value: "FO", label: "Îles Féroé" },
+  { value: "FK", label: "Îles Malouines" },
+  { value: "MP", label: "Îles Mariannes du Nord" },
+  { value: "MH", label: "Îles Marshall" },
+  { value: "SB", label: "Îles Salomon" },
+  { value: "TC", label: "Îles Turques-et-Caïques" },
+  { value: "VG", label: "Îles Vierges britanniques" },
+  { value: "VI", label: "Îles Vierges américaines" },
+  { value: "IN", label: "Inde" },
+  { value: "ID", label: "Indonésie" },
+  { value: "IR", label: "Iran" },
+  { value: "IQ", label: "Irak" },
+  { value: "IE", label: "Irlande" },
+  { value: "IS", label: "Islande" },
+  { value: "IL", label: "Israël" },
+  { value: "IT", label: "Italie" },
+  { value: "JM", label: "Jamaïque" },
+  { value: "JP", label: "Japon" },
+  { value: "JE", label: "Jersey" },
+  { value: "JO", label: "Jordanie" },
+  { value: "KZ", label: "Kazakhstan" },
+  { value: "KE", label: "Kenya" },
+  { value: "KG", label: "Kirghizistan" },
+  { value: "KI", label: "Kiribati" },
+  { value: "KW", label: "Koweït" },
+  { value: "LA", label: "Laos" },
+  { value: "LS", label: "Lesotho" },
+  { value: "LV", label: "Lettonie" },
+  { value: "LB", label: "Liban" },
+  { value: "LR", label: "Libéria" },
+  { value: "LY", label: "Libye" },
+  { value: "LI", label: "Liechtenstein" },
+  { value: "LT", label: "Lituanie" },
+  { value: "LU", label: "Luxembourg" },
+  { value: "MO", label: "Macao" },
+  { value: "MK", label: "Macédoine du Nord" },
+  { value: "MG", label: "Madagascar" },
+  { value: "MY", label: "Malaisie" },
+  { value: "MW", label: "Malawi" },
+  { value: "MV", label: "Maldives" },
+  { value: "ML", label: "Mali" },
+  { value: "MT", label: "Malte" },
+  { value: "MA", label: "Maroc" },
+  { value: "MQ", label: "Martinique" },
+  { value: "MU", label: "Maurice" },
+  { value: "MR", label: "Mauritanie" },
+  { value: "YT", label: "Mayotte" },
+  { value: "MX", label: "Mexique" },
+  { value'use client'
 
-const contactMethods = [
-  { id: "email", label: "Email" },
-  { id: "phone", label: "Téléphone" },
-] as const;
-
-const formSchema = z.object({
-  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
-  email: z.string().email("L'adresse email est invalide."),
-  phone: z.string().min(10, "Le numéro de téléphone doit contenir au moins 10 chiffres."),
-  country: z.string().min(2, "Veuillez sélectionner un pays."),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères."),
-  contactMethods: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "Vous devez sélectionner au moins une méthode de contact.",
-  }),
-});
-
-type FormData = z.infer<typeof formSchema>;
-
-export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const service = servicesData[params.slug as keyof typeof servicesData];
-
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      country: "",
-      message: "",
-      contactMethods: ["email"],
-    },
-  });
-
-  if (!service) {
-    return (
-      <main className="container mx-auto px-4 py-12 md:px-6 md:py-20 text-center">
-        <h1 className="text-4xl font-bold">Service non trouvé</h1>
-        <p className="text-lg text-muted-foreground mt-4">Le service que vous recherchez n'existe pas.</p>
-      </main>
-    )
-  }
-
-  async function onSubmit(data: FormData) {
-    setIsSubmitting(true);
-    try {
-      const preferredContact = data.contactMethods.join(", ");
-      const countryLabel = countries.find(c => c.value === data.country)?.label || data.country;
-      const fullMessage = `
-${data.message}
-
----
-Pays : ${countryLabel}
-Numéro de téléphone : ${data.phone}
-Préférence de contact : ${preferredContact}
-      `;
-
-      await addSupportMessage({
-        name: data.name,
-        email: data.email,
-        subject: `Demande de service: ${service.title}`,
-        message: fullMessage,
-      });
-
+import {
+  useState,
+  useEffect
+} from 'react'
+import {
+  type Testimonial
+} from '@/types/testimonial'
+import {
+  Card,
+  CardContent,
+  CardHeader
+} from '@/components/ui/card'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from '@/components/ui/avatar'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import {
+  Button
+} from '@/components/ui/button'
+import {
+  Input
+} from '@/components/ui/input'
+import {
+  Label
+} from '@/components/ui/label'
+import {
+  Textarea
+} from '@/components/ui/textarea'
+import {
+  Star
+} from 'lucide-react'
+import {
+  addReview
+} from '@/firebase/services'
+import {
+  useToast
+} from '@/hooks/use-toast'
+import {
+  useRouter
+} from 'next/navigation'
+import {
+  Rating
+} from '@/components/testimonials-section'
+const AddReviewForm = ({
+  onReviewAdded
+}: {
+  onReviewAdded: () => void
+}) => {
+  const {
+    toast
+  } = useToast()
+  const [rating, setRating] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [open, setOpen] = useState(false)
+  const handleSubmit = async (event: React.FormEvent < HTMLFormElement > ) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+    const formData = new FormData(event.currentTarget)
+    const name = formData.get('name') as string
+    const role = formData.get('role') as string
+    const review = formData.get('review') as string
+    if (rating === 0) {
       toast({
-        title: "Message envoyé !",
-        description: "Nous avons bien reçu votre demande et nous vous répondrons dans les plus brefs délais.",
-      });
-      form.reset();
+        title: "Erreur",
+        description: "Veuillez sélectionner une note.",
+        variant: "destructive",
+      })
+      setIsSubmitting(false)
+      return
+    }
+    try {
+      await addReview({
+        name,
+        role,
+        review,
+        rating
+      })
+      toast({
+        title: "Avis ajouté !",
+        description: "Merci pour votre retour.",
+      })
+      setOpen(false)
+      onReviewAdded();
+      (event.target as HTMLFormElement).reset()
+      setRating(0)
     } catch (error) {
-       toast({
+      toast({
         title: "Erreur",
         description: "Une erreur est survenue. Veuillez réessayer.",
         variant: "destructive",
-      });
+      })
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false)
     }
   }
+  return ( <
+    Dialog open = {
+      open
+    }
+    onOpenChange = {
+      setOpen
+    } >
+    <
+    DialogTrigger asChild >
+    <
+    Button size = "lg" > Ajouter mon avis < /Button> <
+    /DialogTrigger> <
+    DialogContent className = "sm:max-w-[425px]" >
+    <
+    DialogHeader >
+    <
+    DialogTitle className = "font-headline" > Partagez votre avis < /DialogTitle> <
+    DialogDescription >
+    Laissez un commentaire sur votre expérience avec TTR Gestion. <
+    /DialogDescription> <
+    /DialogHeader> <
+    form onSubmit = {
+      handleSubmit
+    }
+    className = "space-y-4" >
+    <
+    div className = "grid gap-2" >
+    <
+    Label htmlFor = "name" > Votre nom < /Label> <
+    Input id = "name"
+    name = "name"
+    placeholder = "John Doe"
+    required / >
+    <
+    /div> <
+    div className = "grid gap-2" >
+    <
+    Label htmlFor = "role" > Votre rôle / métier < /Label> <
+    Input id = "role"
+    name = "role"
 
-  return (
-    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
-      <div className="mx-auto max-w-4xl text-center mb-16">
-        {service.icon}
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-          {service.title}
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground">
-          {service.description}
-        </p>
-      </div>
-
-      <div className="grid gap-16 md:grid-cols-2">
-        <div>
-          <h2 className="text-3xl font-bold mb-6">Vos avantages</h2>
-          <ul className="space-y-4">
-            {service.advantages.map((advantage, index) => (
-              <li key={index} className="flex items-start">
-                <CheckCircle className="size-6 mr-4 mt-1 shrink-0 text-green-500" />
-                <span className="text-muted-foreground text-lg">{advantage}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Contactez-nous pour ce service</CardTitle>
-            <CardDescription>Remplissez le formulaire et nous reviendrons vers vous rapidement.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Votre nom</FormLabel>
-                      <FormControl><Input placeholder="John Doe" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                 <div className="grid gap-4 sm:grid-cols-2">
-                    <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Votre email</FormLabel>
-                        <FormControl><Input placeholder="email@exemple.com" {...field} /></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                    <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Votre téléphone</FormLabel>
-                        <FormControl><Input placeholder="06 12 34 56 78" {...field} /></FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                </div>
-                 <FormField
-                    control={form.control}
-                    name="country"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>Pays</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez votre pays" />
-                            </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {countries.map((country) => (
-                                    <SelectItem key={country.value} value={country.value}>
-                                        {country.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Votre message</FormLabel>
-                      <FormControl><Textarea placeholder={`Bonjour, j'aimerais en savoir plus sur "${service.title}"...`} className="min-h-[100px]" {...field} /></FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                 <FormField
-                    control={form.control}
-                    name="contactMethods"
-                    render={() => (
-                        <FormItem>
-                        <div className="mb-4">
-                            <FormLabel className="text-base">Comment préférez-vous être contacté ?</FormLabel>
-                            <FormDescription>
-                            Sélectionnez au moins une option.
-                            </FormDescription>
-                        </div>
-                        {contactMethods.map((item) => (
-                            <FormField
-                            key={item.id}
-                            control={form.control}
-                            name="contactMethods"
-                            render={({ field }) => {
-                                return (
-                                <FormItem
-                                    key={item.id}
-                                    className="flex flex-row items-start space-x-3 space-y-0"
-                                >
-                                    <FormControl>
-                                    <Checkbox
-                                        checked={field.value?.includes(item.id)}
-                                        onCheckedChange={(checked) => {
-                                        return checked
-                                            ? field.onChange([...field.value, item.id])
-                                            : field.onChange(
-                                                field.value?.filter(
-                                                (value) => value !== item.id
-                                                )
-                                            )
-                                        }}
-                                    />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                    {item.label}
-                                    </FormLabel>
-                                </FormItem>
-                                )
-                            }}
-                            />
-                        ))}
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                    />
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                   {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
-      </div>
-    </main>
-  );
+    placeholder = "Gérant de boutique"
+    required / >
+    <
+    /div> <
+    div className = "grid gap-2" >
+    <
+    Label > Votre note < /Label> <
+    div className = "flex items-center gap-2" > {
+      [...Array(5)].map((_, index) => {
+        const starValue = index + 1
+        return ( <
+          Star key = {
+            starValue
+          }
+          className = {
+            `size-6 cursor-pointer transition-colors ${
+starValue <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'
+}`
+          }
+          onClick = {
+            () => setRating(starValue)
+          }
+          />
+        )
+      })
+    } <
+    /div> <
+    /div> <
+    div className = "grid gap-2" >
+    <
+    Label htmlFor = "review" > Votre avis < /Label> <
+    Textarea id = "review"
+    name = "review"
+    placeholder = "TTR Gestion est incroyable..."
+    required / >
+    <
+    /div> <
+    DialogFooter >
+    <
+    Button type = "submit"
+    disabled = {
+      isSubmitting
+    } > {
+      isSubmitting ? 'Envoi en cours...' : 'Envoyer mon avis'
+    } <
+    /Button> <
+    /DialogFooter> <
+    /form> <
+    /DialogContent> <
+    /Dialog>
+  )
+}
+export default function TestimonialsClientPage({
+  testimonials
+}: {
+  testimonials: Testimonial[]
+}) {
+  const router = useRouter()
+  const handleReviewAdded = () => {
+    router.refresh()
+  }
+  return ( <
+    main className = "container mx-auto px-4 py-12 md:px-6 md:py-20" >
+    <
+    div className = "mx-auto max-w-4xl text-center mb-16" >
+    <
+    h1 className = "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent" >
+    Ce que nos utilisateurs pensent de nous <
+    /h1> <
+    p className = "mt-6 text-lg text-muted-foreground" >
+    Les avis authentiques de ceux qui utilisent TTR Gestion au quotidien. <
+    /p> <
+    /div> <
+    div className = "grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" > {
+      testimonials.map((testimonial) => ( <
+        Card key = {
+          testimonial.id
+        }
+        className = "h-full flex flex-col" >
+        <
+        CardHeader >
+        <
+        div className = "flex items-center gap-4" >
+        <
+        Avatar className = "border-2 border-border" >
+        <
+        AvatarImage src = {
+          testimonial.avatar
+        }
+        alt = {
+          testimonial.name
+        }
+        /> <
+        AvatarFallback > {
+          testimonial.name.charAt(0)
+        } < /AvatarFallback> <
+        /Avatar> <
+        div >
+        <
+        p className = "font-semibold" > {
+          testimonial.name
+        } < /p> <
+        p className = "text-sm text-muted-foreground" > {
+          testimonial.role
+        } < /p> <
+        /div> <
+        /div> <
+        /CardHeader> <
+        CardContent className = "flex-grow flex flex-col justify-between" >
+        <
+        blockquote className = "text-muted-foreground italic mb-4" >
+        "{testimonial.quote}" <
+        /blockquote> <
+        Rating value = {
+          testimonial.rating
+        }
+        /> <
+        /CardContent> <
+        /Card>
+      ))
+    } <
+    /div> <
+    div className = "mt-20 text-center" >
+    <
+    h2 className = "text-3xl font-bold tracking-tight font-headline" > Vous aussi, partagez votre expérience! < /h2> <
+    p className = "mx-auto mt-4 max-w-2xl text-muted-foreground" >
+    Votre avis est précieux.Il nous aide à nous améliorer et guide les futurs utilisateurs. <
+    /p> <
+    div className = "mt-8" >
+    <
+    AddReviewForm onReviewAdded = {
+      handleReviewAdded
+    }
+    /> <
+    /div> <
+    /div> <
+    /main>
+  )
 }
