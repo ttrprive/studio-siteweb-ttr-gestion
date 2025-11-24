@@ -31,7 +31,7 @@ export default function MainLayoutClient({
   return (
     <>
       <AppHeader showNewsBadge={showNewsBadge} />
-      <Marquee text="La gestion de votre entreprise, désormais dans votre poche." />
+      <Marquee />
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">{children}</main>
         <AppFooter />
