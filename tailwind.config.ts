@@ -98,7 +98,15 @@ export default {
         'scintillate': {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
           '50%': { opacity: '0.7', transform: 'scale(1.2)' },
-        }
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -106,6 +114,8 @@ export default {
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 3s ease-in-out infinite',
         'scintillate': 'scintillate 1.5s ease-in-out infinite',
+        marquee: 'marquee 30s linear infinite',
+        marquee2: 'marquee2 30s linear infinite',
       },
     },
   },

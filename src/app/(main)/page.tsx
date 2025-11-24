@@ -9,6 +9,7 @@ import LoaderLink from '@/components/loader-link';
 import TestimonialsSection from '@/components/testimonials-section';
 import { getReviews } from '@/firebase/services';
 import type { Testimonial } from '@/types/testimonial';
+import { VideoHero } from '@/components/video-hero';
 
 const features = [
   {
@@ -83,8 +84,9 @@ const FeaturesSection = () => (
       <div className="grid md:grid-cols-3 gap-12">
         {features.map((feature, index) => (
           <div key={feature.title} className="flex flex-col items-center text-center">
-            <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative">
+            <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative group">
               <Image src={feature.image} alt={feature.description} fill className="object-cover" data-ai-hint={feature.imageHint} priority={index < 3} />
+               <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
             </div>
             <div className="mb-4 flex items-center justify-center gap-4">
               {feature.icon}
@@ -116,8 +118,9 @@ const TargetAudienceSection = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {audience.map((item) => (
            <div key={item.title} className="flex flex-col items-center text-center">
-            <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative">
+            <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative group">
                <Image src={item.image} alt={item.description} fill className="object-cover" data-ai-hint={item.imageHint} />
+               <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
              </div>
               <div className="mb-4 flex items-center justify-center gap-4">
                 {item.icon}
@@ -174,22 +177,12 @@ export default async function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden text-center p-4">
-        <div 
-          aria-hidden="true" 
-          className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
-        >
-            <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"></div>
-            <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
-        </div>
-        <div className="relative z-10 flex flex-col items-center">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-tight font-headline bg-gradient-to-br from-blue-500 via-cyan-400 to-blue-600 bg-clip-text text-transparent mb-6 max-w-4xl">
-              La gestion de votre entreprise, désormais dans votre poche.
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
+      <section className="relative w-full overflow-hidden text-center p-4">
+        <VideoHero />
+        <div className="relative z-10 -mt-16 sm:-mt-24 md:-mt-32 pb-12">
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
             </p>
-
             <div className="flex flex-wrap items-center justify-center gap-4">
                 <Button asChild>
                     <Link href="https://app.ttrgestion.site/register">Créer un nouveau compte</Link>

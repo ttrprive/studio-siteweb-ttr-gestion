@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -8,6 +7,7 @@ import { getNews } from '@/firebase/services';
 import type { NewsItem } from '@/types/news';
 import { AppHeader } from './app-header';
 import ShareholderCta from './shareholder-cta';
+import { Marquee } from './marquee';
 
 export default function MainLayoutClient({
   children,
@@ -31,6 +31,7 @@ export default function MainLayoutClient({
   return (
     <>
       <AppHeader showNewsBadge={showNewsBadge} />
+      <Marquee text="La gestion de votre entreprise, désormais dans votre poche." />
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">{children}</main>
         <AppFooter />
