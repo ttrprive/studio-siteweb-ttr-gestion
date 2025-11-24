@@ -5,9 +5,9 @@ const videoSrc = "https://videos.pexels.com/video-files/3209828/3209828-hd_1280_
 
 export const VideoHero = () => {
     return (
-        <div className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] w-full overflow-hidden">
+        <div className="relative w-full max-w-6xl mx-auto aspect-video overflow-hidden rounded-lg shadow-2xl">
             <video
-                className="absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2"
+                className="absolute top-0 left-0 w-full h-full object-cover"
                 src={videoSrc}
                 autoPlay
                 loop
