@@ -1,23 +1,24 @@
 "use client";
 
-// Mettez à jour la source de la vidéo lorsque vous aurez le lien
-const videoSrc = "https://videos.pexels.com/video-files/3209828/3209828-hd_1280_720_25fps.mp4";
-
 export const VideoHero = () => {
+    // Ajout des paramètres pour une meilleure intégration :
+    // autoplay=1 : tente de lancer la vidéo automatiquement
+    // mute=1 : nécessaire pour l'autoplay sur la plupart des navigateurs
+    // loop=1 & playlist=LtJi5Eg0Kjk : astuce pour faire boucler une vidéo YouTube
+    // controls=0 : masque les contrôles du lecteur
+    // showinfo=0 : masque le titre et autres informations
+    const videoSrc = "https://www.youtube.com/embed/LtJi5Eg0Kjk?si=xTqobDs2-j5-TSOq&autoplay=1&mute=1&loop=1&playlist=LtJi5Eg0Kjk&controls=0&showinfo=0";
+
     return (
         <div className="relative w-full max-w-6xl mx-auto aspect-video overflow-hidden rounded-lg shadow-2xl">
-            <video
-                className="absolute top-0 left-0 w-full h-full object-cover"
+            <iframe
+                className="absolute top-0 left-0 w-full h-full"
                 src={videoSrc}
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster="/P8.png" // Image de secours
-            >
-                Votre navigateur ne supporte pas la lecture de vidéos.
-            </video>
-            <div className="absolute inset-0 bg-black/40" />
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+            ></iframe>
         </div>
     );
 };
