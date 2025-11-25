@@ -177,9 +177,9 @@ export default async function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative w-full overflow-hidden text-center p-4">
+      <section className="w-full text-center p-4">
         <VideoHero />
-        <div className="relative z-10 -mt-16 sm:-mt-24 md:-mt-32 pb-12">
+        <div className="py-12">
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
             </p>
