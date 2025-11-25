@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Check } from 'lucide-react';
+import { BarChartBig, Calculator, FolderKanban, Building2, Store, User, Globe, Check, MessageCircle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import LoaderLink from '@/components/loader-link';
@@ -192,6 +192,12 @@ export default async function Home() {
                 </Button>
                 <Button asChild variant="secondary">
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
+                </Button>
+                <Button asChild variant="outline">
+                    <a href="https://wa.me/33XXXXXXXXX" target="_blank" rel="noopener noreferrer">
+                        <MessageCircle />
+                        Poser des questions
+                    </a>
                 </Button>
             </div>
         </div>
