@@ -270,290 +270,310 @@ const countries = [
   { value: "MR", label: "Mauritanie" },
   { value: "YT", label: "Mayotte" },
   { value: "MX", label: "Mexique" },
-  { value'use client'
+  { value: "FM", label: "Micronésie" },
+  { value: "MD", label: "Moldavie" },
+  { value: "MC", label: "Monaco" },
+  { value: "MN", label: "Mongolie" },
+  { value: "ME", label: "Monténégro" },
+  { value: "MS", label: "Montserrat" },
+  { value: "MZ", label: "Mozambique" },
+  { value: "MM", label: "Myanmar" },
+  { value: "NA", label: "Namibie" },
+  { value: "NR", label: "Nauru" },
+  { value: "NP", label: "Népal" },
+  { value: "NI", label: "Nicaragua" },
+  { value: "NE", label: "Niger" },
+  { value: "NG", label: "Nigéria" },
+  { value: "NU", label: "Niue" },
+  { value: "NO", label: "Norvège" },
+  { value: "NC", label: "Nouvelle-Calédonie" },
+  { value: "NZ", label: "Nouvelle-Zélande" },
+  { value: "OM", label: "Oman" },
+  { value: "UG", label: "Ouganda" },
+  { value: "UZ", label: "Ouzbékistan" },
+  { value: "PK", label: "Pakistan" },
+  { value: "PW", label: "Palaos" },
+  { value: "PS", label: "Palestine" },
+  { value: "PA", label: "Panama" },
+  { value: "PG", label: "Papouasie-Nouvelle-Guinée" },
+  { value: "PY", label: "Paraguay" },
+  { value: "NL", label: "Pays-Bas" },
+  { value: "PE", label: "Pérou" },
+  { value: "PH", label: "Philippines" },
+  { value: "PN", label: "Îles Pitcairn" },
+  { value: "PL", label: "Pologne" },
+  { value: "PF", label: "Polynésie française" },
+  { value: "PR", label: "Porto Rico" },
+  { value: "PT", label: "Portugal" },
+  { value: "QA", label: "Qatar" },
+  { value: "RE", label: "La Réunion" },
+  { value: "RO", label: "Roumanie" },
+  { value: "GB", label: "Royaume-Uni" },
+  { value: "RU", label: "Russie" },
+  { value: "RW", label: "Rwanda" },
+  { value: "EH", label: "Sahara occidental" },
+  { value: "BL", label: "Saint-Barthélemy" },
+  { value: "KN", label: "Saint-Kitts-et-Nevis" },
+  { value: "SM", label: "Saint-Marin" },
+  { value: "MF", label: "Saint-Martin (partie française)" },
+  { value: "SX", label: "Saint-Martin (partie néerlandaise)" },
+  { value: "PM", label: "Saint-Pierre-et-Miquelon" },
+  { value: "VC", label: "Saint-Vincent-et-les-Grenadines" },
+  { value: "SH", label: "Sainte-Hélène" },
+  { value: "LC", label: "Sainte-Lucie" },
+  { value: "SV", label: "Salvador" },
+  { value: "WS", label: "Samoa" },
+  { value: "AS", label: "Samoa américaines" },
+  { value: "ST", label: "Sao Tomé-et-Principe" },
+  { value: "SN", label: "Sénégal" },
+  { value: "RS", label: "Serbie" },
+  { value: "SC", label: "Seychelles" },
+  { value: "SL", label: "Sierra Leone" },
+  { value: "SG", label: "Singapour" },
+  { value: "SK", label: "Slovaquie" },
+  { value: "SI", label: "Slovénie" },
+  { value: "SO", label: "Somalie" },
+  { value: "SD", label: "Soudan" },
+  { value: "SS", label: "Soudan du Sud" },
+  { value: "LK", label: "Sri Lanka" },
+  { value: "SE", label: "Suède" },
+  { value: "CH", label: "Suisse" },
+  { value: "SR", label: "Suriname" },
+  { value: "SJ", label: "Svalbard et Jan Mayen" },
+  { value: "SZ", label: "Eswatini" },
+  { value: "SY", label: "Syrie" },
+  { value: "TJ", label: "Tadjikistan" },
+  { value:-1, label: "Tanzanie" },
+  { value: "TD", label: "Tchad" },
+  { value: "CZ", label: "Tchéquie" },
+  { value: "TF", label: "Terres australes et antarctiques françaises" },
+  { value: "IO", label: "Territoire britannique de l'océan Indien" },
+  { value: "TH", label: "Thaïlande" },
+  { value: "TL", label: "Timor oriental" },
+  { value: "TG", label: "Togo" },
+  { value: "TK", label: "Tokelau" },
+  { value: "TO", label: "Tonga" },
+  { value: "TT", label: "Trinité-et-Tobago" },
+  { value: "TN", label: "Tunisie" },
+  { value: "TM", label: "Turkménistan" },
+  { value: "TR", label: "Turquie" },
+  { value: "TV", label: "Tuvalu" },
+  { value: "UA", label: "Ukraine" },
+  { value: "UY", label: "Uruguay" },
+  { value: "VU", label: "Vanuatu" },
+  { value: "VA", label: "Vatican" },
+  { value: "VE", label: "Venezuela" },
+  { value: "VN", label: "Viêt Nam" },
+  { value: "WF", label: "Wallis-et-Futuna" },
+  { value: "YE", label: "Yémen" },
+  { value: "ZM", label: "Zambie" },
+  { value: "ZW", label: "Zimbabwe" },
+];
 
-import {
-  useState,
-  useEffect
-} from 'react'
-import {
-  type Testimonial
-} from '@/types/testimonial'
-import {
-  Card,
-  CardContent,
-  CardHeader
-} from '@/components/ui/card'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@/components/ui/avatar'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import {
-  Button
-} from '@/components/ui/button'
-import {
-  Input
-} from '@/components/ui/input'
-import {
-  Label
-} from '@/components/ui/label'
-import {
-  Textarea
-} from '@/components/ui/textarea'
-import {
-  Star
-} from 'lucide-react'
-import {
-  addReview
-} from '@/firebase/services'
-import {
-  useToast
-} from '@/hooks/use-toast'
-import {
-  useRouter
-} from 'next/navigation'
-import {
-  Rating
-} from '@/components/testimonials-section'
-const AddReviewForm = ({
-  onReviewAdded
-}: {
-  onReviewAdded: () => void
-}) => {
-  const {
-    toast
-  } = useToast()
-  const [rating, setRating] = useState(0)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [open, setOpen] = useState(false)
-  const handleSubmit = async (event: React.FormEvent < HTMLFormElement > ) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-    const formData = new FormData(event.currentTarget)
-    const name = formData.get('name') as string
-    const role = formData.get('role') as string
-    const review = formData.get('review') as string
-    if (rating === 0) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez sélectionner une note.",
-        variant: "destructive",
-      })
-      setIsSubmitting(false)
-      return
-    }
+const formSchema = z.object({
+  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères."),
+  email: z.string().email("L'adresse email est invalide."),
+  country: z.string().nonempty("Veuillez sélectionner votre pays."),
+  company: z.string().optional(),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères."),
+  acceptTerms: z.boolean().refine(val => val === true, {
+    message: "Vous devez accepter les termes et conditions.",
+  }),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+export default function ServicePage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const service = servicesData[slug as keyof typeof servicesData];
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      country: "",
+      company: "",
+      message: "",
+      acceptTerms: false,
+    },
+  });
+
+  if (!service) {
+    return <div>Service non trouvé.</div>;
+  }
+
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     try {
-      await addReview({
-        name,
-        role,
-        review,
-        rating
-      })
+      const subject = `Demande de service: ${service.title}`;
+      await addSupportMessage({ ...data, subject });
       toast({
-        title: "Avis ajouté !",
-        description: "Merci pour votre retour.",
-      })
-      setOpen(false)
-      onReviewAdded();
-      (event.target as HTMLFormElement).reset()
-      setRating(0)
+        title: "Demande envoyée !",
+        description: "Merci pour votre intérêt. Notre équipe vous recontactera très prochainement.",
+      });
+      form.reset();
     } catch (error) {
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue. Veuillez réessayer.",
+        description: "Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer.",
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
-  return ( <
-    Dialog open = {
-      open
-    }
-    onOpenChange = {
-      setOpen
-    } >
-    <
-    DialogTrigger asChild >
-    <
-    Button size = "lg" > Ajouter mon avis < /Button> <
-    /DialogTrigger> <
-    DialogContent className = "sm:max-w-[425px]" >
-    <
-    DialogHeader >
-    <
-    DialogTitle className = "font-headline" > Partagez votre avis < /DialogTitle> <
-    DialogDescription >
-    Laissez un commentaire sur votre expérience avec TTR Gestion. <
-    /DialogDescription> <
-    /DialogHeader> <
-    form onSubmit = {
-      handleSubmit
-    }
-    className = "space-y-4" >
-    <
-    div className = "grid gap-2" >
-    <
-    Label htmlFor = "name" > Votre nom < /Label> <
-    Input id = "name"
-    name = "name"
-    placeholder = "John Doe"
-    required / >
-    <
-    /div> <
-    div className = "grid gap-2" >
-    <
-    Label htmlFor = "role" > Votre rôle / métier < /Label> <
-    Input id = "role"
-    name = "role"
+  };
 
-    placeholder = "Gérant de boutique"
-    required / >
-    <
-    /div> <
-    div className = "grid gap-2" >
-    <
-    Label > Votre note < /Label> <
-    div className = "flex items-center gap-2" > {
-      [...Array(5)].map((_, index) => {
-        const starValue = index + 1
-        return ( <
-          Star key = {
-            starValue
-          }
-          className = {
-            `size-6 cursor-pointer transition-colors ${
-starValue <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'
-}`
-          }
-          onClick = {
-            () => setRating(starValue)
-          }
-          />
-        )
-      })
-    } <
-    /div> <
-    /div> <
-    div className = "grid gap-2" >
-    <
-    Label htmlFor = "review" > Votre avis < /Label> <
-    Textarea id = "review"
-    name = "review"
-    placeholder = "TTR Gestion est incroyable..."
-    required / >
-    <
-    /div> <
-    DialogFooter >
-    <
-    Button type = "submit"
-    disabled = {
-      isSubmitting
-    } > {
-      isSubmitting ? 'Envoi en cours...' : 'Envoyer mon avis'
-    } <
-    /Button> <
-    /DialogFooter> <
-    /form> <
-    /DialogContent> <
-    /Dialog>
-  )
+  return (
+    <main className="container mx-auto px-4 py-12 md:px-6 md:py-20">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          {service.icon}
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            {service.title}
+          </h1>
+          <p className="mt-6 text-lg text-muted-foreground">{service.description}</p>
+        </div>
+
+        <Card className="mb-16">
+          <CardHeader>
+            <CardTitle>Vos avantages avec ce service</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-4">
+              {service.advantages.map((advantage, index) => (
+                <li key={index} className="flex items-start">
+                  <CheckCircle className="size-5 mr-3 mt-1 shrink-0 text-green-500" />
+                  <span className="text-muted-foreground">{advantage}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Intéressé(e) ? Contactez-nous</CardTitle>
+            <CardDescription>Remplissez ce formulaire pour obtenir un devis ou plus d'informations. C'est simple, rapide et sans engagement.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom complet</FormLabel>
+                        <FormControl>
+                          <Input placeholder="John Doe" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Adresse e-mail</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="email@exemple.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                        control={form.control}
+                        name="country"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Pays</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                <SelectValue placeholder="Sélectionnez votre pays" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {countries.map(c => <SelectItem key={c.value} value={c.label}>{c.label}</SelectItem>)}
+                            </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Société (Optionnel)</FormLabel>
+                            <FormControl>
+                            <Input placeholder="Nom de votre entreprise" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Votre projet en quelques mots</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Décrivez-nous votre besoin, vos objectifs, votre audience cible..."
+                          className="min-h-[150px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="acceptTerms"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel>
+                          J'accepte les termes et conditions.
+                        </FormLabel>
+                        <FormDescription>
+                          En soumettant ce formulaire, vous acceptez notre politique de confidentialité.
+                        </FormDescription>
+                         <FormMessage />
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" size="lg" disabled={isSubmitting}>
+                   {isSubmitting ? "Envoi en cours..." : "Obtenir mon devis"}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </main>
+  );
 }
-export default function TestimonialsClientPage({
-  testimonials
-}: {
-  testimonials: Testimonial[]
-}) {
-  const router = useRouter()
-  const handleReviewAdded = () => {
-    router.refresh()
-  }
-  return ( <
-    main className = "container mx-auto px-4 py-12 md:px-6 md:py-20" >
-    <
-    div className = "mx-auto max-w-4xl text-center mb-16" >
-    <
-    h1 className = "text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl font-headline bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent" >
-    Ce que nos utilisateurs pensent de nous <
-    /h1> <
-    p className = "mt-6 text-lg text-muted-foreground" >
-    Les avis authentiques de ceux qui utilisent TTR Gestion au quotidien. <
-    /p> <
-    /div> <
-    div className = "grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" > {
-      testimonials.map((testimonial) => ( <
-        Card key = {
-          testimonial.id
-        }
-        className = "h-full flex flex-col" >
-        <
-        CardHeader >
-        <
-        div className = "flex items-center gap-4" >
-        <
-        Avatar className = "border-2 border-border" >
-        <
-        AvatarImage src = {
-          testimonial.avatar
-        }
-        alt = {
-          testimonial.name
-        }
-        /> <
-        AvatarFallback > {
-          testimonial.name.charAt(0)
-        } < /AvatarFallback> <
-        /Avatar> <
-        div >
-        <
-        p className = "font-semibold" > {
-          testimonial.name
-        } < /p> <
-        p className = "text-sm text-muted-foreground" > {
-          testimonial.role
-        } < /p> <
-        /div> <
-        /div> <
-        /CardHeader> <
-        CardContent className = "flex-grow flex flex-col justify-between" >
-        <
-        blockquote className = "text-muted-foreground italic mb-4" >
-        "{testimonial.quote}" <
-        /blockquote> <
-        Rating value = {
-          testimonial.rating
-        }
-        /> <
-        /CardContent> <
-        /Card>
-      ))
-    } <
-    /div> <
-    div className = "mt-20 text-center" >
-    <
-    h2 className = "text-3xl font-bold tracking-tight font-headline" > Vous aussi, partagez votre expérience! < /h2> <
-    p className = "mx-auto mt-4 max-w-2xl text-muted-foreground" >
-    Votre avis est précieux.Il nous aide à nous améliorer et guide les futurs utilisateurs. <
-    /p> <
-    div className = "mt-8" >
-    <
-    AddReviewForm onReviewAdded = {
-      handleReviewAdded
-    }
-    /> <
-    /div> <
-    /div> <
-    /main>
-  )
-}
+
+    
