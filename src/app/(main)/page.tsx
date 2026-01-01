@@ -194,7 +194,7 @@ export default async function Home() {
                   <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
                 </Button>
                 <Button asChild variant="outline">
-                    <a href="https://wa.me/33XXXXXXXXX" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/22899974389" target="_blank" rel="noopener noreferrer">
                         <MessageCircle />
                         Poser des questions
                     </a>

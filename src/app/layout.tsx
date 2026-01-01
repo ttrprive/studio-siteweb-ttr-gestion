@@ -67,6 +67,13 @@ export default function RootLayout({
     description: 'TTR Gestion (Togo Tech Renove) est une filiale de TTR GROUPE, offrant une solution complète pour la gestion d’entreprise, la comptabilité et la gestion hôtelière.',
     url: siteUrl,
     logo: `${siteUrl}/favicon.png`,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+228-99-97-43-89',
+      contactType: 'customer service',
+      areaServed: 'FR',
+      availableLanguage: ['French']
+    },
     sameAs: [
       "https://www.youtube.com/@ttrgestion",
       "https://x.com/ttrgestion",

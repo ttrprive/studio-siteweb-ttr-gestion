@@ -252,6 +252,10 @@ export default function SupportPage() {
                   <Mail className="size-5 text-muted-foreground" />
                   <a href="mailto:support@ttrgestion.site" className="hover:underline">support@ttrgestion.site</a>
                 </div>
+                 <div className="flex items-center gap-4">
+                  <Phone className="size-5 text-muted-foreground" />
+                  <a href="https://wa.me/22899974389" target="_blank" rel="noopener noreferrer" className="hover:underline">+228 99 97 43 89</a>
+                </div>
               </CardContent>
             </Card>
             <Card>
