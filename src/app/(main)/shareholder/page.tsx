@@ -5,8 +5,8 @@ import { Rocket, LineChart, Handshake } from 'lucide-react';
 import LoaderLink from '@/components/loader-link';
 
 export const metadata: Metadata = {
-  title: 'Devenir Actionnaire',
-  description: 'Rejoignez l\'aventure TTR Gestion et investissez dans le futur de la gestion d\'entreprise. Découvrez notre vision et nos ambitions.',
+  title: 'Devenir Actionnaire et Investir dans TTR Gestion',
+  description: 'Rejoignez l\'aventure TTR Gestion en tant qu\'investisseur. Participez à notre croissance et investissez dans le futur de la gestion d\'entreprise simplifiée pour les PME et indépendants.',
 };
 
 export default function ShareholderPage() {

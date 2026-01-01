@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Politique d\'Utilisation',
-  description: 'Consultez nos conditions d\'utilisation pour comprendre les règles et directives d\'utilisation de TTR Gestion.',
+  title: 'Conditions Générales d\'Utilisation de TTR Gestion',
+  description: 'Consultez nos conditions d\'utilisation. Ce document régit votre accès et votre utilisation de l\'application TTR Gestion, nos services, et nos responsabilités mutuelles.',
 };
 
 const Section = ({ title, children }: { title: string, children: React.ReactNode }) => (

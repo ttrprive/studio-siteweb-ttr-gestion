@@ -4,8 +4,8 @@ import CornerDecoration from '@/components/corner-decoration';
 import { TrixBusinessLogo } from '@/components/trix-business-logo';
 
 export const metadata: Metadata = {
-  title: 'À Propos de TTR Gestion',
-  description: 'Découvrez notre mission, notre vision et l\'histoire derrière TTR Gestion (Togo Tech Renove). Nous simplifions la gestion d\'entreprise pour tous les métiers.',
+  title: 'Notre Mission – Qui Sommes-Nous ? | TTR Gestion',
+  description: 'Découvrez la mission de TTR Gestion. Née de TTR GROUPE, notre vision est de simplifier la gestion d\'entreprise pour artisans, PME et indépendants grâce à un outil puissant et accessible.',
 };
 
 export default function AboutPage() {

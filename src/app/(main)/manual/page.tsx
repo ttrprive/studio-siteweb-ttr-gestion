@@ -1,11 +1,10 @@
-
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Manuel d'Utilisation",
-  description: "Le guide complet pour maîtriser TTR Gestion. Découvrez le fonctionnement de chaque section, de la connexion à la gestion des paramètres.",
+  title: 'Manuel d\'Utilisation Complet de TTR Gestion',
+  description: 'Le guide complet pour maîtriser TTR Gestion. Découvrez le fonctionnement de chaque module, de la connexion au tableau de bord jusqu\'à la gestion avancée des paramètres.',
 };
 
 const Section = ({ id, title, children }: { id: string, title: string, children: React.ReactNode }) => (

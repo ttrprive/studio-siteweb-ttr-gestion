@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import {
   LayoutDashboard,
@@ -27,8 +26,8 @@ import CornerDecoration from '@/components/corner-decoration';
 
 
 export const metadata: Metadata = {
-  title: 'Détail des Fonctionnalités de Gestion d\'Entreprise',
-  description: 'Explorez en détail chaque module de TTR Gestion. De la gestion des clients à l\'assistant IA, découvrez la puissance de notre outil tout-en-un pour piloter votre activité.',
+  title: 'Détail des Fonctionnalités – TTR Gestion',
+  description: 'Explorez en détail chaque module de TTR Gestion : tableau de bord, assistant IA, gestion des clients, trésorerie, stock, et bien plus. Découvrez la puissance de notre outil tout-en-un.',
 };
 
 const features = [

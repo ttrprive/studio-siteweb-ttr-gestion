@@ -7,8 +7,8 @@ import Link from 'next/link';
 
 
 export const metadata: Metadata = {
-  title: 'TRIX Business - Votre Assistant IA de Gestion',
-  description: 'Découvrez TTR Gestion TRIX Business, votre consultant IA personnel pour des stratégies marketing, financières et des conseils pratiques pour votre entreprise.',
+  title: 'TRIX Business : Votre Assistant IA pour la Stratégie d’Entreprise',
+  description: 'Découvrez TRIX Business, l\'assistant IA intégré à TTR Gestion. Obtenez des conseils en marketing, finance et stratégie pour prendre des décisions éclairées et accélérer votre croissance.',
 };
 
 export default function IAPage() {

@@ -25,8 +25,8 @@ import CornerDecoration from '@/components/corner-decoration';
 
 
 export const metadata: Metadata = {
-  title: 'Logiciel de Gestion Adapté à Votre Secteur d\'Activité',
-  description: 'Découvrez comment TTR Gestion s\'adapte à votre métier. Une solution flexible pour la santé, restauration, BTP, commerce, services et bien d\'autres secteurs.',
+  title: 'Un Logiciel de Gestion Adapté à Chaque Secteur d\'Activité',
+  description: 'TTR Gestion s\'adapte à votre métier. Découvrez nos solutions pour la santé, restauration, BTP, commerce, services aux indépendants, associations et bien d\'autres.',
 };
 
 const sectors = [

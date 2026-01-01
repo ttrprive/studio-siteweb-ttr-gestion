@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Politique de Confidentialité',
-  description: 'Consultez notre politique de confidentialité pour comprendre comment nous collectons, utilisons et protégeons vos données sur TTR Gestion.',
+  title: 'Politique de Confidentialité – Protection de vos Données',
+  description: 'Consultez notre politique de confidentialité pour comprendre comment TTR Gestion collecte, utilise et protège vos données personnelles et professionnelles. Vos informations sont en sécurité avec nous.',
 };
 
 const Section = ({ title, children }: { title: string, children: React.ReactNode }) => (

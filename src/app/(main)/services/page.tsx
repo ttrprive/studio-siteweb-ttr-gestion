@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Paintbrush, Megaphone, Code, Search, Sparkles, Video, Palette, Gift, Users, Globe, TrendingUp } from 'lucide-react';
@@ -9,8 +8,8 @@ import CornerDecoration from '@/components/corner-decoration';
 
 
 export const metadata: Metadata = {
-  title: 'Services sur Mesure pour Entreprises',
-  description: 'Développez votre activité avec nos services premium : création de sites web professionnels, publicité ciblée, développement d\'applications spécifiques et optimisation SEO.',
+  title: 'Nos Services : Création de Site, Publicité, SEO | TTR Gestion',
+  description: 'Développez votre activité avec nos services sur mesure : création de sites web professionnels, publicité ciblée, développement d\'applications, optimisation SEO et gestion des réseaux sociaux.',
 };
 
 
