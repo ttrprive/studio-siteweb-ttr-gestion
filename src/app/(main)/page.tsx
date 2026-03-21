@@ -43,29 +43,29 @@ const audience = [
     icon: <Building2 className="size-8 text-primary" />,
     title: "Grandes entreprises",
     description: "Coordonnez plusieurs antennes, services ou départements, avec suivi consolidé et délégué.",
-    image: "/P4.png",
-    imageHint: "corporate building"
+    image: "/images/audience/corporate.png",
+    imageHint: "Logiciel TTR Gestion utilisé pour la planification stratégique dans une grande entreprise à Lomé, Togo."
   },
   {
     icon: <Store className="size-8 text-primary" />,
     title: "Petites boutiques",
     description: "Gardez le contrôle sur votre activité, sans tracas ni jargon complexe. Un tableau de bord simple et visuel.",
-    image: "/P5.png",
-    imageHint: "small boutique"
+    image: "/images/audience/shop.png",
+    imageHint: "TTR Gestion simplifiant la comptabilité quotidienne d'une boutique de quartier à Cotonou, Bénin."
   },
   {
     icon: <User className="size-8 text-primary" />,
     title: "Indépendants & freelances",
     description: "Visualisez vos revenus et dépenses, préparez vos déclarations, gérez vos clients sereinement.",
-    image: "/P7.png",
-    imageHint: "freelancer desk"
+    image: "/images/audience/freelance.png",
+    imageHint: "Un jeune consultant freelance utilisant TTR Gestion dans un espace de travail moderne à Accra."
   },
   {
     icon: <Globe className="size-8 text-primary" />,
     title: "Tous les métiers",
     description: "Que vous soyez dans la santé, le commerce, l’éducation, l’artisanat ou le conseil : TTR GESTION s’adapte.",
-    image: "/P8.png",
-    imageHint: "diverse professions"
+    image: "/images/audience/diverse.png",
+    imageHint: "TTR Gestion, l'application polyvalente pour tous les métiers en Afrique : santé, artisanat et commerce."
   }
 ];
 
@@ -119,7 +119,7 @@ const TargetAudienceSection = () => (
         {audience.map((item) => (
            <div key={item.title} className="flex flex-col items-center text-center">
             <div className="mb-6 rounded-lg overflow-hidden border shadow-lg w-full aspect-[3/2] relative group">
-               <Image src={item.image} alt={item.description} fill className="object-cover" data-ai-hint={item.imageHint} />
+               <Image src={item.image} alt={item.imageHint} fill className="object-cover" data-ai-hint={item.imageHint} />
                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
              </div>
               <div className="mb-4 flex items-center justify-center gap-4">
@@ -164,41 +164,47 @@ const WhyChooseUsSection = () => (
         </div>
         <div className="flex items-center gap-3">
           <Check className="size-6 text-green-500 shrink-0" />
-          <span className="font-medium">Accessible sans installation</span>
+          <span className="font-medium">Multi-plateforme (PWA, APK, EXE)</span>
         </div>
       </div>
     </div>
   </section>
 );
 
+import { DownloadHero } from '@/components/download-hero';
+
 export default async function Home() {
   const testimonials: Testimonial[] = await getReviews();
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="w-full text-center p-4">
-        <VideoHero />
-        <div className="py-12">
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              La nouvelle ère de la gestion. Simplifiez votre comptabilité, suivez vos finances et pilotez votre entreprise vers le succès.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-                <Button asChild>
-                    <Link href="https://app.ttrgestion.site/register">Créer un nouveau compte</Link>
-                </Button>
-                <Button asChild variant="outline">
-                    <a href="https://app.ttrgestion.site/login" target="_blank" rel="noopener noreferrer">Se connecter</a>
-                </Button>
-                <Button asChild variant="secondary">
-                  <LoaderLink href="/sectors">Découvrir les secteurs</LoaderLink>
-                </Button>
-                <Button asChild variant="outline">
-                    <a href="https://wa.me/22899974389" target="_blank" rel="noopener noreferrer">
-                        <MessageCircle />
-                        Poser des questions
-                    </a>
-                </Button>
+      {/* 📥 New AnyDesk Style Hero Focus */}
+      <DownloadHero />
+
+      {/* 📹 Main Presentation Section with Video */}
+      <section className="w-full py-20 px-4 md:px-8 bg-background border-b">
+        <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-2xl font-bold mb-8">Découvrez TTR GESTION en action</h3>
+            <VideoHero />
+            
+            <div className="mt-16">
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto italic">
+                    "La puissance d'un outil professionnel, avec la simplicité d'une application grand public."
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-4">
+                    <Button asChild variant="outline" size="lg">
+                        <Link href="https://app.ttrgestion.site/register">S'inscrire gratuitement</Link>
+                    </Button>
+                    <Button asChild variant="secondary" size="lg">
+                      <LoaderLink href="/sectors">Voir les secteurs d'activité</LoaderLink>
+                    </Button>
+                    <Button asChild variant="outline" size="lg">
+                        <a href="https://wa.me/22899974389" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                            <MessageCircle className="size-5" />
+                            Besoin d'aide ?
+                        </a>
+                    </Button>
+                </div>
             </div>
         </div>
       </section>

@@ -37,6 +37,13 @@ export default function ManualPage() {
             </div>
 
             <div className="max-w-5xl mx-auto">
+                <Section id="plateformes" title="Multi-plateforme (PWA, APK, EXE)">
+                    <SectionContent 
+                        text="TTR Gestion n'est plus une simple application web. C'est désormais un écosystème complet disponible partout. Utilisez la version PWA dans votre navigateur, installez l'application native sur votre appareil Android (APK) pour une expérience plus fluide, ou utilisez la version bureau (EXE) sur Windows pour une gestion stable à long terme."
+                        customText="Un seul compte, une expérience unifiée sur tous vos appareils."
+                    />
+                </Section>
+
                 <Section id="connexion" title="Connexion et Gestion de Compte">
                     <SectionContent 
                         text="Créez votre compte administrateur et votre espace de travail. Connectez-vous en tant qu'administrateur ou employé. Pour plus de sécurité et de rapidité, activez la connexion par code PIN dans les paramètres. La puissance de TTR Gestion commence par un accès sécurisé et personnalisé, vous donnant le contrôle total dès la première seconde."
@@ -151,7 +158,10 @@ export default function ManualPage() {
 
                  <div className="mt-20 text-center">
                     <h2 className="text-3xl font-bold tracking-tight font-headline">Prêt à transformer votre gestion ?</h2>
-                    <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Chaque fonctionnalité est pensée pour vous donner le pouvoir. Il est temps de l'utiliser.</p>
+                    <div className="flex items-center gap-3">
+          <Check className="size-6 text-green-500 shrink-0" />
+          <span className="font-medium">Multi-plateforme (PWA, APK, EXE)</span>
+        </div>            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">Chaque fonctionnalité est pensée pour vous donner le pouvoir. Il est temps de l'utiliser.</p>
                     <div className="mt-8">
                         <Button size="lg" asChild>
                             <Link href="https://app.ttrgestion.site/register">Commencez gratuitement</Link>

@@ -10,11 +10,11 @@ const siteUrl = 'https://ttrgestion.site';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'TTR Gestion – Logiciel de gestion d’entreprise et hôtellerie',
-    template: '%s | TTR GESTION',
+    default: 'TTR Gestion (Tech renovation) – Le logiciel GRATUIT n°1 en Afrique',
+    template: '%s | TTR GESTION (Tech renovation)',
   },
-  description: 'TTR Gestion est un logiciel tout-en-un pour entreprises et hôtels. Gérez comptabilité, clients et stocks de manière simple et intuitive. Essayez gratuitement.',
-  keywords: ['TTR Gestion', 'TTR Studio', 'Togo Tech Renove', 'TTR GROUPE', 'ttrgestion.site', 'logiciel de gestion', 'application hôtelière', 'comptabilité', 'gestion d’entreprise', 'CRM', 'ERP', 'France', 'SaaS', 'abonnement', 'plateforme de gestion', 'facturation', 'gestion de stock', 'auto-entrepreneur', 'TPE', 'PME', 'restauration', 'BTP', 'santé', 'commerce de détail', 'freelance', 'consultant', 'gestion financière', 'tableau de bord', 'assistant IA', 'TRIX Business', 'Gemini', 'Copilot', 'ChatGPT', 'alternative logiciel gestion'],
+  description: 'TTR Gestion, la marque TTR signifiant "Tech renovation" (Togo Tech Renove), offre la solution GRATUITE n°1 pour les entrepreneurs africains. Gérez votre boutique, hôtel ou entreprise avec simplicité. Rien à voir avec le transport, 100% Technologie.',
+  keywords: ['TTR Gestion', 'Tech renovation', 'Togo Tech Renove', 'Afrique', 'Togo', 'Bénin', 'Côte d’Ivoire', 'logiciel de gestion d’entreprise', 'TTR GROUPE', 'TTR Studio', 'Togo Tech Renove gestion', 'ERP gratuit Afrique', 'CRM gratuit Afrique', 'gestion africaine Technologie', 'Tech Renove Togo'],
   authors: [{ name: 'TTR GESTION', url: siteUrl }],
   creator: 'TTR Studio',
   publisher: 'TTR GESTION',
@@ -26,16 +26,16 @@ export const metadata: Metadata = {
     google: 'eRqixi-mnh7fV3kHRdtBlGZ5JkHNdRqXihCerbs6j-g',
   },
   openGraph: {
-    title: 'TTR Gestion – Gérez votre entreprise avec efficacité',
-    description: 'Plateforme intuitive pour la gestion hôtelière, comptable et commerciale. Essayez gratuitement dès maintenant.',
+    title: 'TTR Gestion – Le logiciel GRATUIT pour les entrepreneurs en Afrique',
+    description: 'Simplifiez la gestion de votre business partout en Afrique avec TTR Gestion. Comptabilité, stocks et CRM 100% Gratuit.',
     url: siteUrl,
-    siteName: 'TTR GESTION',
+    siteName: 'TTR GESTION Afrique',
     images: [
       {
-        url: `${siteUrl}/og-image.jpg`, // L'image doit être dans le dossier public
+        url: 'https://res.cloudinary.com/dnnufnxb7/image/upload/v1774108579/logos_ttr_dol0kp.png',
         width: 1200,
         height: 630,
-        alt: 'TTR GESTION - Gestion d’entreprise simplifiée',
+        alt: 'TTR GESTION - Logo officiel',
       },
     ],
     locale: 'fr_FR',
@@ -43,14 +43,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TTR Gestion – Plateforme de gestion tout-en-un',
-    description: 'Gérez vos hôtels, abonnements et comptabilité avec TTR Gestion. Simple, rapide, efficace.',
-    images: [`${siteUrl}/twitter-card.jpg`], 
+    title: 'TTR Gestion Afrique – Gérez votre entreprise gratuitement',
+    description: 'La plateforme de référence pour les entreprises au Togo, au Bénin et partout en Afrique. 100% Gratuit.',
+    images: ['https://res.cloudinary.com/dnnufnxb7/image/upload/v1774108579/logos_ttr_dol0kp.png'], 
   },
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon.png',
-    apple: '/apple-touch-icon.png',
+    shortcut: 'https://res.cloudinary.com/dnnufnxb7/image/upload/v1774108579/logos_ttr_dol0kp.png',
+    apple: 'https://res.cloudinary.com/dnnufnxb7/image/upload/v1774108579/logos_ttr_dol0kp.png',
   },
 };
 
@@ -62,18 +62,26 @@ export default function RootLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'TTR Gestion',
-    alternateName: 'Togo Tech Renove',
-    description: 'TTR Gestion (Togo Tech Renove) est une filiale de TTR GROUPE, offrant une solution complète pour la gestion d’entreprise, la comptabilité et la gestion hôtelière.',
+    name: 'TTR Gestion (Tech Renovation)',
+    alternateName: ['Togo Tech Renove', 'TTR Tech Renove'],
+    description: 'TTR (Tech Renovation) est le leader de la gestion d’entreprise au Togo et en Afrique. Notre plateforme GRATUITE simplifie la transformation numérique des PME sans aucun lien avec les services de transport.',
     url: siteUrl,
-    logo: `${siteUrl}/favicon.png`,
+    logo: 'https://res.cloudinary.com/dnnufnxb7/image/upload/v1774108579/logos_ttr_dol0kp.png',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+228-99-97-43-89',
+      telephone: '+228 99 97 43 89',
       contactType: 'customer service',
-      areaServed: 'FR',
+      areaServed: ['TG', 'BJ', 'CI', 'SN', 'BF', 'CM', 'Africa'],
       availableLanguage: ['French']
     },
+    hasPart: [
+      {
+        '@type': 'WebPage',
+        name: 'Manuel de formation TTR Gestion',
+        url: `${siteUrl}/manual`,
+        description: 'Guide complet et manuel d’utilisation pour maîtriser TTR Gestion.'
+      }
+    ],
     sameAs: [
       "https://www.youtube.com/@ttrgestion",
       "https://x.com/ttrgestion",
