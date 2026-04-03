@@ -15,7 +15,7 @@ const platforms = [
     icon: Smartphone,
     available: true,
     description: 'Installation APK directe',
-    url: '/manual#apk'
+    url: '/ttr-gestion.apk'
   },
   {
     id: 'playstore',
@@ -29,9 +29,9 @@ const platforms = [
     id: 'windows',
     name: 'Windows',
     icon: Monitor,
-    available: true,
-    description: 'Version de bureau native',
-    url: '/manual#apk'
+    available: false,
+    description: 'Bientôt disponible sur PC',
+    url: '#'
   },
   {
     id: 'ios',
@@ -131,7 +131,11 @@ export const DownloadHero = () => {
                                 onClick={handleDownloadClick}
                                 asChild
                             >
-                                <a href={selectedPlatform?.available ? selectedPlatform.url : "#"} target={selectedPlatform?.id === 'web' ? "_blank" : undefined}>
+                                <a 
+                                    href={selectedPlatform?.available ? selectedPlatform.url : "#"} 
+                                    target={selectedPlatform?.id === 'web' ? "_blank" : undefined}
+                                    download={selectedPlatform?.id === 'android' ? "ttr-gestion-v021.apk" : (selectedPlatform?.id === 'windows' ? "ttr-gestion.exe" : undefined)}
+                                >
                                     {selectedPlatform?.id === 'web' ? <Globe className="mr-3 h-8 w-8" /> : <Download className="mr-3 h-8 w-8" />}
                                     {selectedPlatform?.id === 'web' ? 'Accéder en ligne' : (selectedPlatform?.id === 'android' ? "Télécharger l'APK direct" : 'Télécharger maintenant')}
                                 </a>
@@ -167,13 +171,23 @@ export const DownloadHero = () => {
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="flex-col sm:flex-row gap-2">
-                        <Button 
-                            variant="outline" 
-                            className="w-full sm:w-auto border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400"
-                            asChild
-                        >
-                            <a href="https://app.ttrgestion.site" target="_blank">Accéder à la version Web</a>
-                        </Button>
+                        {selectedPlatform?.id === 'windows' || selectedPlatform?.id === 'ios' ? (
+                            <Button 
+                                variant="outline" 
+                                className="w-full sm:w-auto border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400"
+                                asChild
+                            >
+                                <a href="https://app.ttrgestion.site" target="_blank">Accéder à la version Web</a>
+                            </Button>
+                        ) : (
+                            <Button 
+                                variant="outline" 
+                                className="w-full sm:w-auto border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400"
+                                asChild
+                            >
+                                <a href="/ttr-gestion.apk" download="ttr-gestion-v021.apk">Télécharger l'APK (Direct)</a>
+                            </Button>
+                        )}
                         <AlertDialogAction className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-8">D'accord, j'ai compris</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
