@@ -195,6 +195,11 @@ export default async function Home() {
                     <Button asChild variant="outline" size="lg">
                         <Link href="https://app.ttrgestion.site/register">S'inscrire gratuitement</Link>
                     </Button>
+                    <Button asChild size="lg" className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white border-none shadow-lg shadow-amber-500/20 animate-pulse">
+                        <a href="https://ambassadeur.ttrgestion.site/" target="_blank" rel="noopener noreferrer">
+                            Gagner de l'argent avec TTR gestion
+                        </a>
+                    </Button>
                     <Button asChild variant="secondary" size="lg">
                       <LoaderLink href="/sectors">Voir les secteurs d'activité</LoaderLink>
                     </Button>

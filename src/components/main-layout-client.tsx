@@ -8,6 +8,7 @@ import type { NewsItem } from '@/types/news';
 import { AppHeader } from './app-header';
 import ShareholderCta from './shareholder-cta';
 import { Marquee, WhatsAppIcon } from './marquee';
+import { AmbassadorModal } from './ambassador-modal';
 
 export default function MainLayoutClient({
   children,
@@ -30,6 +31,7 @@ export default function MainLayoutClient({
 
   return (
     <>
+      <AmbassadorModal />
       <AppHeader showNewsBadge={showNewsBadge} />
       <Marquee />
       <div className="w-full bg-blue-600/10 dark:bg-blue-400/10 py-1.5 flex justify-center items-center gap-2 border-b border-blue-200 dark:border-blue-900 shadow-sm">

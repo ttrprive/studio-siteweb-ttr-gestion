@@ -34,6 +34,7 @@ export const AppFooter = () => {
                 <nav data-aos="fade-up" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
                     <LoaderLink href="/about" className="hover:text-foreground transition-colors">À Propos</LoaderLink>
                     <LoaderLink href="/services" className="hover:text-foreground transition-colors">Services</LoaderLink>
+                    <a href="https://ambassadeur.ttrgestion.site/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 font-bold transition-colors">Programme Ambassadeur</a>
                     <LoaderLink href="/support" className="hover:text-foreground transition-colors">Support</LoaderLink>
                     <LoaderLink href="/privacy" className="hover:text-foreground transition-colors">Confidentialité</LoaderLink>
                     <LoaderLink href="/terms" className="hover:text-foreground transition-colors">Conditions</LoaderLink>

@@ -80,6 +80,12 @@ export default function RootLayout({
         name: 'Manuel de formation TTR Gestion',
         url: `${siteUrl}/manual`,
         description: 'Guide complet et manuel d’utilisation pour maîtriser TTR Gestion.'
+      },
+      {
+        '@type': 'WebPage',
+        name: 'Programme Ambassadeur TTR Gestion',
+        url: 'https://ambassadeur.ttrgestion.site/',
+        description: 'Gagnez de l’argent en ligne en devenant ambassadeur officiel de TTR Gestion. Partagez la solution et touchez des commissions sur chaque recommandation.'
       }
     ],
     sameAs: [

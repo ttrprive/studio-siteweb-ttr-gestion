@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { Check } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Manuel d\'Utilisation Complet de TTR Gestion',

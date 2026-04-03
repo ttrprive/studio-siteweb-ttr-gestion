@@ -7,6 +7,7 @@ const messages = [
   { text: "Pilotez vos finances en temps réel." },
   { text: "Centralisez clients, ventes et stocks sans effort." },
   { text: "L'intelligence au service de chaque métier." },
+  { text: "Devenez Ambassadeur TTR Gestion et gagnez de l'argent en ligne !" },
   { text: "Essayez TTR Gestion gratuitement et sans engagement." },
 ];
 
